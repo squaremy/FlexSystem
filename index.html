@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>FAHS Flex System</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+	<div class="topnav">
+		<img id="logo" src="logo.png">
+		<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
+		<a id="schedulebutton" href="schedule.html" class="disable-select">My Schedule</a>
+	</div>
+	<div id="signupmenu">
+		<p id="searchtxt">Type in a teacher below to sign up for flex.</p>
+		<input id="searchbar" type="text" placeholder="Search for a teacher...">
+		<table id="teachertable" border=1>
+		  <tr>
+			<th>Month</th>
+			<th>Savings</th>
+		  </tr>
+		  <tr>
+			<td>January</td>
+			<td>$100</td>
+		  </tr>
+		</table>
+	<div>
+</body>
+
+<javascript>
+	var teacherlist = document.getElementbyId("teachertable");
+	let newRow = teacherlist.insertRow(-1);
+	newRow.innerHTML = "working";
+</javascript>
+</html>
