@@ -5,13 +5,13 @@
 
 function searchForTeacher() {
 	var xhr = new XMLHttpRequest();
-	xhr.open('GET', 'https://github.com/squaremy/FlexSystem/tree/master/configs/teachers.json');
+	xhr.open('GET', 'file:///home/jeremy/Desktop/Sit4e/configs/teachers.json');
 	xhr.responseType = 'json';
 	xhr.send();
 	xhr.onload = function() {
 		var list = xhr.response;
 		displayTeachers(list["teachers"]);
-	}
+	};
 }
 
 function displayTeachers(teachers) {
