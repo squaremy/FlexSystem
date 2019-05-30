@@ -1,24 +1,18 @@
 //var teacherlist = document.getElementbyId("teachertable");
 //	let newRow = teacherlist.insertRow(-1);
 //	newRow.innerHTML = "working";
-function readJSON(path) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', path, true);
-    xhr.responseType = 'json';
-    xhr.onload = function(e) {
-      if (this.status == 200) {
-          var file = new File([this.response], 'temp');
-          var fileReader = new FileReader();
-          fileReader.addEventListener('load', function(){
-               //do stuff with fileReader.result
-							 console.log(fileReader.result);
-          });
-          fileReader.readAsText(file);
-      }
-    }
-    xhr.send();
+function readJSON(path){
+	fetch(path).then(response => response.json()).then(json => {
+			let data = json['teachers'];
+			displayTeachers(data);
+			if (typeof(data) === 'undefined'){
+				console.log("No data");
+				return;
+			}
+			console.log(data);
+		  })
 }
-readJSON('localhost:///home/jeremy/Desktop/Sit4e/data.json');
+readJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/data.json');
 
 console.log("Working here");
 function searchForTeacher() {
@@ -45,11 +39,28 @@ function searchForTeacher() {
 
 function displayTeachers(teachers) {
 	//document.getElementById("searchtxt").innerHTML = teachers;
-	var table = document.getElementById("teachertable")
-	var row = table.insertRow(-1);
-	var cell1 = row.insertCell(0);
-	var timevar = time;
-	cell1.innerHTML = teachername;
+	var table = document.getElementById("teachertable");
+	table.style.width="90%";
+	table.style.left="5%";
+	for(var i = 0; i < teachers.length; i=i+4){
+		var row = table.insertRow(-1);
+		for(var j = 0; j < 4; j++) {
+			var cell = row.insertCell(-1);
+			if(teachers[i+j] == null){
+				cell.style.display = "none";
+			}else{
+				cell.innerHTML = teachers[i+j];
+		}
+		}
+	}
 }
+/*
+	for(var i = teachers.length-1; i >= 0; i--){
+		var rownum = 0;
+		var row = table.insertRow(i);
+
+		if(i%4 == 0) table.insertRow(-1);
+	}
+}*/
 
 //searchForTeacher();
