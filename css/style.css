@@ -1,6 +1,6 @@
 #logo {
-	position:absolute; 
-	left: 10px; 
+	position:absolute;
+	left: 10px;
 	top:20px;
 }
 
@@ -14,17 +14,27 @@
 	border-color: black;
 }
 
+#weektable {
+	position:absolute;
+	top:50%;
+	left:35%;
+	border:5px;
+	border-width: 5px;
+	width: 30%;
+	border-color: black;
+}
+
 #signupbutton {
-	position: absolute; 
-	right: 250px; 
+	position: absolute;
+	right: 250px;
 	top:20px;
 	font-size: 30px;
 	font-family: "Arial";
 }
 
 #schedulebutton {
-	position: absolute; 
-	right: 20px; 
+	position: absolute;
+	right: 20px;
 	top: 20px;
 	font-size: 30px;
 	font-family: "Arial";
@@ -75,6 +85,5 @@ table {
     width: 80%;
     left: 10%;
   }
-  
-}
 
+}
