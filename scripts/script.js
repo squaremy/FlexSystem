@@ -47,6 +47,7 @@ function displayTeachers(teachers) {
 		for(var j = 0; j < 4; j++) {
 			var cell = row.insertCell(-1);
 			if(teachers[i+j] == null){
+				cell.style.width = "20%"
 				cell.style.display = "none";
 			}else{
 				cell.innerHTML = teachers[i+j];
@@ -54,13 +55,5 @@ function displayTeachers(teachers) {
 		}
 	}
 }
-/*
-	for(var i = teachers.length-1; i >= 0; i--){
-		var rownum = 0;
-		var row = table.insertRow(i);
-
-		if(i%4 == 0) table.insertRow(-1);
-	}
-}*/
 
 //searchForTeacher();
