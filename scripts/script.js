@@ -11,35 +11,13 @@ function readJSON(path){
 				console.log("No data");
 				return;
 			}
-			console.log(data);
+			//console.log(data);
 			teacherlist = data;
 			//console.log("Heres the variable array");
 			//console.log(teacherlist);
 		  })
 }
 readJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/data.json');
-
-console.log("Working here");
-function searchForTeacher() {
-	var xhr = new XMLHttpRequest();
-	xhr.open('GET', 'file:///home/jeremy/Desktop/Sit4e/data.json', true);
-	xhr.responseType = 'json';
-
-	xhr.onload = function() {
-		console.log("working here lolololololol");
-		if(this.status == 200){
-			var file = new File([this.response], 'temp');
-			var fileReader = new FileReader();
-			fileReader.addEventListener('load', function(){
-				displayTeachers(fileReader.result);
-			});
-			fileReader.readAsText(file);
-			//displayTeachers(list["teachers"]);
-		}
-
-
-	};
-}
 
 function displayTeachers(teachers) {
 	//document.getElementById("searchtxt").innerHTML = teachers;
@@ -50,8 +28,10 @@ function displayTeachers(teachers) {
 		var row = table.insertRow(-1);
 		for(var j = 0; j < 4; j++) {
 			var cell = row.insertCell(-1);
+			cell.style.padding = "10px 10px 10px 10px";
+			cell.onclick = teacherclick(i,j);
 			if(teachers[i+j] == null){
-				cell.style.width = "20%"
+				cell.style.width = "20%";
 				cell.style.display = "none";
 			}else{
 				cell.innerHTML = teachers[i+j];
@@ -70,8 +50,10 @@ function recreateTeachers(teachers) {
 		var row = table.insertRow(-1);
 		for(var j = 0; j < 4; j++) {
 			var cell = row.insertCell(-1);
+			cell.style.padding = "10px 10px 10px 10px";
+			cell.onclick = teacherclick(i,j);
 			if(teachers[i+j] == null){
-				cell.style.width = "20%"
+				cell.style.width = "20%";
 				cell.style.display = "none";
 			}else{
 				cell.innerHTML = teachers[i+j];
@@ -133,8 +115,13 @@ function searchFilter1() {
 					}
 			}
 		}
-		console.log(x);
+		//console.log(x);
 		recreateTeachers(filteredteacherlist);
-		console.log(filteredteacherlist);
+		//console.log(filteredteacherlist);
 }
 //searchForTeacher();
+
+function teacherclick(row, col){
+	var str = row + " ," + col;
+	//console.log(str);
+}

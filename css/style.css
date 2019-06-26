@@ -16,7 +16,7 @@
 
 #weektable {
 	position:absolute;
-	top:87%;
+	top:500px;
 	left:25%;
 	border:5px;
 	border-width: 5px;
@@ -52,8 +52,9 @@
 #searchtxt {
 	position: absolute;
 	text-align: center;
-	top: 200px;
-	width: 100%;
+	top: 100px;
+	left: 10%;
+	width: 80%;
 	font-size: 30px;
 	font-family: "Arial";
 }
