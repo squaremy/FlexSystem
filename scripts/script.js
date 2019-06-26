@@ -28,6 +28,7 @@ function searchForTeacher() {
 			fileReader.addEventListener('load', function(){
 
 				displayTeachers(fileReader.result);
+				setInterval(searchFilter(fileReader.result),1000);
 			});
 			fileReader.readAsText(file);
 			//displayTeachers(list["teachers"]);
@@ -56,7 +57,7 @@ function displayTeachers(teachers) {
 	}
 }
 
-function searchFilter() {
+function searchFilter() { //deprecated
     var input, filter, ul, li, a, i, txtValue;
     input = document.getElementById("searchbar");
     filter = input.value.toUpperCase();
@@ -69,6 +70,22 @@ function searchFilter() {
             li[i].style.display = "";
         } else {
             li[i].style.display = "none";
+        }
+    }
+}
+
+function searchFilter1(teacherlist) {
+    var input, filter, table, li, a, i, txtValue;
+    input = document.getElementById("searchbar");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("teachertable");
+    for (i = 0; i < teacherlist.length; i++) {
+        a = teacherlist[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            teacherlist[i].style.display = "";
+        } else {
+            teacherlist[i].style.display = "none";
         }
     }
 }
