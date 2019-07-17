@@ -29,7 +29,7 @@ function displayTeachers(teachers) {
 		for(var j = 0; j < 4; j++) {
 			var cell = row.insertCell(-1);
 			cell.style.padding = "10px 10px 10px 10px";
-			cell.onclick = teacherclick(i,j);
+			cell.ahref = teacherclick(i,j);
 			if(teachers[i+j] == null){
 				cell.style.width = "20%";
 				cell.style.display = "none";
@@ -51,7 +51,7 @@ function recreateTeachers(teachers) {
 		for(var j = 0; j < 4; j++) {
 			var cell = row.insertCell(-1);
 			cell.style.padding = "10px 10px 10px 10px";
-			cell.onclick = teacherclick(i,j);
+			cell.ahref = teacherclick(i,j);
 			if(teachers[i+j] == null){
 				cell.style.width = "20%";
 				cell.style.display = "none";
@@ -122,6 +122,7 @@ function searchFilter1() {
 //searchForTeacher();
 
 function teacherclick(row, col){
-	var str = row + " ," + col;
-	//console.log(str);
+	//var str = row + " ," + col;
+	var str = "clicked";
+	console.log(str);
 }
