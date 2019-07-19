@@ -2,6 +2,7 @@
 //	let newRow = teacherlist.insertRow(-1);
 //	newRow.innerHTML = "working";
 var teacherlist = [];
+var table;
 
 function readJSON(path){
 	fetch(path).then(response => response.json()).then(json => {
@@ -29,7 +30,7 @@ function displayTeachers(teachers) {
 		for(var j = 0; j < 4; j++) {
 			var cell = row.insertCell(-1);
 			cell.style.padding = "10px 10px 10px 10px";
-			cell.ahref = teacherclick(i,j);
+			cell.onclick = function(){teacherclick();};
 			if(teachers[i+j] == null){
 				cell.style.width = "20%";
 				cell.style.display = "none";
@@ -42,16 +43,21 @@ function displayTeachers(teachers) {
 
 function recreateTeachers(teachers) {
 	//document.getElementById("searchtxt").innerHTML = teachers;
-	var table = document.getElementById("teachertable");
+	table = document.getElementById("teachertable");
 	table.innerHTML = "";
 	table.style.width="90%";
 	table.style.left="5%";
+	var rownum = 0;
+	var cellnum = "";
 	for(var i = 0; i < teachers.length; i=i+4){
 		var row = table.insertRow(-1);
 		for(var j = 0; j < 4; j++) {
+			cellnum = "";
 			var cell = row.insertCell(-1);
 			cell.style.padding = "10px 10px 10px 10px";
-			cell.ahref = teacherclick(i,j);
+			cellnum = cellnum.concat(rownum," ",j);
+			cell.id = cellnum;
+			cell.onclick = function(){teacherclick();};
 			if(teachers[i+j] == null){
 				cell.style.width = "20%";
 				cell.style.display = "none";
@@ -59,6 +65,7 @@ function recreateTeachers(teachers) {
 				cell.innerHTML = teachers[i+j];
 		}
 		}
+		rownum++;
 	}
 }
 
@@ -121,8 +128,10 @@ function searchFilter1() {
 }
 //searchForTeacher();
 
-function teacherclick(row, col){
+function teacherclick(){
+	var temp = this;
+	console.log(temp);
 	//var str = row + " ," + col;
-	var str = "clicked";
-	console.log(str);
+	// alert("clicked cell at: " + this.cellIndex + ", " + this.parentNode.rowIndex);
+	//console.log(str);
 }
