@@ -24,6 +24,21 @@
 	border-color: black;
 }
 
+#signin{
+	position:absolute;
+	top:0%;
+	left:0%;
+}
+
+#signintxt{
+	position: absolute;
+	text-align: center;
+	top: 100px;
+	left: 10%;
+	width: 80%;
+	font-size: 30px;
+	font-family: "Arial";
+}
 #signupbutton {
 	position: absolute;
 	right: 250px;
