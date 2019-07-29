@@ -30,7 +30,8 @@ function displayTeachers(teachers) {
 		for(var j = 0; j < 4; j++) {
 			var cell = row.insertCell(-1);
 			cell.style.padding = "10px 10px 10px 10px";
-			cell.onclick = function(){teacherclick();};
+			cell.id = teachers[i+j];
+			cell.onclick = function(){teacherclick(this);};
 			if(teachers[i+j] == null){
 				cell.style.width = "20%";
 				cell.style.display = "none";
@@ -55,9 +56,8 @@ function recreateTeachers(teachers) {
 			cellnum = "";
 			var cell = row.insertCell(-1);
 			cell.style.padding = "10px 10px 10px 10px";
-			cellnum = cellnum.concat(rownum," ",j);
-			cell.id = cellnum;
-			cell.onclick = function(){teacherclick();};
+			cell.id = teachers[i+j];
+			cell.onclick = function(){teacherclick(this);};
 			if(teachers[i+j] == null){
 				cell.style.width = "20%";
 				cell.style.display = "none";
@@ -128,9 +128,9 @@ function searchFilter1() {
 }
 //searchForTeacher();
 
-function teacherclick(){
-	var temp = this;
-	console.log(temp);
+function teacherclick(temp){
+	var teachername = temp.id;
+	window.location.href="signup.php?name=" + teachername;
 	//var str = row + " ," + col;
 	// alert("clicked cell at: " + this.cellIndex + ", " + this.parentNode.rowIndex);
 	//console.log(str);

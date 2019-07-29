@@ -16,8 +16,7 @@
 
 #weektable {
 	position:absolute;
-	display:none;
-	top:500px;
+	top:30%;
 	left:25%;
 	border:5px;
 	border-width: 5px;
