@@ -6,7 +6,7 @@
 
 <body>
 	<div class="topnav">
-		<img id="logo" src="logo.png">
+		<img id="logo" src="faflexlogo.svg">
 		<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
 		<a id="schedulebutton" href="schedule.html" class="disable-select">My Schedule</a>
 	</div>

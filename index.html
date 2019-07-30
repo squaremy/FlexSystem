@@ -3,6 +3,11 @@
 <head>
 	<title>FAHS Flex System</title>
 	<link rel="stylesheet" href="css/style.css">
+
+	<!-- MUST BE ADDED TO ALL PAGES, BUT HASN'T YET-->
+	<link rel="apple-touch-icon" href="/faflexappicon.png">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<!--END-->
 </head>
 
 <body>
@@ -10,29 +15,13 @@
 		<a id="signintxt">Please sign in to continue.</a>
 	</div>
 	<div class="topnav">
-		<img id="logo" src="logo.png">
+		<img id="logo" style="height:50px; width:136px" src="faflexlogo.svg">
 		<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
 		<a id="schedulebutton" href="schedule.html" class="disable-select">My Schedule</a>
 	</div>
 	<div id="signupmenu">
 		<p id="searchtxt">Type in a teacher below to sign up for flex.</p>
 		<input id="searchbar" type="text" onkeyup="searchFilter1()" placeholder="Search for a teacher...">
-		<table id="weektable" border=1>
-		  <tr>
-			<th>Monday</th>
-			<th>Tuesday</th>
-			<th>Wednesday</th>
-			<th>Thursday</th>
-			<th>Friday</th>
-		  </tr>
-		  <tr>
-			<td><input type="checkbox" name="mon" value="Monday"></td>
-			<td><input type="checkbox" name="tue" value="Tuesday"></td>
-			<td><input type="checkbox" name="wed" value="Wednesday"></td>
-			<td><input type="checkbox" name="thu" value="Thursday"></td>
-			<td><input type="checkbox" name="fri" value="Friday"></td>
-		  </tr>
-		</table>
 		<table id="teachertable" border=1>
 		</table>
 	<div>
