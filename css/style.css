@@ -86,6 +86,31 @@
 	font-family: "Arial";
 }
 
+#googlebutton{
+	position: absolute;
+	top:0%;
+	left:0px;
+	width:50px;
+}
+
+#googlesignin{
+	position: absolute;
+	top:40%;
+	left:50%-300px;
+	width:300px;
+}
+
+#googletxt{
+	position: absolute;
+	top:13px;
+	left:55px;
+	font-size: 16pt;
+	height:50px;
+	font-family: Helvetica;
+	color: grey;
+	vertical-align: middle;
+}
+
 .topnav {
 	position: absolute;
 	top: 0px;
