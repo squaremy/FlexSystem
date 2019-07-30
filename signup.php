@@ -29,6 +29,6 @@
 		  </tr>
 		</table>
 	<div>
-	<!--<script type="text/javascript" src="scripts/script.js"></script>-->
+	<script type="text/javascript" src="scripts/listscript.js"></script>
 </body>
 </html>
