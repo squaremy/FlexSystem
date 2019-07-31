@@ -32,9 +32,8 @@
 		  </tr>
 		</table>
 		<table id="studenttable" border=1>
-
 		</table>
 	</div>
-	<script type="text/javascript" src="scripts/listscript.js"></script>
+	<script type="text/javascript" src="scripts/studentlist.js"></script>
 </body>
 </html>
