@@ -2,6 +2,9 @@
 <head>
 	<title>FAHS Flex System</title>
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="apple-touch-icon" href="/faflexappicon.png">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<link rel="icon" href="favicon.ico">
 </head>
 
 <body>
@@ -12,7 +15,7 @@
 	</div>
 	<div id="signupmenu">
 		<p id="searchtxt"><?php echo $_GET["name"]; ?></p>
-		<table id="weektable" style="display:block; top:30%" border=1>
+		<table id="weektable" style="display:block; top:30%">
 		  <tr>
 			<th width="15%">Monday</th>
 			<th width="15%">Tuesday</th>

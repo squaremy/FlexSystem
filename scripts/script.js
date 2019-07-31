@@ -135,3 +135,7 @@ function teacherclick(temp){
 	// alert("clicked cell at: " + this.cellIndex + ", " + this.parentNode.rowIndex);
 	//console.log(str);
 }
+
+function googlesigninfunct(){
+	alert("Sign in page for Google account.");
+}

@@ -1,0 +1,13 @@
+{
+  "user":"",
+  "usertype":"student",
+  "Homeroom":{
+    "default":"",
+    "setmon":"",
+    "settue":"",
+    "setwed":"",
+    "setthu":"",
+    "setfri":""
+  }
+  ]
+}
