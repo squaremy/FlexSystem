@@ -31,7 +31,10 @@
 			<td><input type="checkbox" name="fri" value="Friday"></td>
 		  </tr>
 		</table>
-	<div>
+	</div>
+	<table id="studenttable" style="display:block; top:50%">
+
+	</table>
 	<script type="text/javascript" src="scripts/listscript.js"></script>
 </body>
 </html>
