@@ -1,7 +1,7 @@
 
 function readJSON(path){
 	fetch(path).then(response => response.json()).then(json => {
-			let data = json['teachers'];
+			let data = json['students'];
 			displayStudents(data);
 			if (typeof(data) === 'undefined'){
 				console.log("No data");
