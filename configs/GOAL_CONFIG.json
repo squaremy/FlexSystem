@@ -1,0 +1,47 @@
+{
+  "guptong@franklinacademy.org": {
+    "name":"Grant Gupton",
+    "type":"student",
+    "schedule":{
+      "flex room":"Steve Msarsa",
+      "mon":"Steve Msarsa",
+      "tue":"Steve Msarsa",
+      "wed":"Steve Msarsa",
+      "thu":"Steve Msarsa",
+      "fri":"Steve Msarsa"
+    }
+  },
+
+  "martinj1@franklinacademy.org": {
+    "name":"Jordan Martin",
+    "type":"student",
+    "schedule":{
+      "flex room":"Thomas Styslinger",
+      "mon":"Thomas Styslinger",
+      "tue":"Thomas Styslinger",
+      "wed":"UNDECIDED",
+      "thu":"Thomas Styslinger",
+      "fri":"UNDECIDED"
+    }
+  },
+
+  "styslingert@franklinacademy.org": {
+    "name":"Thomas Styslinger",
+    "type":"teacher",
+    "room":223,
+    "schedule":{
+      "mon":true,
+      "tue":true,
+      "wed":false,
+      "thu":true,
+      "fri":false
+    },
+    "students":[
+      ["Jordan Martin", "Matthew Schnegelberger"],
+      ["Jordan Martin", "Matthew Schnegelberger", "Michael Eaddy"],
+      [],
+      ["Jordan Martin"],
+      []
+    ]
+  }
+}
