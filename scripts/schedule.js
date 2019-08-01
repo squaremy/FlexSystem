@@ -12,8 +12,6 @@ function readJSON(path){
       }
       var name = document.getElementById("searchtxt");
       name.innerHTML = data['name'];
-      console.log(data);
-      console.log(data['type']);
 			//console.log(data);
 			//console.log("Heres the variable array");
 			//console.log(teacherlist);
@@ -25,9 +23,10 @@ function displayWeek(schedule) {
   console.log(schedule);
   console.log(schedule[0]['checked']);
   console.log(schedule[0]['day']);
+  console.log(schedule.length);
   var table = document.getElementById("weektable");
   for(var j = 0; j < 2; j++) {
-    for(var i = 0; i < schedule[j].length; i++) {
+    for(var i = 0; i < schedule.length; i++) {
       var row = table.insertRow(-1);
       var cell = row.insertCell(-1);
       cell.style.padding = "2px 2px 2px 2px";
@@ -46,7 +45,6 @@ function displayWeek(schedule) {
 }
 
 function displayStudents(students) {
-  console.log(students);
   var table = document.getElementById("studenttable");
 	for(var i = 0; i < students.length; i++){
 		var row = table.insertRow(-1);
