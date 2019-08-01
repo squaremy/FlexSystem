@@ -2,17 +2,24 @@
 <html>
 <head>
 	<title>My Schedule</title>
-	<link rel="stylesheet" href="css/style.css">
-	<link rel="apple-touch-icon" href="/faflexappicon.png">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<link rel="icon" href="favicon.ico">
+	<link rel="stylesheet" href="css/style.css"/>
+	<link rel="apple-touch-icon" href="/faflexappicon.png"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<link rel="icon" href="favicon.ico"/>
 </head>
 
 <body>
 	<div class="topnav">
-		<img id="logo" src="faflexlogo.svg">
+		<img id="logo" src="faflexlogo.svg"/>
 		<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
 		<a id="schedulebutton" href="schedule.html" class="disable-select">My Schedule</a>
 	</div>
+	<div class="signupmenu">
+		<table id="weektable" border=1>
+		</table>
+		<table id="studenttable" border=1>
+		</table>
+	</div>
+	<script type="text/javascript" src="scripts/schedule.js"/>
 </body>
 </html>
