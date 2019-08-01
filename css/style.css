@@ -112,17 +112,6 @@
 	width:213px;
 }
 
-#googletxt{
-	position: absolute;
-	top:13px;
-	left:55px;
-	font-size: 16pt;
-	height:50px;
-	font-family: Helvetica;
-	color: grey;
-	vertical-align: middle;
-}
-
 .topnav {
 	position: absolute;
 	top: 0px;
