@@ -107,8 +107,8 @@
 #googlesignin{
 	position: absolute;
 	top:40%;
-	left:calc(50% - 106px);
-	width: 200px;
+	width: 300px;
+	left:calc(50% - 150px);
 }
 
 .topnav {
