@@ -35,6 +35,12 @@ function displayWeek(schedule) {
         var checkbox = document.createElement("INPUT");
         checkbox.type = "checkbox";
         checkbox.checked = schedule[i]['checked'];
+        checkbox.value = schedule[i]['day'];
+        if(checkbox.value == "Monday") checkbox.name = 'mon';
+        else if(checkbox.value == "Tuesday") checkbox.name = 'tue';
+        else if(checkbox.value == "Wednesday") checkbox.name = 'wed';
+        else if(checkbox.value == "Thursday") checkbox.name = 'thu';
+        else if(checkbox.value == "Friday") checkbox.name = 'fri';
         cell.appendChild(checkbox);
         // cell.innerHTML = schedule[i]['day'];
       } else {
