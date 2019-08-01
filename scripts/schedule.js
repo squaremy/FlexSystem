@@ -24,16 +24,19 @@ readJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/c
 function displayWeek(schedule) {
   console.log(schedule);
   console.log(schedule[0]['checked']);
+  console.log(schedule[0]['day']);
   var table = document.getElementById("weektable");
   for(var j = 0; j < 2; j++) {
     for(var i = 0; i < schedule[j].length; i++) {
       var row = table.insertRow(-1);
       var cell = row.insertCell(-1);
+      cell.style.padding = "2px 2px 2px 2px";
+      cell.id = schedule[i]['day'];
       if(j == 1) {
-        var checkbox = document.createElement("INPUT");
-        checkbox.type = "checkbox";
-        checkbox.checked = schedule[i]['checked'];
-        cell.appendChild(checkbox);
+        // var checkbox = document.createElement("INPUT");
+        // checkbox.type = "checkbox";
+        // checkbox.checked = schedule[i]['checked'];
+        // cell.appendChild(checkbox);
       } else {
         cell.innerHTML = schedule[i]['day'];
       }
