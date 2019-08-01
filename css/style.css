@@ -102,14 +102,14 @@
 	position: absolute;
 	top:0%;
 	left:0px;
-	width:50px;
+	width:213px;
 }
 
 #googlesignin{
 	position: absolute;
 	top:40%;
 	left:calc(50% - 106px);
-	width:300px;
+	width:213px;
 }
 
 #googletxt{
