@@ -29,6 +29,7 @@
 
 #weektable {
 	position:absolute;
+	display: block;
 	top:30%;
 	left: calc(50% - 162px);
 	border:5px;

@@ -16,7 +16,7 @@
 	<div id="signupmenu">
 		<p id="searchtxt"><?php echo $_GET["name"]; ?></p>
 		<div id="weektable">
-			<table id="weektable" style="display:block; top:30%">
+			<table id="weektable" border=1>
 			  <tr>
 				<th width="15%">Monday</th>
 				<th width="15%">Tuesday</th>
