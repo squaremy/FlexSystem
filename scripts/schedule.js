@@ -31,10 +31,10 @@ function displayWeek(schedule) {
       if(j == 1) {
         var checkbox = document.createElement("INPUT");
         checkbox.type = "checkbox";
-        checkbox.checked = schedule[j][i];
+        checkbox.checked = schedule[i]['checked'];
         cell.appendChild(checkbox);
       } else {
-        cell.innerHTML = schedule[j][i];
+        cell.innerHTML = schedule[i]['day'];
       }
     }
   }
