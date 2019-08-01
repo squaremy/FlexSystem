@@ -1,4 +1,6 @@
 <?php
+//Reads file successfully!
+
 
 // This PHP script must be in "SOME_PATH/jsonFile/index.php"
 
