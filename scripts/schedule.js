@@ -10,6 +10,8 @@ function readJSON(path){
       else if (data['type'] == 'teacher') {
         displayStudents(data['students']);
       }
+      var name = document.getElementById("searchtxt");
+      name.innerHTML = data['name'];
 			//console.log(data);
 			//console.log("Heres the variable array");
 			//console.log(teacherlist);
