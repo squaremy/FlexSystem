@@ -137,3 +137,19 @@ function teacherclick(temp){
 function googlesigninfunct(){
 	alert("Sign in page for Google account.");
 }
+var tempvar = [];
+function updatedata(){
+	readJSON2('https://raw.githubusercontent.com/squaremy/FlexSystem/master/data.json');
+	document.getElementById("data").innerHTML = tempvar;
+}
+
+function readJSON2(path){
+	fetch(path).then(response => response.json()).then(json => {
+			let data = json['datapoint'];
+			if (typeof(data) === 'undefined'){
+				console.log("No data");
+				return;
+			}
+			tempvar = data;
+		  })
+}
