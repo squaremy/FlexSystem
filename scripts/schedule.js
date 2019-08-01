@@ -37,6 +37,7 @@ function displayWeek(schedule) {
         // checkbox.type = "checkbox";
         // checkbox.checked = schedule[i]['checked'];
         // cell.appendChild(checkbox);
+        cell.innerHTML = schedule[i]['day'];
       } else {
         cell.innerHTML = schedule[i]['day'];
       }
