@@ -12,6 +12,8 @@ function readJSON(path){
       }
       var name = document.getElementById("searchtxt");
       name.innerHTML = data['name'];
+      console.log(data);
+      console.log(data['type']);
 			//console.log(data);
 			//console.log("Heres the variable array");
 			//console.log(teacherlist);
@@ -20,6 +22,7 @@ function readJSON(path){
 readJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/classlist.json');
 
 function displayWeek(schedule) {
+  console.log(schedule);
   var table = document.getElementById("weektable");
   for(var j = 0; j < 2; j++) {
     for(var i = 0; i < schedule[j].length; i++) {
@@ -38,6 +41,7 @@ function displayWeek(schedule) {
 }
 
 function displayStudents(students) {
+  console.log(students);
   var table = document.getElementById("studenttable");
 	for(var i = 0; i < students.length; i++){
 		var row = table.insertRow(-1);

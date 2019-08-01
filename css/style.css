@@ -10,10 +10,10 @@
 #teachertable {
 	position:absolute;
 	top:50%;
-	left:35%;
+	left:5%;
 	border:5px;
 	border-width: 5px;
-	width: 30%;
+	width: 90%;
 	border-color: black;
 }
 

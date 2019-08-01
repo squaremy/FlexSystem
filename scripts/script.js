@@ -23,8 +23,6 @@ readJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/data.json
 function displayTeachers(teachers) {
 	//document.getElementById("searchtxt").innerHTML = teachers;
 	var table = document.getElementById("teachertable");
-	table.style.width="90%";
-	table.style.left="5%";
 	for(var i = 0; i < teachers.length; i=i+4){
 		var row = table.insertRow(-1);
 		for(var j = 0; j < 4; j++) {
