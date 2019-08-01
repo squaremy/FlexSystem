@@ -23,6 +23,7 @@ readJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/c
 
 function displayWeek(schedule) {
   console.log(schedule);
+  console.log(schedule[0]['checked']);
   var table = document.getElementById("weektable");
   for(var j = 0; j < 2; j++) {
     for(var i = 0; i < schedule[j].length; i++) {

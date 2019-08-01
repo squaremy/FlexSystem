@@ -20,7 +20,7 @@
 #studenttable {
 	position: absolute;
 	top: 50%;
-	left: calc(50% - 85px);
+	left: 15%;
 	width: 170px;
 	border: 5px;
 	border-width: 5px;
