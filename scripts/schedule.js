@@ -1,7 +1,7 @@
 
 function readJSON(path){
 	fetch(path).then(response => response.json()).then(json => {
-			let data = json['schedule'];
+			let data = json;
 			displayWeek(data['week']);
 			if (typeof(data) === 'undefined'){
 				console.log("No data");
