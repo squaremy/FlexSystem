@@ -19,6 +19,8 @@ function onSignIn(googleUser)
 function checkIfLoggedIn(){
 //Use userdata to check login state.
 var userdata = readJSON();
+console.log("userdata");
+console.log(userdata);
 if(userdata[0]===""){
   window.location.href = "signin.html";
 }
