@@ -26,7 +26,7 @@ function checkIfLoggedIn()
     //User already logged in
     var userEntity = {};
     userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
-    console.log(userEntity);
+    console.log("Already signed in. returning...");
     window.history.back();
   }
 }
@@ -36,6 +36,5 @@ function logout()
   //Don't forget to clear sessionStorage when user logs out
   sessionStorage.clear();
 }
-
 
 checkIfLoggedIn();
