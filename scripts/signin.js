@@ -27,7 +27,7 @@ function checkIfLoggedIn()
     var userEntity = {};
     userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
     console.log("Already signed in. returning...");
-    window.history.back();
+    window.history.go(-1);
   }
 }
 
