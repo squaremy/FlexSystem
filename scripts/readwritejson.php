@@ -27,7 +27,7 @@ fclose($fh);
 echo $myFileContents;
 
 $myFile2 = "sampleFile.txt";
-$myFileLink2 = fopen($myFile2, 'w+') or die("Can't open file."); //w+ to overrite, a to append
+$myFileLink2 = fopen($myFile2, 'a') or die("Can't open file."); //w+ to overwrite, a to append
 $newContents = "You wrote on me...";
 fwrite($myFileLink2, $newContents);
 fclose($myFileLink2);
