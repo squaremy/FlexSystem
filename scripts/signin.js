@@ -21,7 +21,7 @@ function checkIfLoggedIn(){
 var userdata = readJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/userdata.json');
 console.log("userdata");
 console.log(userdata);
-if(userdata[0]==""){
+if(userdata['user']==""){
   window.location.href = "signin.html";
 }
   /*
