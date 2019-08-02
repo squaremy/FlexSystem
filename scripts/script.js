@@ -156,7 +156,7 @@ function checksignin(){
 //	}
 }
 checksignin();
-
+<script type="text/javascript" src="jquery.min.js"></script>
 function changefile(){
 	$.get("readwritejson.php");
 	return false;
