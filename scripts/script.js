@@ -142,16 +142,8 @@ function searchFilter1() {
 }
 //searchForTeacher();
 
-function teacherclick(temp){
-	var teachername = temp.id;
-	window.location.href="signup.php?name=" + teachername;
-	//var str = row + " ," + col;
-	// alert("clicked cell at: " + this.cellIndex + ", " + this.parentNode.rowIndex);
-	//console.log(str);
-}
-
-function googlesigninfunct(){
-	alert("Sign in page for Google account.");
+function teacherclick(teachername){
+	window.location.href="signup.php?name=" + teachername.id;
 }
 
 function readJSON2(path){
@@ -164,3 +156,30 @@ function readJSON2(path){
 			tempvar = data;
 		  })
 }
+
+function checkIfLoggedIn(){
+//Use userdata to check login state.
+/*var userdata = readJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/userdata.json');
+console.log("userdata");
+console.log(userdata);
+if(userdata['user']){
+  window.location.href = "signin.html";
+}/*
+
+  if(sessionStorage.getItem('myUserEntity') == null){
+    //Redirect to login page, no user entity available in sessionStorage
+		sessionStorage.setItem('prevPage', JSON.stringify(window.location.href));
+    window.location.href='signin.html';
+  } else {
+    //User already logged in
+    var userEntity = {};
+    userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
+  }
+}
+function logout()
+{
+  //Don't forget to clear sessionStorage when user logs out
+  sessionStorage.clear();
+}
+
+checkIfLoggedIn();

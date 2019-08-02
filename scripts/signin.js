@@ -27,6 +27,11 @@ if(userdata['user']){
 
   if(sessionStorage.getItem('myUserEntity') == null){
     //Redirect to login page, no user entity available in sessionStorage
+    if(window.location.href == "index.html"){
+      sessionStorage.setItem('prevPage', JSON.stringify(window.location.href));
+    }else{
+      sessionStorage.setItem('prevPage', JSON.stringify("index.html"));
+    }
 		sessionStorage.setItem('prevPage', JSON.stringify(window.location.href));
     window.location.href='signin.html';
   } else {
