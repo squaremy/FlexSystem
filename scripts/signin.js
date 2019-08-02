@@ -18,7 +18,7 @@ function onSignIn(googleUser)
 
 function checkIfLoggedIn(){
 //Use userdata to check login state.
-var userdata = readJSON();
+var userdata = readJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/userdata.json');
 console.log("userdata");
 console.log(userdata);
 if(userdata[0]==""){
