@@ -34,8 +34,8 @@ if(userdata['user']==""){
     var userEntity = {};
     userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
   }
+  */
 }
-*/
 function logout()
 {
   //Don't forget to clear sessionStorage when user logs out
