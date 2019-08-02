@@ -148,3 +148,16 @@ function readJSON2(path){
 			tempvar = data;
 		  })
 }
+
+var signedin = 0; //0 - signed out, 1 - signed in
+function checksignin(){
+	if(){
+
+	}
+}
+checksignin();
+
+function changefile(){
+	$.get("./configs/readwritejson.php");
+	return false;
+}
