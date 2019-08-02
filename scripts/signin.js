@@ -18,13 +18,13 @@ function onSignIn(googleUser)
 
 function checkIfLoggedIn(){
 //Use userdata to check login state.
-var userdata = readJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/userdata.json');
+/*var userdata = readJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/userdata.json');
 console.log("userdata");
 console.log(userdata);
-if(userdata['user']==""){
+if(userdata['user']){
   window.location.href = "signin.html";
-}
-  /*
+}/*
+
   if(sessionStorage.getItem('myUserEntity') == null){
     //Redirect to login page, no user entity available in sessionStorage
 		sessionStorage.setItem('prevPage', JSON.stringify(window.location.href));
@@ -34,7 +34,6 @@ if(userdata['user']==""){
     var userEntity = {};
     userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
   }
-  */
 }
 function logout()
 {
