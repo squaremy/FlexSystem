@@ -10,6 +10,11 @@
   <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
+	<div class="topnav">
+		<img id="logo" style="height:50px; width:136px" src="faflexlogo.svg">
+		<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
+		<a id="schedulebutton" href="schedule.html" class="disable-select">My Schedule</a>
+	</div>
 	<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
   <script>
     function onSignIn(googleUser) {
@@ -27,11 +32,6 @@
       console.log("ID Token: " + id_token);
     }
   </script>
-	<div class="topnav">
-		<img id="logo" style="height:50px; width:136px" src="faflexlogo.svg">
-		<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
-		<a id="schedulebutton" href="schedule.html" class="disable-select">My Schedule</a>
-	</div>
 	<div id="signin">
 	  <a id="signintxt">Please sign in to continue.</a>
 	  <div id="googlesignin">
