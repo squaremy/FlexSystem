@@ -21,7 +21,7 @@ function checkIfLoggedIn(){
 var userdata = readJSON();
 console.log("userdata");
 console.log(userdata);
-if(userdata[0]===""){
+if(userdata[0]==""){
   window.location.href = "signin.html";
 }
   /*
