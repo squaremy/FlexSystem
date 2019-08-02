@@ -158,6 +158,6 @@ function checksignin(){
 checksignin();
 
 function changefile(){
-	$.get("./configs/readwritejson.php");
+	$.get("readwritejson.php");
 	return false;
 }
