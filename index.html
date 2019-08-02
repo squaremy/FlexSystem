@@ -12,7 +12,7 @@
 </head>
 
 <body>
-	<button onclick="changefile()" style="position:absolute; left:50%; top:50%">Click here for file change</button>
+	<button onclick="changefile()" style="position:absolute; left:50%; top:42%">Click here for file change</button>
 	<div class="topnav">
 		<img id="logo" style="height:50px; width:136px" src="faflexlogo.svg">
 		<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
@@ -30,7 +30,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
 function changefile(){
-	$.get("readwritejson.php");
+	$.get("/configs/readwritejson.php");
 	return false;
 }
 </script>
