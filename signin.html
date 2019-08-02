@@ -5,8 +5,28 @@
 	<link rel="apple-touch-icon" href="/faflexappicon.png">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<link rel="icon" href="favicon.ico">
+	<meta name="google-signin-scope" content="profile email">
+  <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
+	<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+  <script>
+    function onSignIn(googleUser) {
+      // Useful data for your client-side scripts:
+      var profile = googleUser.getBasicProfile();
+      console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+      console.log('Full Name: ' + profile.getName());
+      console.log('Given Name: ' + profile.getGivenName());
+      console.log('Family Name: ' + profile.getFamilyName());
+      console.log("Image URL: " + profile.getImageUrl());
+      console.log("Email: " + profile.getEmail());
+
+      // The ID token you need to pass to your backend:
+      var id_token = googleUser.getAuthResponse().id_token;
+      console.log("ID Token: " + id_token);
+    }
+  </script>
 	<div class="topnav">
 		<img id="logo" style="height:50px; width:136px" src="faflexlogo.svg">
 		<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
@@ -18,6 +38,7 @@
 	    <img id="googlebutton" onclick="googlesigninfunct()" src="googlesigninimg.svg">
 	  </div>
 	</div>
+	<!-- <script type="text/javascript" src="scripts/singin.js"></script> -->
 </body>
 <script>(function(a,b,c){if(c in b&&b[c]){var d,e=a.location,f=/^(a|html)$/i;a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)}})(document,window.navigator,"standalone")</script>
 </html>
