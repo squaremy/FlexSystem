@@ -151,9 +151,9 @@ function readJSON2(path){
 
 var signedin = 0; //0 - signed out, 1 - signed in
 function checksignin(){
-	if(){
+//	if(){
 
-	}
+//	}
 }
 checksignin();
 
