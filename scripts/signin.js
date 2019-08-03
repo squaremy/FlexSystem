@@ -28,6 +28,7 @@ if(userdata['user']){
 var userid;
   try{
     userid = sessionStorage.getItem('myUserEntity');
+    console.log(userid);
     if(userid != null){
       console.log("Signed in");
       var profile = googleUser.getBasicProfile();
