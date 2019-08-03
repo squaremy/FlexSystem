@@ -1,5 +1,5 @@
 
-function readJSON(path){
+function read1JSON(path){
 	fetch(path).then(response => response.json()).then(json => {
 			let data = json;
 			displayWeek(data['week']);
@@ -17,7 +17,7 @@ function readJSON(path){
 			//console.log(teacherlist);
 		  })
 }
-readJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/classlist.json');
+read1JSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/classlist.json');
 
 function displayWeek(schedule) {
   console.log(schedule);
@@ -50,6 +50,21 @@ function displayWeek(schedule) {
   }
 }
 
+function readJSON(path){
+	fetch(path).then(response => response.json()).then(json => {
+			let data = json['teachers'];
+			displayTeachers(data);
+			if (typeof(data) === 'undefined'){
+				console.log("No data");
+				return;
+			}
+			console.log(data);
+			return data;
+			//console.log("Heres the variable array");
+			//console.log(teacherlist);
+		  })
+}
+
 function displayStudents(students) {
   var table = document.getElementById("studenttable");
 	for(var i = 0; i < students.length; i++){
@@ -63,3 +78,10 @@ function displayStudents(students) {
 		} else cell.innerHTML = students[i];
 	}
 }
+var teacherelist = [];
+function checktype(){ //Check if student or teacher
+	teacherelist = readJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/teacherlist.json');
+	//for teachers in teacherelist['teachers']
+	console.log(teacherelist);
+}
+checktype();
