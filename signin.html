@@ -35,11 +35,11 @@
 		  var myUserEntity = {};
 		  myUserEntity.Id = profile.getId();
 		  myUserEntity.Name = profile.getName();
-		
+			myUserEntity.Email = profile.getEmail()
 		  //Store the entity object in sessionStorage where it will be accessible from all pages of your site.
 		  sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
 			//window.history.back();
-			//window.location.href = sessionStorage.prevPage;
+			window.location.href = JSON.parse(sessionStorage.getItem('prevPage'));
     }
   </script>
 	<!-- <div id="signin">
