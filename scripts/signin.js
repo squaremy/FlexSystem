@@ -39,8 +39,6 @@ var userid = {};
       var userEntity = {};
       userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
     }else{
-    var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId());
       console.log("Not signed in");
       if(window.location.href != "signin.html"){
         sessionStorage.setItem('prevPage', JSON.stringify(window.location.href));
@@ -59,7 +57,7 @@ var userid = {};
       sessionStorage.setItem('prevPage', JSON.stringify("index.html"));
     }
       //sessionStorage.setItem('prevPage', JSON.stringify(window.location.href));
-      window.location.href='signin.html';
+      //window.location.href='signin.html';
   }
   /*
   if(sessionStorage.getItem('myUserEntity') == null){
