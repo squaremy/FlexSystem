@@ -46,7 +46,7 @@ var userid;
         sessionStorage.setItem('prevPage', JSON.stringify("index.html"));
       }
         //sessionStorage.setItem('prevPage', JSON.stringify(window.location.href));
-        window.location.href='signin.html';
+        //window.location.href='signin.html';
     }
   }
   catch(err){
