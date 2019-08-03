@@ -12,5 +12,5 @@ function loaddata(){
 var userEntity = {};
 userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
 console.log(userEntity);
-
+document.getElementById("datatxt").innerHTML = userEntity;
 //loaddata();
