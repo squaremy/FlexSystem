@@ -28,8 +28,13 @@ if(userdata['user']){
 var userid;
   try{
     userid = sessionStorage.getItem('myUserEntity');
-    if(userid == null){
+    if(userid != null){
       console.log("Signed in");
+      var profile = googleUser.getBasicProfile();
+      console.log('ID: ' + profile.getId());
+      console.log('Name: ' + profile.getName());
+      console.log('Image URL: ' + profile.getImageUrl());
+      console.log('Email: ' + profile.getEmail());
     }
   }
   catch(err){
