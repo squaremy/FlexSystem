@@ -39,6 +39,8 @@ var userid = {};
       var userEntity = {};
       userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
     }else{
+    var profile = googleUser.getBasicProfile();
+    console.log('ID: ' + profile.getId());
       console.log("Not signed in");
       if(window.location.href != "signin.html"){
         sessionStorage.setItem('prevPage', JSON.stringify(window.location.href));
