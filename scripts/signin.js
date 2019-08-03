@@ -18,7 +18,8 @@ function onSignIn(googleUser)
 
 function checkIfLoggedIn(){
 //Use userdata to check login state.
-/*var userdata = readJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/userdata.json');
+/*
+var userdata = readJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/userdata.json');
 console.log("userdata");
 console.log(userdata);
 if(userdata['user']){
@@ -27,7 +28,9 @@ if(userdata['user']){
 var userid;
   try{
     userid = sessionStorage.getItem('myUserEntity');
-    console.log("Signed in");
+    if(userid == null){
+      console.log("Signed in");
+    }
   }
   catch(err){
     console.log("Not signed in");
