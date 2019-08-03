@@ -1,17 +1,17 @@
 
 function readaJSON(path){
 	fetch(path).then(response => response.json()).then(json => {
-			let data = json;
-			displayWeek(data['week']);
-			if (typeof(data) === 'undefined'){
+			let data2 = json;
+			displayWeek(data2['week']);
+			if (typeof(data2) === 'undefined'){
 				console.log("No data");
 				return;
 			}
-      else if (data['type'] == 'teacher') {
-        displayStudents(data['students']);
+      else if (data2['type'] == 'teacher') {
+        displayStudents(data2['students']);
       }
       var name = document.getElementById("searchtxt");
-      name.innerHTML = data['name'];
+      name.innerHTML = data2['name'];
 			//console.log(data);
 			//console.log("Heres the variable array");
 			//console.log(teacherlist);
