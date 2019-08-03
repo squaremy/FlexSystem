@@ -77,11 +77,12 @@ function displayStudents(students) {
 		} else cell.innerHTML = students[i];
 	}
 }
-var teacherelist = [];
+var teacherlist = [];
 function checktype(teacherelist){ //Check if student or teacher
 	//for teachers in teacherelist['teachers']
+	teacherlist = teacherelist;
 	var teacherlength = teacherelist['teachers']['0'];
-	console.log(teacherelist['teachers']);
+	console.log(teacherelist['teachers']['0']);
 	console.log(teacherlength.length);
 	for(var a = 0; a < teacherelist['teachers'].length; a++){
 		console.log(teacherelist['teachers'][i]);
