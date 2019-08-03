@@ -25,7 +25,7 @@ console.log(userdata);
 if(userdata['user']){
   window.location.href = "signin.html";
 }*/
-var userid;
+var userid = {};
   try{
     userid = sessionStorage.getItem('myUserEntity');
     console.log(userid);
