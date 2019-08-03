@@ -1,5 +1,5 @@
 
-function read1JSON(path){
+function readaJSON(path){
 	fetch(path).then(response => response.json()).then(json => {
 			let data = json;
 			displayWeek(data['week']);
@@ -17,7 +17,7 @@ function read1JSON(path){
 			//console.log(teacherlist);
 		  })
 }
-read1JSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/classlist.json');
+readaJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/classlist.json');
 
 function displayWeek(schedule) {
   console.log(schedule);
