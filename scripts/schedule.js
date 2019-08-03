@@ -52,7 +52,7 @@ function displayWeek(schedule) {
 
 function read2JSON(path){
 	fetch(path).then(response => response.json()).then(json => {
-			let data = json['teachers'];
+			let data = json;
 			if (typeof(data) === 'undefined'){
 				console.log("No data");
 				return;
@@ -82,6 +82,7 @@ function checktype(){ //Check if student or teacher
 	teacherelist = read2JSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/teacherlist.json');
 	//for teachers in teacherelist['teachers']
 	console.log(teacherelist['teachers']);
+	console.log(teacherelist['teachers'].length);
 	for(var a = 0; a < teacherelist['teachers'].length; a++){
 		console.log(teacherelist['teachers'][i]);
 	}
