@@ -35,10 +35,28 @@ var userid;
       console.log('Name: ' + profile.getName());
       console.log('Image URL: ' + profile.getImageUrl());
       console.log('Email: ' + profile.getEmail());
+      var userEntity = {};
+      userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
+    }else{
+      console.log("Not signed in");
+      if(window.location.href != "signin.html"){
+        sessionStorage.setItem('prevPage', JSON.stringify(window.location.href));
+      }else{
+        sessionStorage.setItem('prevPage', JSON.stringify("index.html"));
+      }
+        //sessionStorage.setItem('prevPage', JSON.stringify(window.location.href));
+        window.location.href='signin.html';
     }
   }
   catch(err){
     console.log("Not signed in");
+    if(window.location.href != "signin.html"){
+      sessionStorage.setItem('prevPage', JSON.stringify(window.location.href));
+    }else{
+      sessionStorage.setItem('prevPage', JSON.stringify("index.html"));
+    }
+      //sessionStorage.setItem('prevPage', JSON.stringify(window.location.href));
+      window.location.href='signin.html';
   }
   /*
   if(sessionStorage.getItem('myUserEntity') == null){
