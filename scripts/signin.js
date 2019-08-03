@@ -1,5 +1,4 @@
-function onSignIn(googleUser)
-{
+/*{
   var profile = googleUser.getBasicProfile();
   console.log('ID: ' + profile.getId());
   console.log('Name: ' + profile.getName());
@@ -12,6 +11,7 @@ function onSignIn(googleUser)
 
   //Store the entity object in sessionStorage where it will be accessible from all pages of your site.
   sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
+  console.log(myUserEntity);
 	window.location.href = JSON.parse(sessionStorage.getItem('prevPage'));
   alert(profile.getName());
 }
