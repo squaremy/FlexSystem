@@ -81,8 +81,8 @@ var teacherelist = [];
 function checktype(){ //Check if student or teacher
 	teacherelist = read2JSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/teacherlist.json');
 	//for teachers in teacherelist['teachers']
-	console.log(teacherelist['teachers']);
-	console.log(teacherelist['teachers'].length);
+	console.log(teacherelist);
+	console.log(teacherelist.length);
 	for(var a = 0; a < teacherelist['teachers'].length; a++){
 		console.log(teacherelist['teachers'][i]);
 	}
