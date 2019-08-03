@@ -24,7 +24,15 @@ console.log(userdata);
 if(userdata['user']){
   window.location.href = "signin.html";
 }*/
-
+var userid;
+  try{
+    userid = sessionStorage.getItem('myUserEntity');
+    console.log("Signed in");
+  }
+  catch(err){
+    console.log("Not signed in");
+  }
+  /*
   if(sessionStorage.getItem('myUserEntity') == null){
     console.log("NO USER-- Redirect to SignIn.html");
     //Redirect to login page, no user entity available in sessionStorage
@@ -39,7 +47,7 @@ if(userdata['user']){
     //User already logged in
     var userEntity = {};
     userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
-  }
+  }*/
 }
 function logout()
 {
