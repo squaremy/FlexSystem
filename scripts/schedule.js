@@ -81,7 +81,7 @@ var teacherelist = [];
 function checktype(teacherelist){ //Check if student or teacher
 	//for teachers in teacherelist['teachers']
 	console.log(teacherelist['teachers']);
-	console.log(teacherelist['teachers'].length);
+	console.log(teacherelist['teachers'][0].length);
 	for(var a = 0; a < teacherelist['teachers'].length; a++){
 		console.log(teacherelist['teachers'][i]);
 	}
