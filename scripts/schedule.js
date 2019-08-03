@@ -50,9 +50,9 @@ function displayWeek(schedule) {
   }
 }
 
-function readJSON(path){
+function read2JSON(path){
 	fetch(path).then(response => response.json()).then(json => {
-			let data = json;
+			let data = json['teachers'];
 			if (typeof(data) === 'undefined'){
 				console.log("No data");
 				return;
@@ -79,7 +79,7 @@ function displayStudents(students) {
 }
 var teacherelist = [];
 function checktype(){ //Check if student or teacher
-	teacherelist = readJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/teacherlist.json');
+	teacherelist = read2JSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/teacherlist.json');
 	//for teachers in teacherelist['teachers']
 	console.log(teacherelist['teachers']);
 	for(var a = 0; a < teacherelist['teachers'].length; a++){
