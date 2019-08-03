@@ -35,6 +35,7 @@ function checkIfLoggedIn(){
     //User already logged in
     var userEntity = {};
     userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
+    console.log(userEntity);
   }
 }
 
