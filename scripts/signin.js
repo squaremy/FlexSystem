@@ -43,6 +43,13 @@ function logout()
 {
   //Don't forget to clear sessionStorage when user logs out
   sessionStorage.clear();
+
+  if(window.location.href != "signin.html"){
+    sessionStorage.setItem('prevPage', JSON.stringify(window.location.href));
+  }else{
+    sessionStorage.setItem('prevPage', JSON.stringify("index.html"));
+  }
+  window.location.href='signin.html';
 }
 
 checkIfLoggedIn();
