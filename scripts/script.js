@@ -22,7 +22,6 @@ function readteacherJSON(path){
 function readJSON(path){
 	fetch(path).then(response => response.json()).then(json => {
 			let data = json['teachers'];
-			displayTeachers(data);
 			if (typeof(data) === 'undefined'){
 				console.log("No data");
 				return;
