@@ -1,23 +1,22 @@
 
-function readJSON(path){
+function readaJSON(path){
 	fetch(path).then(response => response.json()).then(json => {
-			let data = json;
-			displayWeek(data['week']);
-			if (typeof(data) === 'undefined'){
+			let data2 = json;
+			displayWeek(data2['week']);
+			if (typeof(data2) === 'undefined'){
 				console.log("No data");
 				return;
 			}
-      else if (data['type'] == 'teacher') {
-        displayStudents(data['students']);
+      else if (data2['type'] == 'teacher') {
+        displayStudents(data2['students']);
       }
-      var name = document.getElementById("searchtxt");
-      name.innerHTML = data['name'];
+
 			//console.log(data);
 			//console.log("Heres the variable array");
 			//console.log(teacherlist);
 		  })
 }
-readJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/classlist.json');
+readaJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/classlist.json');
 
 function displayWeek(schedule) {
   console.log(schedule);
@@ -50,6 +49,20 @@ function displayWeek(schedule) {
   }
 }
 
+function read2JSON(path){
+	fetch(path).then(response => response.json()).then(json => {
+			let data = json;
+			if (typeof(data) === 'undefined'){
+				console.log("No data");
+				return;
+			}
+			console.log(data);
+			checktype(data);
+			//console.log("Heres the variable array");
+			//console.log(teacherlist);
+		  })
+}
+
 function displayStudents(students) {
   var table = document.getElementById("studenttable");
 	for(var i = 0; i < students.length; i++){
@@ -63,3 +76,28 @@ function displayStudents(students) {
 		} else cell.innerHTML = students[i];
 	}
 }
+
+var teacherlist = [];
+function checktype(teacherelist){ //Check if student or teacher
+	//for teachers in teacherelist['teachers']
+	teacherlist = teacherelist;
+	var teacherlength = teacherelist['teachers'][0];
+	var count = Object.keys(teacherlength).length;
+	var isteacher = false;
+	for(var k in teacherlength){ //Gets all teacher emails
+		//console.log(k);
+		var userEntity = {};
+		userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
+		if(userEntity["Email"] == k){
+			console.log(userEntity["Email"] + " is a teacher");
+			isteacher = true;
+		}
+	}
+	if(isteacher==false){
+		console.log(userEntity["Email"] + " is a student");
+	}
+	var name = document.getElementById("searchtxt");
+	name.innerHTML = userEntity["Name"];
+}
+
+read2JSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/teacherlist.json');

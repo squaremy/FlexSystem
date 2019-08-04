@@ -22,7 +22,6 @@ function readteacherJSON(path){
 function readJSON(path){
 	fetch(path).then(response => response.json()).then(json => {
 			let data = json['teachers'];
-			displayTeachers(data);
 			if (typeof(data) === 'undefined'){
 				console.log("No data");
 				return;
@@ -142,16 +141,8 @@ function searchFilter1() {
 }
 //searchForTeacher();
 
-function teacherclick(temp){
-	var teachername = temp.id;
-	window.location.href="signup.php?name=" + teachername;
-	//var str = row + " ," + col;
-	// alert("clicked cell at: " + this.cellIndex + ", " + this.parentNode.rowIndex);
-	//console.log(str);
-}
-
-function googlesigninfunct(){
-	alert("Sign in page for Google account.");
+function teacherclick(teachername){
+	window.location.href="signup.php?name=" + teachername.id;
 }
 
 function readJSON2(path){

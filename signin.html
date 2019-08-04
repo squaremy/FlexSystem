@@ -31,9 +31,21 @@
       // The ID token you need to pass to your backend:
       var id_token = googleUser.getAuthResponse().id_token;
       console.log("ID Token: " + id_token);
-			// window.history.back();
-			window.location.href = 'index.html';
+
+		  var myUserEntity = {};
+		  myUserEntity.Id = profile.getId();
+		  myUserEntity.Name = profile.getName();
+			myUserEntity.Email = profile.getEmail()
+		  //Store the entity object in sessionStorage where it will be accessible from all pages of your site.
+		  sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
+			//window.history.back();
+			if(JSON.parse(sessionStorage.getItem('prevPage')) == null){
+				window.location.href = "index.html";
+			}else{
+				window.location.href = JSON.parse(sessionStorage.getItem('prevPage'));
+			}
     }
+
   </script>
 	<!-- <div id="signin">
 	  <a id="signintxt">Please sign in to continue.</a>

@@ -1,4 +1,5 @@
-function onSignIn(googleUser)
+/*
+OLD code... unneccessary
 {
   var profile = googleUser.getBasicProfile();
   console.log('ID: ' + profile.getId());
@@ -12,33 +13,38 @@ function onSignIn(googleUser)
 
   //Store the entity object in sessionStorage where it will be accessible from all pages of your site.
   sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
+  console.log(myUserEntity);
 	window.location.href = JSON.parse(sessionStorage.getItem('prevPage'));
   alert(profile.getName());
 }
+*/
+
 
 function checkIfLoggedIn(){
-//Use userdata to check login state.
-/*var userdata = readJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/userdata.json');
-console.log("userdata");
-console.log(userdata);
-if(userdata['user']){
-  window.location.href = "signin.html";
-}/*
-
   if(sessionStorage.getItem('myUserEntity') == null){
+    console.log("NO USER-- Redirect to SignIn.html");
     //Redirect to login page, no user entity available in sessionStorage
-		sessionStorage.setItem('prevPage', JSON.stringify(window.location.href));
+    sessionStorage.setItem('prevPage', JSON.stringify(window.location.href));
     window.location.href='signin.html';
   } else {
     //User already logged in
     var userEntity = {};
     userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
+    console.log(userEntity);
   }
 }
+
 function logout()
 {
   //Don't forget to clear sessionStorage when user logs out
   sessionStorage.clear();
+
+  if(window.location.href != "signin.html"){
+    sessionStorage.setItem('prevPage', JSON.stringify(window.location.href));
+  }else{
+    sessionStorage.setItem('prevPage', JSON.stringify("index.html"));
+  }
+  window.location.href='signin.html';
 }
 
 checkIfLoggedIn();
