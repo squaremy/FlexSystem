@@ -30,7 +30,7 @@
     "schedule":[
       {"day":"Monday", "available":true, "students":["Jordan Martin", "Matthew Schnegelberger"]},
       {"day":"Tuesday", "available":true, "students":["Jordan Martin", "Matthew Schnegelberger"]},
-      {"day":"Wednesday", "available":false, "students":["Jordan Martin", "Matthew Schnegelberger"]},
+      {"day":"Wednesday", "available":false, "students":["NONE"]},
       {"day":"Thursday", "available":true, "students":["Jordan Martin", "Matthew Schnegelberger"]},
       {"day":"Friday", "available":true, "students":["Jordan Martin", "Matthew Schnegelberger"]}
     ]

@@ -3,14 +3,14 @@ var isteacher = false;
 
 function readaJSON(path){
 	fetch(path).then(response => response.json()).then(json => {
-			let data2 = json;
-			displayWeek(data2['week']);
+			let data2 = json['styslingert@franklinacademy.org'];
+			displayWeek(data2['schedule']);
 			if (typeof(data2) === 'undefined'){
 				console.log("No data");
 				return;
 			}
       else if (data2['type'] == 'teacher') {
-        displayStudents(data2['students']);
+        displayStudents(data2['schedule']['students']);
       }
 
 			//console.log(data);
@@ -18,7 +18,7 @@ function readaJSON(path){
 			//console.log(teacherlist);
 		  })
 }
-readaJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/classlist.json');
+readaJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/GOAL_CONFIG.json');
 
 function displayWeek(schedule) {
   console.log(schedule);
