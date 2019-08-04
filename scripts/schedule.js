@@ -88,10 +88,9 @@ function checktype(teacherelist){ //Check if student or teacher
 		var userEntity = {};
 		userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
 		console.log(userEntity);
-		if(userEntity["Name"] == k){
-			console.log(userEntity["Name"]);
+		if(userEntity["Email"] == k){
+			console.log(userEntity["Email"] + " is a teacher");
 		}
-			console.log(userEntity["Name"]);
 	}
 }
 
