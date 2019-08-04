@@ -10,8 +10,7 @@ function readaJSON(path){
       else if (data2['type'] == 'teacher') {
         displayStudents(data2['students']);
       }
-      var name = document.getElementById("searchtxt");
-      name.innerHTML = data2['name'];
+
 			//console.log(data);
 			//console.log("Heres the variable array");
 			//console.log(teacherlist);
@@ -77,6 +76,7 @@ function displayStudents(students) {
 		} else cell.innerHTML = students[i];
 	}
 }
+
 var teacherlist = [];
 function checktype(teacherelist){ //Check if student or teacher
 	//for teachers in teacherelist['teachers']
@@ -96,6 +96,8 @@ function checktype(teacherelist){ //Check if student or teacher
 	if(isteacher==false){
 		console.log(userEntity["Email"] + " is a student");
 	}
+	var name = document.getElementById("searchtxt");
+	name.innerHTML = userEntity["Email"];
 }
 
 read2JSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/teacherlist.json');
