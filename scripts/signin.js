@@ -24,7 +24,8 @@ function checkIfLoggedIn(){
   if(sessionStorage.getItem('myUserEntity') == null){
     console.log("NO USER-- Redirect to SignIn.html");
     //Redirect to login page, no user entity available in sessionStorage
-    if(window.location.href !== "signin.html"){
+    var currentpage = str(window.location.href);
+    if(currentpage !== "signin.html"){
       sessionStorage.setItem('prevPage', JSON.stringify(window.location.href));
     }else{
       sessionStorage.setItem('prevPage', JSON.stringify("index.html"));
