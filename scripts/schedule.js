@@ -97,7 +97,7 @@ function checktype(teacherelist){ //Check if student or teacher
 		console.log(userEntity["Email"] + " is a student");
 	}
 	var name = document.getElementById("searchtxt");
-	name.innerHTML = userEntity["Email"];
+	name.innerHTML = userEntity["Name"];
 }
 
 read2JSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/teacherlist.json');
