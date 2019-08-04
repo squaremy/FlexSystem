@@ -83,14 +83,18 @@ function checktype(teacherelist){ //Check if student or teacher
 	teacherlist = teacherelist;
 	var teacherlength = teacherelist['teachers'][0];
 	var count = Object.keys(teacherlength).length;
+	var isteacher = false;
 	for(var k in teacherlength){ //Gets all teacher emails
 		//console.log(k);
 		var userEntity = {};
 		userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
-		console.log(userEntity);
 		if(userEntity["Email"] == k){
 			console.log(userEntity["Email"] + " is a teacher");
+			isteacher = true;
 		}
+	}
+	if(isteacher==false){
+		console.log(userEntity["Email"] + " is a student");
 	}
 }
 
