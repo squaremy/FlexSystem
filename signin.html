@@ -39,6 +39,9 @@
 		  //Store the entity object in sessionStorage where it will be accessible from all pages of your site.
 		  sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
 			//window.history.back();
+			if(JSON.parse(sessionStorage.getItem('prevPage') == null){
+				window.location.href = "index.html";
+			}
 			window.location.href = JSON.parse(sessionStorage.getItem('prevPage'));
     }
   </script>
