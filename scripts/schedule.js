@@ -83,12 +83,15 @@ function checktype(teacherelist){ //Check if student or teacher
 	teacherlist = teacherelist;
 	var teacherlength = teacherelist['teachers'][0];
 	var count = Object.keys(teacherlength).length;
-	for(var a = 0; a < count; a++){
-
-		//console.log(teacherelist['teachers'][0][a]);
-	}
-	for(var k in teacherlength){
-		console.log(k);
+	for(var k in teacherlength){ //Gets all teacher emails
+		//console.log(k);
+		var userEntity = {};
+		userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
+		console.log(userEntity);
+		if(userEntity["Name"] == k){
+			console.log(userEntity["Name"]);
+		}
+			console.log(userEntity["Name"]);
 	}
 }
 
