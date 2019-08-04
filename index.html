@@ -6,7 +6,9 @@
 	<link rel="apple-touch-icon" href="/faflexappicon.png">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<link rel="icon" href="favicon.ico">
-
+	<meta name="google-signin-scope" content="profile email">
+	<meta name="google-signin-client_id" content="483422839968-llldr1bas7hurg44av8h9bh8dpqgtq98.apps.googleusercontent.com">
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<!-- MUST BE ADDED TO ALL PAGES, BUT HASN'T YET-->
 	<!--END-->
 </head>
@@ -26,8 +28,28 @@
 	<div>
 	<script type="text/javascript" src="scripts/script.js"></script>
 	<script type="text/javascript" src="scripts/signin.js"></script>
+	<div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="askForLogin" data-theme="dark" style="visibility: hidden;"></div>
 </body>
 
+<script>
+	function onSignIn(googleUser) {
+		// Useful data for your client-side scripts:
+		var profile = googleUser.getBasicProfile();
+		console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+		console.log('Full Name: ' + profile.getName());
+		console.log('Given Name: ' + profile.getGivenName());
+		console.log('Family Name: ' + profile.getFamilyName());
+		console.log("Image URL: " + profile.getImageUrl());
+		console.log("Email: " + profile.getEmail());
+		//SET USERDATA FILE TO PREVENT LOOPING REDIRECTS!!!
+
+		// The ID token you need to pass to your backend:
+		var id_token = googleUser.getAuthResponse().id_token;
+		console.log("ID Token: " + id_token);
+		// window.history.back();
+		window.location.href = 'index.html';
+	}
+</script>
 <script>(function(a,b,c){if(c in b&&b[c]){var d,e=a.location,f=/^(a|html)$/i;a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)}})(document,window.navigator,"standalone")</script>
 <!--This is code to read/write data to files-->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
