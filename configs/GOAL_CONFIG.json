@@ -2,46 +2,36 @@
   "guptong@franklinacademy.org": {
     "name":"Grant Gupton",
     "type":"student",
-    "schedule":{
-      "flex room":"Steve Msarsa",
-      "mon":"Steve Msarsa",
-      "tue":"Steve Msarsa",
-      "wed":"Steve Msarsa",
-      "thu":"Steve Msarsa",
-      "fri":"Steve Msarsa"
-    }
+    "flex room":"Steve Msarsa",
+    "schedule":
+      [ {"day":"Monday", "teacher":"Steve Msarsa"},
+      {"day":"Tuesday", "teacher":"Steve Msarsa"},
+      {"day":"Wednesday", "teacher":"Steve Msarsa"},
+      {"day":"Thursday", "teacher":"Steve Msarsa"},
+      {"day":"Friday", "teacher":"Steve Msarsa"}]
   },
 
   "martinj1@franklinacademy.org": {
     "name":"Jordan Martin",
     "type":"student",
-    "schedule":{
-      "flex room":"Thomas Styslinger",
-      "mon":"Thomas Styslinger",
-      "tue":"Thomas Styslinger",
-      "wed":"UNDECIDED",
-      "thu":"Thomas Styslinger",
-      "fri":"UNDECIDED"
-    }
+    "flex room":"Thomas Styslinger",
+    "schedule":
+      [ {"day":"Monday", "teacher":"Tom Styslinger"},
+      {"day":"Tuesday", "teacher":"Tom Styslinger"},
+      {"day":"Wednesday", "teacher":"Tom Styslinger"},
+      {"day":"Thursday", "teacher":"Tom Styslinger"},
+      {"day":"Friday", "teacher":"Tom Styslinger"}]
   },
 
   "styslingert@franklinacademy.org": {
-    "name":"Thomas Styslinger",
+    "name":"Tom Styslinger",
     "type":"teacher",
     "room":223,
-    "schedule":{
-      "mon":true,
-      "tue":true,
-      "wed":false,
-      "thu":true,
-      "fri":false
-    },
-    "students":[
-      ["Jordan Martin", "Matthew Schnegelberger"],
-      ["Jordan Martin", "Matthew Schnegelberger", "Michael Eaddy"],
-      [],
-      ["Jordan Martin"],
-      []
+    "schedule":[
+      {"day":"Monday", "available":true, "students":["Jordan Martin", "Matthew Schnegelberger"]},
+      {"day":"Tuesday", "available":true, "students":["Jordan Martin", "Matthew Schnegelberger"]},
+      {"day":"Wednesday", "available":false, "students":["Jordan Martin", "Matthew Schnegelberger"]},
+      {"day":"Thursday", "available":true, "students":["Jordan Martin", "Matthew Schnegelberger"]},
+      {"day":"Friday", "available":true, "students":["Jordan Martin", "Matthew Schnegelberger"]}
     ]
-  }
 }

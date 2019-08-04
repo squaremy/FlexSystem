@@ -1,4 +1,6 @@
 
+var isteacher = false;
+
 function readaJSON(path){
 	fetch(path).then(response => response.json()).then(json => {
 			let data2 = json;
@@ -31,16 +33,21 @@ function displayWeek(schedule) {
       cell.style.padding = "2px 2px 2px 2px";
       cell.id = schedule[i]['day'];
       if(j == 1) {
-        var checkbox = document.createElement("INPUT");
-        checkbox.type = "checkbox";
-        checkbox.checked = schedule[i]['checked'];
-        checkbox.value = schedule[i]['day'];
-        if(checkbox.value == "Monday") checkbox.name = 'mon';
-        else if(checkbox.value == "Tuesday") checkbox.name = 'tue';
-        else if(checkbox.value == "Wednesday") checkbox.name = 'wed';
-        else if(checkbox.value == "Thursday") checkbox.name = 'thu';
-        else if(checkbox.value == "Friday") checkbox.name = 'fri';
-        cell.appendChild(checkbox);
+        // var checkbox = document.createElement("INPUT");
+        // checkbox.type = "checkbox";
+        // checkbox.checked = schedule[i]['checked'];
+        // checkbox.value = schedule[i]['day'];
+        // if(checkbox.value == "Monday") checkbox.name = 'mon';
+        // else if(checkbox.value == "Tuesday") checkbox.name = 'tue';
+        // else if(checkbox.value == "Wednesday") checkbox.name = 'wed';
+        // else if(checkbox.value == "Thursday") checkbox.name = 'thu';
+        // else if(checkbox.value == "Friday") checkbox.name = 'fri';
+        // cell.appendChild(checkbox);
+				if(isteacher) {
+					cell.innerHTML = (schedule[i]['available'])? "AVAILABLE":"BLOCKED";
+				} else {
+					cell.innerHTML = schedule[i]['teacher'];
+				}
         // cell.innerHTML = schedule[i]['day'];
       } else {
         cell.innerHTML = schedule[i]['day'];
@@ -83,7 +90,7 @@ function checktype(teacherelist){ //Check if student or teacher
 	teacherlist = teacherelist;
 	var teacherlength = teacherelist['teachers'][0];
 	var count = Object.keys(teacherlength).length;
-	var isteacher = false;
+	isteacher = false;
 	for(var k in teacherlength){ //Gets all teacher emails
 		//console.log(k);
 		var userEntity = {};
