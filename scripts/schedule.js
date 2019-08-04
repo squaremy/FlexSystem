@@ -83,9 +83,12 @@ function checktype(teacherelist){ //Check if student or teacher
 	teacherlist = teacherelist;
 	var teacherlength = teacherelist['teachers'][0];
 	var count = Object.keys(teacherlength).length;
-	console.log(teacherlength.length);
 	for(var a = 0; a < count; a++){
-		console.log(teacherelist['teachers'][0][a]);
+
+		//console.log(teacherelist['teachers'][0][a]);
+	}
+	for(var k in teacherlength){
+		console.log(k);
 	}
 }
 
