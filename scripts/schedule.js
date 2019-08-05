@@ -20,7 +20,6 @@ function readaJSON(path){
 			//console.log(teacherlist);
 		  })
 }
-readaJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/GOAL_CONFIG.json');
 
 function displayWeek(data) {
   var table = document.getElementById("weektable");
@@ -114,6 +113,7 @@ function checktype(teacherelist){ //Check if student or teacher
 		if(userEntity["Email"] == k){
 			console.log(userEntity["Email"] + " is a teacher");
 			isteacher = true;
+			readaJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/GOAL_CONFIG.json');
 		}
 	}
 	if(isteacher==false){
