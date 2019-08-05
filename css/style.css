@@ -124,14 +124,14 @@
 
 #flexdisp {
 	position: absolute;
-	top: 325px;
+	top: 275px;
 	width: 100px;
 	left: 10%;
 }
 
 #visitdisp {
 	position: absolute;
-	top: 325px;
+	top: 275px;
 	width: 100px;
 	right: 10%;
 }
