@@ -4,14 +4,12 @@ var isteacher = false;
 function readaJSON(path){
 	fetch(path).then(response => response.json()).then(json => {
 			let data2 = json['styslingert@franklinacademy.org'];
-			displayWeek(data2['schedule']);
+			displayWeek(data2);
 			if (typeof(data2) === 'undefined'){
 				console.log("No data");
 				return;
 			}
       else if (data2['type'] == 'teacher') {
-				isteacher = true;
-				console.log("isteacher" + isteacher);
         displayStudents(data2['schedule'][0]['students']);
       }
 
@@ -22,18 +20,14 @@ function readaJSON(path){
 }
 readaJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/GOAL_CONFIG.json');
 
-function displayWeek(schedule) {
-  console.log(schedule);
-  console.log(schedule[0]['available']);
-  console.log(schedule[0]['day']);
-  console.log(schedule.length);
+function displayWeek(data) {
   var table = document.getElementById("weektable");
   for(var j = 0; j < 2; j++) {
     var row = table.insertRow(-1);
-    for(var i = 0; i < schedule.length; i++) {
+    for(var i = 0; i < data['schedule'].length; i++) {
       var cell = row.insertCell(-1);
       cell.style.padding = "2px 2px 2px 2px";
-      cell.id = schedule[i]['day'];
+      cell.id = data['schedule'][i]['day'];
       if(j == 1) {
         // var checkbox = document.createElement("INPUT");
         // checkbox.type = "checkbox";
@@ -45,15 +39,15 @@ function displayWeek(schedule) {
         // else if(checkbox.value == "Thursday") checkbox.name = 'thu';
         // else if(checkbox.value == "Friday") checkbox.name = 'fri';
         // cell.appendChild(checkbox);
-				console.log("isteacher" + isteacher);
-				if(isteacher) {
-					cell.innerHTML = (schedule[i]['available'])? "AVAILABLE":"BLOCKED";
+				if(data['type'] == "teacher") {
+					isteacher = true;
+					cell.innerHTML = (data['schedule'][i]['available'])? "AVAILABLE":"BLOCKED";
 				} else {
-					cell.innerHTML = schedule[i]['teacher'];
+					cell.innerHTML = data['schedule'][i]['teacher'];
 				}
         // cell.innerHTML = schedule[i]['day'];
       } else {
-        cell.innerHTML = schedule[i]['day'];
+        cell.innerHTML = data['schedule'][i]['day'];
       }
     }
   }
