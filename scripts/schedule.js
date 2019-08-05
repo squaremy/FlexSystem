@@ -11,6 +11,7 @@ function readaJSON(path){
 			}
       else if (data2['type'] == 'teacher') {
 				isteacher = true;
+				console.log("isteacher" + isteacher);
         displayStudents(data2['schedule'][0]['students']);
       }
 
@@ -44,6 +45,7 @@ function displayWeek(schedule) {
         // else if(checkbox.value == "Thursday") checkbox.name = 'thu';
         // else if(checkbox.value == "Friday") checkbox.name = 'fri';
         // cell.appendChild(checkbox);
+				console.log("isteacher" + isteacher);
 				if(isteacher) {
 					cell.innerHTML = (schedule[i]['available'])? "AVAILABLE":"BLOCKED";
 				} else {
