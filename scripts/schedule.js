@@ -10,6 +10,7 @@ function readaJSON(path){
 				return;
 			}
       else if (data2['type'] == 'teacher') {
+				isteacher = true;
         displayStudents(data2['schedule'][0]['students']);
       }
 
@@ -22,7 +23,7 @@ readaJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/
 
 function displayWeek(schedule) {
   console.log(schedule);
-  console.log(schedule[0]['checked']);
+  console.log(schedule[0]['available']);
   console.log(schedule[0]['day']);
   console.log(schedule.length);
   var table = document.getElementById("weektable");
