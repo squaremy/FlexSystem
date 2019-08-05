@@ -34,4 +34,5 @@
       {"day":"Thursday", "available":true, "students":["Jordan Martin", "Matthew Schnegelberger"]},
       {"day":"Friday", "available":true, "students":["Jordan Martin", "Matthew Schnegelberger"]}
     ]
+  }
 }
