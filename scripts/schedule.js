@@ -74,7 +74,7 @@ function displayStudents(data) {
 	var visittable = document.getElementById("visitingstudents");
 	var students = data['schedule'][0]['flexstudents'];
 	for(var i = 0; i < students.length; i++){
-		var row = table.insertRow(-1);
+		var row = flextable.insertRow(-1);
 		var cell = row.insertCell(-1);
 		cell.style.padding = "5px 5px 5px 5px";
 		cell.id = students[i];
@@ -85,7 +85,7 @@ function displayStudents(data) {
 	}
 	var visit = data['schedule'][0]['visitingstudents'];
 	for(var i = 0; i < visit.length; i++) {
-		var row = table.insertRow(-1);
+		var row = visittable.insertRow(-1);
 		var cell = row.insertCell(-1);
 		cell.style.padding = "5px 5px 5px 5px";
 		cell.id = visit[i];
