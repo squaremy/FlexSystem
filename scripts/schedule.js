@@ -12,7 +12,7 @@ function readaJSON(path){
 				return;
 			}
       else if (data2['type'] == 'teacher') {
-        displayStudents(data2['schedule'][0]['students']);
+        displayStudents(data2);
       }
 
 			//console.log(data);
@@ -69,8 +69,10 @@ function read2JSON(path){
 		  })
 }
 
-function displayStudents(students) {
-  var table = document.getElementById("studenttable");
+function displayStudents(data) {
+  var flextable = document.getElementById("flexstudents");
+	var visittable = document.getElementById("visitingstudents");
+	var students = data['schedule'][0]['flexstudents'];
 	for(var i = 0; i < students.length; i++){
 		var row = table.insertRow(-1);
 		var cell = row.insertCell(-1);
@@ -80,6 +82,17 @@ function displayStudents(students) {
 			cell.style.width = "20%";
 			cell.style.display = "none";
 		} else cell.innerHTML = students[i];
+	}
+	var visit = data['schedule'][0]['visitingstudents'];
+	for(var i = 0; i < visit.length; i++) {
+		var row = table.insertRow(-1);
+		var cell = row.insertCell(-1);
+		cell.style.padding = "5px 5px 5px 5px";
+		cell.id = visit[i];
+		if(visit[i] == null) {
+			cell.style.width = "20%";
+			cell.style.display = "none";
+		} else cell.innerHTML = visit[i];
 	}
 }
 

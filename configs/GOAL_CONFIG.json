@@ -28,11 +28,36 @@
     "type":"teacher",
     "room":223,
     "schedule":[
-      {"day":"Monday", "available":true, "students":["Jordan Martin", "Matthew Schnegelberger"]},
-      {"day":"Tuesday", "available":true, "students":["Jordan Martin", "Matthew Schnegelberger"]},
-      {"day":"Wednesday", "available":false, "students":["NONE"]},
-      {"day":"Thursday", "available":true, "students":["Jordan Martin", "Matthew Schnegelberger"]},
-      {"day":"Friday", "available":true, "students":["Jordan Martin", "Matthew Schnegelberger"]}
+      {
+        "day":"Monday",
+        "available":true,
+        "flexstudents":["Jordan Martin", "Matthew Schnegelberger"],
+        "visitingstudents":["NONE"]
+      },
+      {
+        "day":"Tuesday",
+        "available":true,
+        "students":["Jordan Martin", "Matthew Schnegelberger"],
+        "visitingstudents":["NONE"]
+      },
+      {
+        "day":"Wednesday",
+        "available":false,
+        "students":["NONE"],
+        "visitingstudents":["NONE"]
+      },
+      {
+        "day":"Thursday",
+        "available":true,
+        "students":["Jordan Martin", "Matthew Schnegelberger"],
+        "visitingstudents":["NONE"]
+      },
+      {
+        "day":"Friday",
+        "available":true,
+        "students":["Jordan Martin", "Matthew Schnegelberger"],
+        "visitingstudents":["NONE"]
+      }
     ]
   }
 }

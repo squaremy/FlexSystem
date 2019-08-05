@@ -17,10 +17,20 @@
 	border-color: black;
 }
 
-#studenttable {
+#flexstudents {
 	position: absolute;
-	top: 40%;
+	top: 500px;
 	left: 10%;
+	width: 170px;
+	border: 5px;
+	border-width: 5px;
+	border-color: black;
+}
+
+#visitingstudents {
+	position: absolute;
+	top: 500px;
+	right: 10%;
 	width: 170px;
 	border: 5px;
 	border-width: 5px;
