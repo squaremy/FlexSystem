@@ -59,5 +59,43 @@
         "visitingstudents":["NONE"]
       }
     ]
+  },
+
+  "abeach2010@gmail.com": {
+    "name":"Grant Gupton",
+    "type":"teacher",
+    "room":1000,
+    "schedule":[
+      {
+        "day":"Monday",
+        "available":true,
+        "flexstudents":["NONE"],
+        "visitingstudents":["NONE"]
+      },
+      {
+        "day":"Tuesday",
+        "available":true,
+        "students":["Jordan Martin", "Matthew Schnegelberger"],
+        "visitingstudents":["NONE"]
+      },
+      {
+        "day":"Wednesday",
+        "available":false,
+        "students":["NONE"],
+        "visitingstudents":["NONE"]
+      },
+      {
+        "day":"Thursday",
+        "available":true,
+        "students":["Jordan Martin", "Matthew Schnegelberger"],
+        "visitingstudents":["NONE"]
+      },
+      {
+        "day":"Friday",
+        "available":true,
+        "students":["Jordan Martin", "Matthew Schnegelberger"],
+        "visitingstudents":["NONE"]
+      }
+    ]
   }
 }
