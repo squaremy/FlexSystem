@@ -113,12 +113,15 @@ function checktype(teacherelist){ //Check if student or teacher
 		if(userEntity["Email"] == k){
 			console.log(userEntity["Email"] + " is a teacher");
 			isteacher = true;
-			readaJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/GOAL_CONFIG.json');
-		}
+			}
 	}
 	if(isteacher==false){
 		console.log(userEntity["Email"] + " is a student");
 	}
+	if(isteacher==true){
+		readaJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/GOAL_CONFIG.json');
+	}
+
 	var name = document.getElementById("searchtxt");
 	name.innerHTML = userEntity["Name"];
 }
