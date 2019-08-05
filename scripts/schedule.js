@@ -119,9 +119,9 @@ function checktype(teacherelist){ //Check if student or teacher
 		console.log(userEntity["Email"] + " is a student");
 		//displayStudentWeek();
 	}
-	if(isteacher==true){
+	//if(isteacher==true){
 		readaJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/GOAL_CONFIG.json',userEntity["Email"]);
-	}
+	//}
 
 	var name = document.getElementById("searchtxt");
 	name.innerHTML = userEntity["Name"];
