@@ -31,10 +31,10 @@
 	position:absolute;
 	display: block;
 	top:30%;
-	left: calc(50% - 162px);
+	left: calc(50% - 240px);
 	border:5px;
 	border-width: 5px;
-	width: 325px;
+	width: 480px;
 	border-color: black;
 	font-weight: bold;
 }

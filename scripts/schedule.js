@@ -4,6 +4,8 @@ var isteacher = false;
 function readaJSON(path){
 	fetch(path).then(response => response.json()).then(json => {
 			let data2 = json['styslingert@franklinacademy.org'];
+			var name = document.getElementById("searchtxt");
+			name.innerHTML = data2['name'];
 			displayWeek(data2);
 			if (typeof(data2) === 'undefined'){
 				console.log("No data");
