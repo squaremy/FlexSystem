@@ -10,7 +10,7 @@ function readaJSON(path){
 				return;
 			}
       else if (data2['type'] == 'teacher') {
-        displayStudents(data2['schedule']['students']);
+        displayStudents(data2['schedule'][0]['students']);
       }
 
 			//console.log(data);
