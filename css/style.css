@@ -19,22 +19,14 @@
 
 #flexstudents {
 	position: absolute;
-	top: 350px;
-	left: 10%;
-	width: 170px;
-	border: 5px;
-	border-width: 5px;
-	border-color: black;
+	top: 10%;
+	width: 100%;
 }
 
 #visitingstudents {
 	position: absolute;
-	top: 350px;
-	right: 10%;
-	width: 170px;
-	border: 5px;
-	border-width: 5px;
-	border-color: black;
+	top: 10%;
+	width: 100%;
 }
 
 #weektable {
@@ -122,18 +114,36 @@
 	left:calc(50% - 150px);
 }
 
-#flexdisp {
+#myflex {
 	position: absolute;
 	top: 275px;
-	width: 100px;
+	width: 170px;
 	left: 10%;
+	border: 5px;
+	border-width: 5px;
+	border-color: black;
+}
+
+#visit {
+	position: absolute;
+	top: 275px;
+	width: 170px;
+	right: 10%;
+	border: 5px;
+	border-width: 5px;
+	border-color: black;
+}
+
+#flexdisp {
+	position: absolute;
+	top: 0%;
+	width: 100%;
 }
 
 #visitdisp {
 	position: absolute;
-	top: 275px;
-	width: 100px;
-	right: 10%;
+	top: 0%;
+	width: 100%;
 }
 
 .topnav {
