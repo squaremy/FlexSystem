@@ -90,6 +90,7 @@ function displayStudents(data) {
 			} else if(j == 0) {
 				var checkbox = document.createElement("INPUT");
 				checkbox.name = students[i];
+				checkbox.type = "checkbox";
 				cell.appendChild(checkbox);
 			} else {
 				cell.innerHTML = "GOING TO";
