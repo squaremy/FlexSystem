@@ -21,6 +21,8 @@ function readaJSON(path, useremail){
 		  })
 }
 
+readaJSON("https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/GOAL_CONFIG.json", "styslingert@franklinacademy.org");
+
 function displayWeek(data) {
   var table = document.getElementById("weektable");
   for(var j = 0; j < 2; j++) {
