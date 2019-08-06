@@ -100,13 +100,22 @@ function displayStudents(data) {
 	var visit = data['schedule'][0]['visitingstudents'];
 	for(var i = 0; i < visit.length; i++) {
 		var row = visittable.insertRow(-1);
-		var cell = row.insertCell(-1);
-		cell.style.padding = "5px 5px 5px 5px";
-		cell.id = visit[i];
-		if(visit[i] == null) {
-			cell.style.width = "20%";
-			cell.style.display = "none";
-		} else cell.innerHTML = visit[i];
+		for(var j = 0; j < 3; j++) {
+			var cell = row.insertCell(-1);
+			cell.style.padding = "5px 5px 5px 5px";
+			cell.id = visit[i];
+			if(visit[i] == null) {
+				cell.style.width = "20%";
+				cell.style.display = "none";
+			} else {
+				if(j == 1) cell.innerHTML = visit[i];
+				else if(j == 0) {
+					var checkbox = document.createElement("INPUT");
+					checkbox.type = "checkbox";
+					checkbox.name = visit[i];
+				} else cell.innerHTML = "COMING FROM";
+			}
+		}
 	}
 	var flexdisp = document.getElementById("flexdisp");
 	flexdisp.innerHTML = "My Students";
