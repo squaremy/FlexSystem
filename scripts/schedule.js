@@ -113,6 +113,7 @@ function displayStudents(data) {
 					var checkbox = document.createElement("INPUT");
 					checkbox.type = "checkbox";
 					checkbox.name = visit[i];
+					cell.appendChild(checkbox);
 				} else cell.innerHTML = "COMING FROM";
 			}
 		}
