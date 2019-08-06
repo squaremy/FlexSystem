@@ -21,7 +21,9 @@ function readaJSON(path, useremail){
 		  })
 }
 
+// TEST CODE
 readaJSON("https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/GOAL_CONFIG.json", "styslingert@franklinacademy.org");
+// TEST CODE
 
 function displayWeek(data) {
   var table = document.getElementById("weektable");
@@ -76,13 +78,23 @@ function displayStudents(data) {
 	var students = data['schedule'][0]['flexstudents'];
 	for(var i = 0; i < students.length; i++){
 		var row = flextable.insertRow(-1);
-		var cell = row.insertCell(-1);
-		cell.style.padding = "5px 5px 5px 5px";
-		cell.id = students[i];
-		if(students[i] == null) {
-			cell.style.width = "20%";
-			cell.style.display = "none";
-		} else cell.innerHTML = students[i];
+		for(var j = 0; j < 3; j++) {}
+			var cell = row.insertCell(-1);
+			if(j == 1) {
+				cell.style.padding = "5px 5px 5px 5px";
+				cell.id = students[i];
+				if(students[i] == null) {
+					cell.style.width = "20%";
+					cell.style.display = "none";
+				} else cell.innerHTML = students[i];
+			} else if(j == 0) {
+				var checkbox = document.createElement("INPUT");
+				checkbox.name = students[i];
+				cell.appendChild(checkbox);
+			} else {
+				cell.innerHTML = "GOING TO";
+			}
+		}
 	}
 	var visit = data['schedule'][0]['visitingstudents'];
 	for(var i = 0; i < visit.length; i++) {
@@ -130,3 +142,7 @@ function checktype(teacherelist){ //Check if student or teacher
 }
 
 // read2JSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/teacherlist.json');
+
+function swapAvailability(){
+
+}
