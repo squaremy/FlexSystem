@@ -78,7 +78,7 @@ function displayStudents(data) {
 	var students = data['schedule'][0]['flexstudents'];
 	for(var i = 0; i < students.length; i++){
 		var row = flextable.insertRow(-1);
-		for(var j = 0; j < 3; j++) {}
+		for(var j = 0; j < 3; j++) {
 			var cell = row.insertCell(-1);
 			if(j == 1) {
 				cell.style.padding = "5px 5px 5px 5px";
