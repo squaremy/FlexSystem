@@ -124,16 +124,18 @@
 
 #flexdisp {
 	position: absolute;
+	text-align: center;
 	top: 275px;
-	width: 100px;
-	left: 10%;
+	width: 60px;
+	left: 17%;
 }
 
 #visitdisp {
 	position: absolute;
+	text-align: center;
 	top: 275px;
-	width: 100px;
-	right: 10%;
+	width: 56px;
+	right: 18%;
 }
 
 .topnav {
