@@ -19,6 +19,7 @@
 
 #flexstudents {
 	position: absolute;
+	display: block;
 	top: 275px;
 	left: 10%;
 	width: 170px;
