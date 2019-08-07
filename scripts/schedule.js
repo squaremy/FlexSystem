@@ -22,7 +22,7 @@ function readaJSON(path, useremail){
 }
 
 // TEST CODE
-// readaJSON("https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/GOAL_CONFIG.json", "styslingert@franklinacademy.org");
+readaJSON("https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/GOAL_CONFIG.json", "styslingert@franklinacademy.org");
 // TEST CODE
 
 function displayWeek(data) {
@@ -152,7 +152,7 @@ function checktype(teacherelist){ //Check if student or teacher
 	name.innerHTML = userEntity["Name"];
 }
 
-read2JSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/teacherlist.json');
+// read2JSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/teacherlist.json');
 
 function swapAvailability(){
 
