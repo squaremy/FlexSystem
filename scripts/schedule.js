@@ -138,10 +138,6 @@ function displayStudents(data) {
 			}
 		}
 	}
-	var flexdisp = document.getElementById("flexdisp");
-	flexdisp.innerHTML = "My Students";
-	var visitdisp = document.getElementById("visitdisp");
-	visitdisp.innerHTML = "Visiting Students";
 }
 
 var teacherlist = [];

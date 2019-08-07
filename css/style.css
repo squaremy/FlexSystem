@@ -19,7 +19,7 @@
 
 #flexstudents {
 	position: absolute;
-	top: 350px;
+	top: 275px;
 	left: 10%;
 	width: 170px;
 	border: 5px;
@@ -29,7 +29,7 @@
 
 #visitingstudents {
 	position: absolute;
-	top: 350px;
+	top: 275px;
 	right: 10%;
 	width: 170px;
 	border: 5px;
@@ -120,22 +120,6 @@
 	top:40%;
 	width: 300px;
 	left:calc(50% - 150px);
-}
-
-#flexdisp {
-	position: absolute;
-	text-align: center;
-	top: 275px;
-	width: 60px;
-	left: 17%;
-}
-
-#visitdisp {
-	position: absolute;
-	text-align: center;
-	top: 275px;
-	width: 56px;
-	right: 18%;
 }
 
 .topnav {
