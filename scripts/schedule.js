@@ -76,45 +76,65 @@ function displayStudents(data) {
   var flextable = document.getElementById("flexstudents");
 	var visittable = document.getElementById("visitingstudents");
 	var students = data['schedule'][0]['flexstudents'];
-	for(var i = 0; i < students.length; i++){
+	for(var i = -1; i < students.length; i++){
 		var row = flextable.insertRow(-1);
 		for(var j = 0; j < 3; j++) {
 			var cell = row.insertCell(-1);
-			if(j == 1) {
-				cell.style.padding = "5px 5px 5px 5px";
-				cell.id = students[i];
-				if(students[i] == null) {
-					cell.style.width = "20%";
-					cell.style.display = "none";
-				} else cell.innerHTML = students[i];
-			} else if(j == 0) {
-				var checkbox = document.createElement("INPUT");
-				checkbox.name = students[i];
-				checkbox.type = "checkbox";
-				cell.appendChild(checkbox);
+			if(i > -1) {
+				if(j == 1) {
+					cell.style.padding = "5px 5px 5px 5px";
+					cell.id = students[i];
+					if(students[i] == null) {
+						cell.style.width = "20%";
+						cell.style.display = "none";
+					} else cell.innerHTML = students[i];
+				} else if(j == 0) {
+					var checkbox = document.createElement("INPUT");
+					checkbox.name = students[i];
+					checkbox.type = "checkbox";
+					cell.appendChild(checkbox);
+				} else {
+					cell.innerHTML = "GOING TO";
+				}
 			} else {
-				cell.innerHTML = "GOING TO";
+				if(j == 0) {
+					cell.innerHTML = "Kick?";
+				} else if(j == 1) {
+					cell.innerHTML = "My Students";
+				} else {
+					cell.innerHTML = "Going To";
+				}
 			}
 		}
 	}
 	var visit = data['schedule'][0]['visitingstudents'];
-	for(var i = 0; i < visit.length; i++) {
+	for(var i = -1; i < visit.length; i++) {
 		var row = visittable.insertRow(-1);
 		for(var j = 0; j < 3; j++) {
 			var cell = row.insertCell(-1);
 			cell.style.padding = "5px 5px 5px 5px";
 			cell.id = visit[i];
-			if(visit[i] == null) {
-				cell.style.width = "20%";
-				cell.style.display = "none";
+			if(i > -1) {
+				if(visit[i] == null) {
+					cell.style.width = "20%";
+					cell.style.display = "none";
+				} else {
+					if(j == 1) cell.innerHTML = visit[i];
+					else if(j == 0) {
+						var checkbox = document.createElement("INPUT");
+						checkbox.type = "checkbox";
+						checkbox.name = visit[i];
+						cell.appendChild(checkbox);
+					} else cell.innerHTML = "COMING FROM";
+				}
 			} else {
-				if(j == 1) cell.innerHTML = visit[i];
-				else if(j == 0) {
-					var checkbox = document.createElement("INPUT");
-					checkbox.type = "checkbox";
-					checkbox.name = visit[i];
-					cell.appendChild(checkbox);
-				} else cell.innerHTML = "COMING FROM";
+				if(j == 0) {
+					cell.innerHTML = "Kick?";
+				} else if(j == 1) {
+					cell.innerHTML = "Visiting Students";
+				} else {
+					cell.innerHTML = "Coming From";
+				}
 			}
 		}
 	}
