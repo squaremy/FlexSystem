@@ -81,6 +81,7 @@ function displayStudents(data) {
 		for(var j = 0; j < 3; j++) {
 			var cell = row.insertCell(-1);
 			if(i > -1) {
+				flextable.style.border = "1";
 				if(j == 1) {
 					cell.style.padding = "5px 5px 5px 5px";
 					cell.id = students[i];
@@ -115,6 +116,7 @@ function displayStudents(data) {
 			cell.style.padding = "5px 5px 5px 5px";
 			cell.id = visit[i];
 			if(i > -1) {
+				visittable.style.border = "1";
 				if(visit[i] == null) {
 					cell.style.width = "20%";
 					cell.style.display = "none";
