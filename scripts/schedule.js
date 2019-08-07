@@ -81,7 +81,7 @@ function displayStudents(data) {
 		for(var j = 0; j < 3; j++) {
 			var cell = row.insertCell(-1);
 			if(i > -1) {
-				flextable.display = "table";
+				flextable.style.display = "table";
 				if(j == 1) {
 					cell.style.padding = "5px 5px 5px 5px";
 					cell.id = students[i];
@@ -98,7 +98,7 @@ function displayStudents(data) {
 					cell.innerHTML = "GOING TO";
 				}
 			} else {
-				flextable.display = "block";
+				flextable.style.display = "block";
 				if(j == 0) {
 					cell.innerHTML = "Kick?";
 				} else if(j == 1) {
@@ -117,7 +117,7 @@ function displayStudents(data) {
 			cell.style.padding = "5px 5px 5px 5px";
 			cell.id = visit[i];
 			if(i > -1) {
-				visittable.display = "table";
+				visittable.style.display = "table";
 				if(visit[i] == null) {
 					cell.style.width = "20%";
 					cell.style.display = "none";
@@ -131,7 +131,7 @@ function displayStudents(data) {
 					} else cell.innerHTML = "COMING FROM";
 				}
 			} else {
-				visittable.display = "block";
+				visittable.style.display = "block";
 				if(j == 0) {
 					cell.innerHTML = "Kick?";
 				} else if(j == 1) {
