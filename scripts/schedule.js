@@ -109,6 +109,7 @@ function displayStudents(data) {
 			}
 		}
 	}
+	flextable.style.display = "block";
 	var visit = data['schedule'][0]['visitingstudents'];
 	for(var i = -1; i < visit.length; i++) {
 		var row = visittable.insertRow(-1);
