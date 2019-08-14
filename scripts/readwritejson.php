@@ -20,11 +20,23 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET')
 }
 */
 
+$myFile = "sampleFile.txt";
+$fh = fopen($myFile, 'r');
+$myFileContents = fread($fh, 1000);
+fclose($fh);
+
 $myFile2 = "sampleFile.txt";
-$myFileLink2 = fopen($myFile2, 'a') or die("Can't open file."); //w+ to overwrite, a to append
-$newContents = "You wrote on me...";
+$myFileLink2 = fopen($myFile2, 'w+') or die("Can't open file."); //w+ to overwrite, a to append
+
+if($myFileContents == "abc"){
+  $newstuff = "123";
+}else{
+  $newstuff = "abc";
+}
+$newContents = $newstuff;
 fwrite($myFileLink2, $newContents);
 fclose($myFileLink2);
+
 
 $myFile = "sampleFile.txt";
 $fh = fopen($myFile, 'r');
