@@ -1,6 +1,6 @@
 <?php
 // This PHP script must be in "SOME_PATH/jsonFile/index.php"
-$file = '..configs/temp.json';
+$file = '/..configs/temp.json';
 if($_SERVER['REQUEST_METHOD'] === 'POST')
 // or if(!empty($_POST))
 {
