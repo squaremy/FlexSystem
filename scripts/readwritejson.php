@@ -1,11 +1,6 @@
 <?php
-//Reads file successfully!
-/*
-
 // This PHP script must be in "SOME_PATH/jsonFile/index.php"
-
 $file = 'temp.json';
-
 if($_SERVER['REQUEST_METHOD'] === 'POST')
 // or if(!empty($_POST))
 {
@@ -19,30 +14,4 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET')
     //may be some error handeling if you want
 }
 */
-
-$myFile = "sampleFile.txt";
-$fh = fopen($myFile, 'r');
-$myFileContents = fread($fh, 1000);
-fclose($fh);
-
-$myFile2 = "sampleFile.txt";
-$myFileLink2 = fopen($myFile2, 'w+') or die("Can't open file."); //w+ to overwrite, a to append
-
-if($myFileContents == "abc"){
-  $newstuff = "123";
-}else{
-  $newstuff = "abc";
-}
-$newContents = $newstuff;
-fwrite($myFileLink2, $newContents);
-fclose($myFileLink2);
-
-
-$myFile = "sampleFile.txt";
-$fh = fopen($myFile, 'r');
-$myFileContents = fread($fh, 1000);
-
-echo $myFileContents;
-
-fclose($fh);
 ?>
