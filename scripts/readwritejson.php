@@ -13,5 +13,4 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET')
     echo file_get_contents($file);
     //may be some error handeling if you want
 }
-*/
 ?>
