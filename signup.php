@@ -15,7 +15,7 @@
 	</div>
 	<div id="signupmenu">
 		<p id="searchtxt"><?php echo $_GET["name"]; ?></p>
-		<div id="weektable">
+		<!-- <div id="weektable"> -->
 			<table id="weektable">
 			  <tr>
 				<th width="15%">Monday</th>
@@ -32,7 +32,7 @@
 				<td><input type="checkbox" name="fri" value="Friday"></td>
 			  </tr>
 			</table>
-		</div>
+		<!-- </div> -->
 		<input id="confirmsignup" type="button" text="Sign Up" onclick="confirmsignup"></input>
 	</div>
 </body>
