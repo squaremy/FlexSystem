@@ -119,8 +119,8 @@
       {
         "day":"Wednesday",
         "available":false,
-        "students":["NONE"],
-        "visitingstudents":["NONE"]
+        "students":["Jocelyn Martin"],
+        "visitingstudents":["Jonathan Barnes"]
       },
       {
         "day":"Thursday",
