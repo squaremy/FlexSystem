@@ -214,6 +214,6 @@ function confirmsignup() {
 	  if(fri.checked) {
 			myDat['schedule'][4]['teacher'] = document.getElementById("searchtxt").innerHTML;
 	  }
+		window.location.href = 'schedule.html';
 	}
-	window.location.href = 'schedule.html';
 }
