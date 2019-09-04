@@ -187,13 +187,12 @@ function swapAvailability(){
 }
 
 function confirmsignup() {
-  var mon = document.getElementById("monchk");
+	loadData('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/GOAL_CONFIG.json', JSON.parse(sessionStorage.getItem('myUserEntity'))['Email']);
+	var mon = document.getElementById("monchk");
   var tue = document.getElementById("tuechk");
   var wed = document.getElementById("wedchk");
   var thu = document.getElementById("thuchk");
   var fri = document.getElementById("frichk");
-
-	loadData('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/teacherlist.json');
 
 	if(myDat['type'] == "student") {
 	  if(mon.checked) {
