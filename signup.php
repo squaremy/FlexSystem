@@ -33,7 +33,7 @@
 			  </tr>
 			</table>
 		<!-- </div> -->
-		<button id="confirmsignup" type="button" onclick="confirmsignup">Sign Up</button>
+		<button id="confirmsignup" type="button" onclick="confirmsignup()">Sign Up</button>
 	</div>
 </body>
 <script type="text/javascript" src="scripts/signup.js"></script>
