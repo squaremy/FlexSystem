@@ -37,25 +37,25 @@
       {
         "day":"Tuesday",
         "available":true,
-        "students":["Jordan Martin", "Matthew Schnegelberger"],
+        "flexstudents":["Jordan Martin", "Matthew Schnegelberger"],
         "visitingstudents":["NONE"]
       },
       {
         "day":"Wednesday",
         "available":false,
-        "students":["NONE"],
+        "flexstudents":["NONE"],
         "visitingstudents":["NONE"]
       },
       {
         "day":"Thursday",
         "available":true,
-        "students":["Jordan Martin", "Matthew Schnegelberger"],
+        "flexstudents":["Jordan Martin", "Matthew Schnegelberger"],
         "visitingstudents":["NONE"]
       },
       {
         "day":"Friday",
         "available":true,
-        "students":["Jordan Martin", "Matthew Schnegelberger"],
+        "flexstudents":["Jordan Martin", "Matthew Schnegelberger"],
         "visitingstudents":["NONE"]
       }
     ]
@@ -75,25 +75,25 @@
       {
         "day":"Tuesday",
         "available":true,
-        "students":["Jordan Martin", "Matthew Schnegelberger"],
+        "flexstudents":["Jordan Martin", "Matthew Schnegelberger"],
         "visitingstudents":["NONE"]
       },
       {
         "day":"Wednesday",
         "available":false,
-        "students":["NONE"],
+        "flexstudents":["NONE"],
         "visitingstudents":["NONE"]
       },
       {
         "day":"Thursday",
         "available":true,
-        "students":["Jordan Martin", "Matthew Schnegelberger"],
+        "flexstudents":["Jordan Martin", "Matthew Schnegelberger"],
         "visitingstudents":["NONE"]
       },
       {
         "day":"Friday",
         "available":true,
-        "students":["Jordan Martin", "Matthew Schnegelberger"],
+        "flexstudents":["Jordan Martin", "Matthew Schnegelberger"],
         "visitingstudents":["NONE"]
       }
     ]
@@ -113,25 +113,25 @@
       {
         "day":"Tuesday",
         "available":true,
-        "students":["Jordan Martin", "Matthew Schnegelberger"],
+        "flexstudents":["Jordan Martin", "Matthew Schnegelberger"],
         "visitingstudents":["NONE"]
       },
       {
         "day":"Wednesday",
         "available":false,
-        "students":["Jocelyn Martin"],
+        "flexstudents":["Jocelyn Martin"],
         "visitingstudents":["Jonathan Barnes"]
       },
       {
         "day":"Thursday",
         "available":true,
-        "students":["Jordan Martin", "Matthew Schnegelberger"],
+        "flexstudents":["Jordan Martin", "Matthew Schnegelberger"],
         "visitingstudents":["NONE"]
       },
       {
         "day":"Friday",
         "available":true,
-        "students":["Jordan Martin", "Matthew Schnegelberger"],
+        "flexstudents":["Jordan Martin", "Matthew Schnegelberger"],
         "visitingstudents":["NONE"]
       }
     ]
