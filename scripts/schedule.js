@@ -1,9 +1,11 @@
 
 var isteacher = false;
+var myDat;
 
 function readaJSON(path, useremail){
 	fetch(path).then(response => response.json()).then(json => {
 			let data2 = json[useremail];
+			myDat = data2;
 			var name = document.getElementById("searchtxt");
 			name.innerHTML = data2['name'];
 			displayWeek(data2);
@@ -170,8 +172,36 @@ function checktype(teacherelist){ //Check if student or teacher
 	name.innerHTML = userEntity["Name"];
 }
 
- read2JSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/teacherlist.json');
+function loadUser() {
+	read2JSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/teacherlist.json');
+}
 
 function swapAvailability(){
 
+}
+
+function confirmsignup() {
+  var mon = document.getElementById("monchk");
+  var tue = document.getElementById("tuechk");
+  var wed = document.getElementById("wedchk");
+  var thu = document.getElementById("thuchk");
+  var fri = document.getElementById("frichk");
+
+  if(mon.checked) {
+		myDat['schedule'][0]['teacher'] = document.getElementById("searchtxt").innerHTML;
+  }
+  if(tue.checked) {
+		myDat['schedule'][1]['teacher'] = document.getElementById("searchtxt").innerHTML;
+  }
+  if(wed.checked) {
+		myDat['schedule'][2]['teacher'] = document.getElementById("searchtxt").innerHTML;
+  }
+  if(thu.checked) {
+		myDat['schedule'][3]['teacher'] = document.getElementById("searchtxt").innerHTML;
+  }
+  if(fri.checked) {
+		myDat['schedule'][4]['teacher'] = document.getElementById("searchtxt").innerHTML;
+  }
+
+	window.location.href = 'schedule.html';
 }

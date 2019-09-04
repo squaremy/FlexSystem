@@ -25,17 +25,17 @@
 				<th width="15%">Friday</th>
 			  </tr>
 			  <tr>
-				<td><input type="checkbox" name="mon" value="Monday"></td>
-				<td><input type="checkbox" name="tue" value="Tuesday"></td>
-				<td><input type="checkbox" name="wed" value="Wednesday"></td>
-				<td><input type="checkbox" name="thu" value="Thursday"></td>
-				<td><input type="checkbox" name="fri" value="Friday"></td>
+				<td><input type="checkbox" id="monchk" name="mon" value="Monday"></td>
+				<td><input type="checkbox" id="tuechk" name="tue" value="Tuesday"></td>
+				<td><input type="checkbox" id="wedchk" name="wed" value="Wednesday"></td>
+				<td><input type="checkbox" id="thuchk" name="thu" value="Thursday"></td>
+				<td><input type="checkbox" id="frichk" name="fri" value="Friday"></td>
 			  </tr>
 			</table>
 		<!-- </div> -->
 		<button id="confirmsignup" type="button" onclick="confirmsignup()">Sign Up</button>
 	</div>
 </body>
-<script type="text/javascript" src="scripts/signup.js"></script>
+<script type="text/javascript" src="scripts/schedule.js"></script>
 <script>(function(a,b,c){if(c in b&&b[c]){var d,e=a.location,f=/^(a|html)$/i;a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)}})(document,window.navigator,"standalone")</script>
 </html>
