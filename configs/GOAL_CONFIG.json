@@ -97,5 +97,43 @@
         "visitingstudents":["NONE"]
       }
     ]
+  },
+
+  "jothma02@gmail.com": {
+    "name":"Jordan Martin",
+    "type":"teacher",
+    "room":2002,
+    "schedule":[
+      {
+        "day":"Monday",
+        "available":true,
+        "flexstudents":["NONE"],
+        "visitingstudents":["NONE"]
+      },
+      {
+        "day":"Tuesday",
+        "available":true,
+        "students":["Jordan Martin", "Matthew Schnegelberger"],
+        "visitingstudents":["NONE"]
+      },
+      {
+        "day":"Wednesday",
+        "available":false,
+        "students":["NONE"],
+        "visitingstudents":["NONE"]
+      },
+      {
+        "day":"Thursday",
+        "available":true,
+        "students":["Jordan Martin", "Matthew Schnegelberger"],
+        "visitingstudents":["NONE"]
+      },
+      {
+        "day":"Friday",
+        "available":true,
+        "students":["Jordan Martin", "Matthew Schnegelberger"],
+        "visitingstudents":["NONE"]
+      }
+    ]
   }
 }

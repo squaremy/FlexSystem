@@ -40,7 +40,7 @@
 #weektable {
 	position:absolute;
 	display: block;
-	top:200px;
+	top:150px;
 	left: calc(50% - 240px);
 	border:5px;
 	border-width: 5px;
@@ -74,6 +74,16 @@
 	right: 250px;
 	top:20px;
 	font-size: 30px;
+	font-family: "Arial";
+	color: white;
+	text-decoration: none;
+}
+
+#confirmsignup {
+	position: absolute;
+	top: 200px;
+	width: 25%;
+	left: calc(50% - 12.5%);
 	font-family: "Arial";
 	color: white;
 	text-decoration: none;
