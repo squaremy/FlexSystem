@@ -6,6 +6,7 @@ function readaJSON(path, useremail){
 	fetch(path).then(response => response.json()).then(json => {
 			let data2 = json[useremail];
 			myDat = data2;
+			console.log(data2);
 			var name = document.getElementById("searchtxt");
 			name.innerHTML = data2['name'];
 			displayWeek(data2);
@@ -13,7 +14,7 @@ function readaJSON(path, useremail){
 				console.log("No data");
 				return;
 			}
-      else if (data2['type'] == 'teacher') {
+      else if (data2['type'] == 'teacher' || isteacher) {
         displayStudents(data2);
       }
 
@@ -164,12 +165,10 @@ function checktype(teacherelist){ //Check if student or teacher
 		console.log(userEntity["Email"] + " is a student");
 		//displayStudentWeek();
 	}
-	//if(isteacher==true){
-		readaJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/GOAL_CONFIG.json',userEntity["Email"]);
-	//}
 
 	var name = document.getElementById("searchtxt");
 	name.innerHTML = userEntity["Name"];
+	readaJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/GOAL_CONFIG.json',userEntity["Email"]);
 }
 
 function loadUser() {
