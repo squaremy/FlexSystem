@@ -187,21 +187,22 @@ function confirmsignup() {
   var thu = document.getElementById("thuchk");
   var fri = document.getElementById("frichk");
 
-  if(mon.checked) {
-		myDat['schedule'][0]['teacher'] = document.getElementById("searchtxt").innerHTML;
-  }
-  if(tue.checked) {
-		myDat['schedule'][1]['teacher'] = document.getElementById("searchtxt").innerHTML;
-  }
-  if(wed.checked) {
-		myDat['schedule'][2]['teacher'] = document.getElementById("searchtxt").innerHTML;
-  }
-  if(thu.checked) {
-		myDat['schedule'][3]['teacher'] = document.getElementById("searchtxt").innerHTML;
-  }
-  if(fri.checked) {
-		myDat['schedule'][4]['teacher'] = document.getElementById("searchtxt").innerHTML;
-  }
-
+	if(myDat['type'] == "student") {
+	  if(mon.checked) {
+			myDat['schedule'][0]['teacher'] = document.getElementById("searchtxt").innerHTML;
+	  }
+	  if(tue.checked) {
+			myDat['schedule'][1]['teacher'] = document.getElementById("searchtxt").innerHTML;
+	  }
+	  if(wed.checked) {
+			myDat['schedule'][2]['teacher'] = document.getElementById("searchtxt").innerHTML;
+	  }
+	  if(thu.checked) {
+			myDat['schedule'][3]['teacher'] = document.getElementById("searchtxt").innerHTML;
+	  }
+	  if(fri.checked) {
+			myDat['schedule'][4]['teacher'] = document.getElementById("searchtxt").innerHTML;
+	  }
+	}
 	window.location.href = 'schedule.html';
 }
