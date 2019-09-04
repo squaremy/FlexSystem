@@ -176,6 +176,12 @@ function loadUser() {
 	read2JSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/teacherlist.json');
 }
 
+function loadData(path, useremail) {
+	fetch(path).then(response => response.json()).then(json => {
+			myDat = json[useremail];
+		  })
+}
+
 function swapAvailability(){
 
 }
@@ -186,6 +192,8 @@ function confirmsignup() {
   var wed = document.getElementById("wedchk");
   var thu = document.getElementById("thuchk");
   var fri = document.getElementById("frichk");
+
+	loadData('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/teacherlist.json');
 
 	if(myDat['type'] == "student") {
 	  if(mon.checked) {
