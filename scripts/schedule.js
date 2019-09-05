@@ -4,7 +4,7 @@ var isteacher = false;
 function readaJSON(path, useremail){
 	fetch(path).then(response => response.json()).then(json => {
 			let data2 = json[useremail];
-			sessionStorage.setItem('myDat', JSON.stringify(data2));
+			sessionStorage.setItem('myDat', data2);
 			console.log(data2);
 			var name = document.getElementById("searchtxt");
 			name.innerHTML = data2['name'];
@@ -179,7 +179,7 @@ function loadUser() {
 
 function loadData(path, useremail) {
 	fetch(path).then(response => response.json()).then(json => {
-			sessionStorage.setItem('myDat', JSON.stringify(json[useremail]));
+			sessionStorage.setItem('myDat', json[useremail]);
 		  })
 }
 
@@ -195,7 +195,7 @@ function confirmsignup() {
   var thu = document.getElementById("thuchk");
   var fri = document.getElementById("frichk");
 
-	var myDat = JSON.parse(sessionStorage.getItem('myDat'));
+	var myDat = sessionStorage.getItem('myDat');
 	if(myDat['type'] == "student") {
 	  if(mon.checked) {
 			$.get("/scripts/readwritejson.php");
