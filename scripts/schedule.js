@@ -198,7 +198,7 @@ function confirmsignup() {
 
 	if(myDat['type'] == "student") {
 	  if(mon.checked) {
-			myDat['schedule'][0]['teacher'] = document.getElementById("searchtxt").innerHTML;
+			$.get("/scripts/readwritejson.php");
 	  }
 	  if(tue.checked) {
 			myDat['schedule'][1]['teacher'] = document.getElementById("searchtxt").innerHTML;
