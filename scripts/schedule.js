@@ -79,10 +79,9 @@ function displayStudents(data) {
   var flextable = document.getElementById("flexstudents");
 	var visittable = document.getElementById("visitingstudents");
 	var d = new Date();
-	var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 	console.log("Day " + d.getDay() + ":" + days[d.getDay()]);
 	if(d.getDay() != 0 && d.getDay() != 6) {
-		var students = data['schedule'][days[d.getDay()]]['flexstudents'];
+		var students = data['schedule'][d.getDay()-1]['flexstudents'];
 		for(var i = -1; i < students.length; i++){
 			var row = flextable.insertRow(-1);
 			for(var j = 0; j < 3; j++) {
@@ -115,7 +114,7 @@ function displayStudents(data) {
 				}
 			}
 		}
-		var visit = data['schedule'][days[d.getDay()]]['visitingstudents'];
+		var visit = data['schedule'][d.getDay()-1]['visitingstudents'];
 		for(var i = -1; i < visit.length; i++) {
 			var row = visittable.insertRow(-1);
 			for(var j = 0; j < 3; j++) {
