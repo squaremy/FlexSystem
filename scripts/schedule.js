@@ -1,10 +1,11 @@
 
 var isteacher = false;
+var myDat;
 
 function readaJSON(path, useremail){
 	fetch(path).then(response => response.json()).then(json => {
 			let data2 = json[useremail];
-			sessionStorage.setItem('myDat', data2);
+			myDat = data2;
 			console.log(data2);
 			var name = document.getElementById("searchtxt");
 			name.innerHTML = data2['name'];
@@ -179,8 +180,8 @@ function loadUser() {
 
 function loadData(path, useremail) {
 	fetch(path).then(response => response.json()).then(json => {
-			sessionStorage.setItem('myDat', json[useremail]);
-			console.log(sessionStorage.getItem('myDat'));
+			myDat = json[useremail];
+			console.log(myDat);
 		  })
 }
 
@@ -196,7 +197,6 @@ function confirmsignup() {
   var thu = document.getElementById("thuchk");
   var fri = document.getElementById("frichk");
 
-	var myDat = sessionStorage.getItem('myDat');
 	if(myDat['type'] == "student") {
 	  if(mon.checked) {
 			$.get("/scripts/readwritejson.php");
