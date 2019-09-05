@@ -34,7 +34,7 @@ function checkIfLoggedIn(){
   }
 }
 
-function localLogout()
+function logout()
 {
   //Don't forget to clear sessionStorage when user logs out
   sessionStorage.clear();

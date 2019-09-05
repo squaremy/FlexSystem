@@ -6,20 +6,6 @@
 		<link rel="apple-touch-icon" href="/faflexappicon.png"/>
 		<meta name="apple-mobile-web-app-capable" content="yes"/>
 		<link rel="icon" href="favicon.ico"/>
-		<meta name="google-signin-client_id" content="483422839968-llldr1bas7hurg44av8h9bh8dpqgtq98.apps.googleusercontent.com">
-		<script src="https://apis.google.com/js/platform.js" async defer></script>
-		<script>
-			function init() {
-				gapi.load('auth2', function() {
-					// blah
-				});
-			}
-			window.onLoadCallback = function(){
-			  gapi.auth2.init({
-			      client_id: '483422839968-llldr1bas7hurg44av8h9bh8dpqgtq98.apps.googleusercontent.com'
-			    });
-			}
-		</script>
 	</head>
 
 	<body>
@@ -38,16 +24,7 @@
 			</table>
 		</div>
 		<script type="text/javascript" src="scripts/schedule.js"></script>
-		<script>
-			loadUser()
-			function logout() {
-				var auth2 = gapi.auth2.getAuthInstance();
-			  auth2.signOut().then(function () {
-			    console.log("User signed out.");
-			  });
-				localLogout();
-			}
-		</script>
+		<script>loadUser()</script>
 		<script type="text/javascript" src="scripts/signin.js"></script>
 	</body>
 <!-- <script>(function(a,b,c){if(c in b&&b[c]){var d,e=a.location,f=/^(a|html)$/i;a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)}})(document,window.navigator,"standalone")</script> -->
