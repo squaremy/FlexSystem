@@ -15,7 +15,7 @@
 		<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
 		<a id="schedulebutton" href="schedule.html" class="disable-select">My Schedule</a>
 	</div>
-	<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+	<div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="askForLogin" data-theme="dark"></div>
   <script>
     function onSignIn(googleUser) {
       // Useful data for your client-side scripts:
