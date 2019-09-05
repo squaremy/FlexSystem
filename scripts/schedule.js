@@ -180,6 +180,7 @@ function loadUser() {
 function loadData(path, useremail) {
 	fetch(path).then(response => response.json()).then(json => {
 			sessionStorage.setItem('myDat', json[useremail]);
+			console.log(sessionStorage.getItem('myDat'));
 		  })
 }
 
