@@ -34,15 +34,10 @@ function checkIfLoggedIn(){
   }
 }
 
-function logout()
+function localLogout()
 {
   //Don't forget to clear sessionStorage when user logs out
   sessionStorage.clear();
-
-  var auth2 = gapi.auth2.getAuthInstance();
-  auth2.signOut().then(function () {
-    console.log("User signed out.");
-  });
 
   if(window.location.href != "signin.html"){
     sessionStorage.setItem('prevPage', JSON.stringify(window.location.href));
