@@ -42,7 +42,7 @@
 		$.get("/scripts/readwritejson.php");
 		return false;
 	}
-	if(gapi.auth2.getAuthInstance().isSignedIn().get()) loadData('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/GOAL_CONFIG.json', JSON.parse(sessionStorage.getItem('myUserEntity'))["Email"]);
+	loadData('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/GOAL_CONFIG.json', JSON.parse(sessionStorage.getItem('myUserEntity'))["Email"]);
 	console.log(JSON.parse(sessionStorage.getItem('myUserEntity'))["Email"]);
 </script>
 </html>
