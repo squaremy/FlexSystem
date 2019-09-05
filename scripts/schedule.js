@@ -178,6 +178,17 @@ function loadUser() {
 	read2JSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/teacherlist.json');
 }
 
+function loadUserDat() {
+	read3JSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/GOAL_CONFIG.json',userEntity["Email"]);
+}
+
+function read3JSON(path, useremail) {
+	fetch(path).then(response => response.json()).then(json => {
+			let data2 = json[useremail];
+			myDat = data2;
+		});
+}
+
 function loadData(path, useremail) {
 	fetch(path).then(response => response.json()).then(json => {
 			myDat = json[useremail];
