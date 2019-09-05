@@ -79,7 +79,6 @@ function displayStudents(data) {
   var flextable = document.getElementById("flexstudents");
 	var visittable = document.getElementById("visitingstudents");
 	var d = new Date();
-	console.log("Day " + d.getDay() + ":" + days[d.getDay()]);
 	if(d.getDay() != 0 && d.getDay() != 6) {
 		var students = data['schedule'][d.getDay()-1]['flexstudents'];
 		for(var i = -1; i < students.length; i++){
