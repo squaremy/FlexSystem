@@ -1,6 +1,6 @@
 <?php
 // This PHP script must be in "SOME_PATH/jsonFile/index.php"
-$file = 'temp.json';
+$file = 'temp2.json';
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     file_put_contents($file, $_POST["jsonTxt"]);
 }
