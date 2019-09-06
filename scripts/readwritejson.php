@@ -10,7 +10,7 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
     $extra = array(
       'name'    => 'test'
     );
-    $array_data[] = array_push($array_data, $extra);
+    $array_data = array_push($array_data, $extra);
     $final_data = json_encode($array_data);
     file_put_contents('temp.json', $final_data);
 }
