@@ -64,8 +64,6 @@
   $connect = mysqli_connect("localhost", "techmeds_FlexSystem", "Tennessee18!", "techmeds_FlexSystem") or die('Connection failed: ' . msqli_connect_error());
   $json = file_get_contents("../configs/teacherlist.json");
   $jsonData = json_decode($json, true);
-  echo $json;
-  echo '<br />';
 
   foreach($jsonData['teachers'] as $i => $object) {
     foreach($jsonData['teachers'][$i] as $key => $data) {
@@ -78,10 +76,10 @@
         flexStudents VARCHAR(65535),
         visitingStudents VARCHAR(65535)
       )";
-      echo $sql;
-      // if(!msqli_query($connect, $sql)) {
-      //   die("Couldn't create table: ", msqli_error($connect));
-      // }
+
+      if(!msqli_query($connect, $sql)) {
+        die("Couldn't create table: ", msqli_error($connect));
+      }
     }
   }
 
