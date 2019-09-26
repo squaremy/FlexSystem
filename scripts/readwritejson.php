@@ -68,11 +68,8 @@
   echo '<br />';
 
   foreach($jsonData['teachers'] as $i => $object) {
-    echo $i;
-    echo $jsonData[$i];
-    foreach($jsonData[$i] as $key => $data) {
+    foreach($jsonData['teachers'][$i] as $key => $data) {
       echo $key;
-      echo $data;
       echo '<br />';
       // $sql = "CREATE TABLE $key (
       //   id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
