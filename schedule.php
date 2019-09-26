@@ -93,7 +93,7 @@
 			$type = $parsedData["type"];
 
 
-			if($type = 'student') {
+			if($type == 'student') {
 				$targetTeacher = $_GET["teacher"];
 				$names = explode(" ", $targetTeacher);
 				$lastName = $names[1];
