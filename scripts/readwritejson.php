@@ -115,5 +115,10 @@
       }
     }
   }
-
+  echo "<br />";
+  if(!mysqli_close($connect)) {
+    die("Couldn't close sql connection: " . mysqli_error($connect));
+  } else {
+    echo "Closed sql connection successfully!";
+  }
  ?>
