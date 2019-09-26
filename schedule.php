@@ -20,7 +20,7 @@
 				return $result;
 			}
 
-			function getTeacherTable($teacherLastName) {
+			function getTeacherTable($teacherLastName, $connect) {
 				$teacherLastName = strtolower($teacherLastName);
 				$query = "SHOW TABLES FROM techmeds_FlexSystem LIKE '$teacherLastName%'";
 				if(!$result = mysqli_query($connect, $query)) {
@@ -37,7 +37,7 @@
 				$roomNames = explode(" ", $room);
 				$roomLastName = strtolower($roomNames[1]);
 				if($teacherLastName != $roomLastName) {
-					$teacherTable = getTeacherTable($teacherLastName);
+					$teacherTable = getTeacherTable($teacherLastName, $connect);
 					$query = "SELECT visitingStudents FROM `$teacherTable` WHERE day='$desiredDay'";
 					if(!$tableDataRaw = mysqli_query($connect, $query)) {
 						echo "Query failed: " . mysqli_error($connect);
@@ -83,7 +83,7 @@
 				$goingFri = filter_var($_GET["fri"], FILTER_VALIDATE_BOOLEAN);
 
 				if($goingMon == true) {
-					$teacherTable = getTeacherTable($lastName);
+					$teacherTable = getTeacherTable($lastName, $connect);
 					if(teacherIsAvailable($teacherTable, 'Monday', $connect)) {
 						$query = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Monday'";
 						if(!mysqli_query($connect, $query)) {
@@ -94,7 +94,7 @@
 					} else echo "Teacher unavailable...";
 				}
 				if($goingTue == true) {
-					$teacherTable = getTeacherTable($lastName);
+					$teacherTable = getTeacherTable($lastName, $connect);
 					if(teacherIsAvailable($teacherTable, 'Tuesday', $connect)) {
 						$query = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Tuesday'";
 						if(!mysqli_query($connect, $query)) {
@@ -105,7 +105,7 @@
 					} else echo "Teacher unavailable...";
 				}
 				if($goingWed == true) {
-					$teacherTable = getTeacherTable($lastName);
+					$teacherTable = getTeacherTable($lastName, $connect);
 					if(teacherIsAvailable($teacherTable, 'Wednesday', $connect)) {
 						$query = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Wednesday'";
 						if(!mysqli_query($connect, $query)) {
@@ -116,7 +116,7 @@
 					} else echo "Teacher unavailable...";
 				}
 				if($goingThu == true) {
-					$teacherTable = getTeacherTable($lastName);
+					$teacherTable = getTeacherTable($lastName, $connect);
 					if(teacherIsAvailable($teacherTable, 'Thursday', $connect)) {
 						$query = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Thursday'";
 						if(!mysqli_query($connect, $query)) {
@@ -127,7 +127,7 @@
 					} else echo "Teacher unavailable...";
 				}
 				if($goingFri == true) {
-					$teacherTable = getTeacherTable($lastName);
+					$teacherTable = getTeacherTable($lastName, $connect);
 					if(teacherIsAvailable($teacherTable, 'Friday', $connect)) {
 						$query4 = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Friday'";
 						if(!mysqli_query($connect, $query4)) {
