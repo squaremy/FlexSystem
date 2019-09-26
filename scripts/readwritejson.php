@@ -27,21 +27,21 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
   $query;
 
   for($i = 0; $i < count($jsonArray); $i++) {
-    $name = $jsonArray[i]['name'];
-    $type = $jsonArray[i]['type'];
+    $name = $jsonArray[$i]['name'];
+    $type = $jsonArray[$i]['type'];
     if($type == 'teacher') {
-      $room = $jsonArray[i]['room'];
-      $schedule = $jsonArray[i]['schedule'];
+      $room = $jsonArray[$i]['room'];
+      $schedule = $jsonArray[$i]['schedule'];
       $query = "INSERT INTO teacherData(name, type, room, schedule) VALUES('$name', '$type', '$room', '$schedule')";
     } else {
-      $flexRoom = $jsonArray[i]['flex room'];
-      $schedule = $jsonArray[i]['schedule'];
+      $flexRoom = $jsonArray[$i]['flex room'];
+      $schedule = $jsonArray[$i]['schedule'];
       $query = "INSERT INTO teacherData(name, type, flexRoom, schedule) VALUES('$name', '$type', '$flexRoom', '$schedule')";
     }
   }
 
 
-  if(!mysqli_query($query,$connect)) {
+  if(!mysqli_query($connect, $query)) {
     die('Error : Query Not Executed. Please Fix the Issue! ' . mysqli_error());
   } else {
     echo "Data Inserted Successully!!!";
