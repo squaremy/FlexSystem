@@ -30,18 +30,17 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
     echo $key;
     $name = $jsonArray[$key]['name'];
     $type = $jsonArray[$key]['type'];
-    $schedule = $jsonArray[$key]['schedule'];
     echo $type;
 
     if($type == 'teacher') {
       $room = $jsonArray[$key]['room'];
-      $available = $schedule['available'];
-      $flexStudents = $schedule['flexstudents'];
-      $visitingStudents = $schedule['visitingstudents'];
+      $available = $jsonArray[$key]['schedule']['available'];
+      $flexStudents = $jsonArray[$key]['schedule']['flexstudents'];
+      $visitingStudents = $jsonArray[$key]['schedule']['visitingstudents'];
       $query = "INSERT INTO teacherData(name, type, room, available, flexstudents, visitingstudents) VALUES('$name', '$type', '$room', '$available', '$flexStudents', '$visitingStudents')";
     } else {
       $flexRoom = $jsonArray[$key]['flex room'];
-      $teacher = $schedule['teacher'];
+      $teacher = $jsonArray[$key]['schedule']['teacher'];
       $query = "INSERT INTO studentData(name, type, flexRoom, teacher) VALUES('$name', '$type', '$flexRoom', '$teacher')";
     }
   }
