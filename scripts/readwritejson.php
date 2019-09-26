@@ -61,7 +61,7 @@
  ?> -->
 
 <?php
-  $connect = msqli_connect("localhost", "techmeds_FlexSystem", "Tennessee18!", "techmeds_FlexSystem") or die('Connection failed: ' . msqli_connect_error());
+  $connect = mysqli_connect("localhost", "techmeds_FlexSystem", "Tennessee18!", "techmeds_FlexSystem") or die('Connection failed: ' . msqli_connect_error());
   $json = file_get_contents("../configs/teacherlist.json");
   $jsonData = json_decode($json, true);
   echo $json;
