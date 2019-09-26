@@ -66,9 +66,8 @@
   $jsonData = json_decode($json, true);
   echo $json;
   echo '<br />';
-  echo $jsonData;
 
-  foreach($jsonData as $i => $object) {
+  foreach($jsonData['teachers'] as $i => $object) {
     echo $i;
     echo $jsonData[$i];
     foreach($jsonData[$i] as $key => $data) {
