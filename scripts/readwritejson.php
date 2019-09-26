@@ -5,22 +5,22 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     file_put_contents($file, $_POST["jsonTxt"]);
 }
 else if($_SERVER['REQUEST_METHOD'] === 'GET'){
-    echo file_get_contents("../configs/data.json");
-    // $array_data = json_decode($file, true);
-    // $extra = array(
-    //   'name'    => 'test'
-    // );
-    // $array_data = array_push($array_data, $extra);
-    // $final_data = json_encode($array_data);
-    // file_put_contents('temp.json', $final_data);
+    echo file_get_contents($file);
+    $array_data = json_decode($file, true);
+    $extra = array(
+      'name'    => 'test'
+    );
+    $array_data[] = array_push($array_data, $extra);
+    $final_data = json_encode($array_data);
+    file_put_contents('temp.json', $final_data);
 }
 ?>
 
 <?php
   $content = mysql_connect("localhost", "root","") or die('Database Not Connected. Please Fix the Issue! ' . mysql_error());
-  mysql_select_db("../database/json.db", $connect);
+  mysql_select_db("techmeds_FlexSystem", $connect);
 
-  $jsonContents = json_get_contents("../configs/data.json");
+  $jsonContents = json_get_contents("../configs/GOAL_CONFIG.json");
 
   $jsonArray = json_decode($jsonContents, true);
 
