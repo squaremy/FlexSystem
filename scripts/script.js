@@ -22,10 +22,10 @@ function readteacherJSON(path){
 function readJSON(path){
 	fetch(path).then(response => response.json()).then(json => {
 			let data = json['teachers'];
-			if (typeof(data) === 'undefined'){
-				console.log("No data");
-				return;
-			}
+			// if (typeof(data) === 'undefined'){
+			// 	console.log("No data");
+			// 	return;
+			// }
 			console.log(data);
 			return data;
 			//console.log("Heres the variable array");
@@ -43,13 +43,17 @@ function displayTeachers(teachers) {
 		for(var j = 0; j < 4; j++) {
 			var cell = row.insertCell(-1);
 			cell.style.padding = "10px 10px 10px 10px";
-			cell.id = teachers[i+j];
 			cell.onclick = function(){teacherclick(this);};
 			if(teachers[i+j] == null){
 				cell.style.width = "20%";
 				cell.style.display = "none";
 			}else{
 				cell.innerHTML = teachers[i+j];
+
+				var teacherData = readJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/teacherlist.json');
+				for(var i = 0; i < teacherData.length; i++) {
+					console.log(teacherData[i][0]);
+				}
 		}
 		}
 	}
