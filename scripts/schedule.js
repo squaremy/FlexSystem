@@ -196,23 +196,10 @@ function confirmsignup() {
   var wed = document.getElementById("wedchk");
   var thu = document.getElementById("thuchk");
   var fri = document.getElementById("frichk");
+	var extension = "user=" + JSON.parse(sessionStorage.get("myUserEntity"))['Email'] + "&teacher=" + document.getElementById("searchtxt").innerHTML;
 
 	if(myDat['type'] == "student") {
-	  if(mon.checked) {
-			$.get("/scripts/readwritejson.php");
-	  }
-	  if(tue.checked) {
-			myDat['schedule'][1]['teacher'] = document.getElementById("searchtxt").innerHTML;
-	  }
-	  if(wed.checked) {
-			myDat['schedule'][2]['teacher'] = document.getElementById("searchtxt").innerHTML;
-	  }
-	  if(thu.checked) {
-			myDat['schedule'][3]['teacher'] = document.getElementById("searchtxt").innerHTML;
-	  }
-	  if(fri.checked) {
-			myDat['schedule'][4]['teacher'] = document.getElementById("searchtxt").innerHTML;
-	  }
-		window.location.href = 'schedule.html';
+	  extension += "&mon=" + mon.checked + "&tue=" + tue.checked + "&wed=" + wed.checked + "&thu=" + thu.checked + "&fri=" + fri.checked;
+		window.location.href = 'schedule.php?' + extension;
 	}
 }
