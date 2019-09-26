@@ -23,18 +23,20 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
   $jsonContents = file_get_contents("../configs/GOAL_CONFIG.json");
 
   $jsonArray = json_decode($jsonContents, true);
-  echo implode(", ", $jsonArray);
+
   $query = null;
 
   for($i = 0; $i < count($jsonArray); $i++) {
     $name = $jsonArray[$i]['name'];
     $type = $jsonArray[$i]['type'];
     if($type == 'teacher') {
+      echo "teacher";
       $room = $jsonArray[$i]['room'];
       $schedule = $jsonArray[$i]['schedule'];
       $query = "INSERT INTO teacherData(name, type, room, schedule) VALUES('$name', '$type', '$room', '$schedule')";
       echo $query;
     } else {
+      echo "student";
       $flexRoom = $jsonArray[$i]['flex room'];
       $schedule = $jsonArray[$i]['schedule'];
       $query = "INSERT INTO teacherData(name, type, flexRoom, schedule) VALUES('$name', '$type', '$flexRoom', '$schedule')";
