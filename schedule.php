@@ -124,6 +124,7 @@
 						}
 
 						addStudentToVisitList($lastName, $name, 'Thursday', $connect, $room);
+					} else echo "Teacher unavailable...";
 				}
 				if($goingFri == true) {
 					$teacherTable = getTeacherTable($lastName);
