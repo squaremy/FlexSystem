@@ -31,6 +31,7 @@
 				$goingWed = $_GET["wed"];
 				$goingThu = $_GET["thu"];
 				$goingFri = $_GET["fri"];
+				echo "$goingMon, $goingTue, $goingWed, $goingThu, $goingFri<br/>";
 
 				if($goingMon) {
 					$query = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Monday'";
@@ -63,7 +64,7 @@
 					}
 				}
 			} else {
-				
+
 			}
 		?>
 	</head>
