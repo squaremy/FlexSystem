@@ -66,10 +66,10 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
   $jsonData = json_decode($json, true);
 
   foreach($jsonData as $i => $object) {
+    echo $i;
+    echo $jsonData[$i];
     foreach($jsonData[$i] as $key => $data) {
-      echo $i;
       echo $key;
-      echo $jsonData[$i];
       echo $data;
       echo '<br />';
       // $sql = "CREATE TABLE $key (
