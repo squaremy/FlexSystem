@@ -205,7 +205,7 @@
 			<table id="flexstudents">
 				<?php
 					if($type == 'teacher') {
-						$dayOfWeek = get_date()[wday]-1;
+						$dayOfWeek = getdate()[wday]-1;
 						if($dayOfWeek < 6 && $dayOfWeek >= 0) {
 							mysqli_data_seek($data, $dayOfWeek);
 							$parsedData = mysqli_fetch_assoc($data);
@@ -225,7 +225,7 @@
 			<table id="visitingstudents">
 				<?php
 					if($type == 'teacher') {
-						$dayOfWeek = get_date()[wday]-1;
+						$dayOfWeek = getdate()[wday]-1;
 						if($dayOfWeek < 6 && $dayOfWeek >= 0) {
 							mysqli_data_seek($data, $dayOfWeek);
 							$parsedData = mysqli_fetch_assoc($data);
