@@ -11,7 +11,10 @@
 		<?php
 			$connect = mysqli_connect("localhost", "techmeds_FlexSystem", "Tennessee18!", "techmeds_FlexSystem") or die("Connection to database failed: " . mysqli_connect_error());
 			$sql = "SELECT * FROM " . $_GET["user"];
-			$data = mysqli_query($connect, $sql);
+			$data = null;
+			if(!$data = mysqli_query($connect, $sql)) {
+				die("error: " . mysqli_error($connect));
+			}
 			$parsedData = mysqli_fetch_row($data);
 			$name = $parsedData["name"];
 			$email = $parsedData["email"];
@@ -79,7 +82,7 @@
 		<div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="askForLogin" data-theme="dark" style="visibility: hidden;"></div>
 		<a href="#" style="position: absolute; top:80px; right: 10px;" onclick="logout()">Sign out</a>
 		<!-- <script type="text/javascript" src="scripts/schedule.js"></script> -->
-		<script>loadUser()</script>
+		<!-- <script>loadUser()</script> -->
 		<script type="text/javascript" src="scripts/signin.js"></script>
 	</body>
 <!-- <script>(function(a,b,c){if(c in b&&b[c]){var d,e=a.location,f=/^(a|html)$/i;a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)}})(document,window.navigator,"standalone")</script> -->
