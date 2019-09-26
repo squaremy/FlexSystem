@@ -18,7 +18,7 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
 
 <?php
   $connect = mysqli_connect("localhost", "techmeds_FlexSystem", "Tennessee18!") or die('Database Not Connected. Please Fix the Issue! ' . mysqli_error());
-  mysqli_select_db("techmeds_FlexSystem", $connect);
+  mysqli_select_db($connect, "techmeds_FlexSystem");
 
   $jsonContents = file_get_contents("../configs/GOAL_CONFIG.json");
 
@@ -26,7 +26,7 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
 
   $query;
 
-  for($i = 0; $i < $jsonArray.length; $i++) {
+  for($i = 0; $i < count($jsonArray); $i++) {
     $name = $jsonArray[i]['name'];
     $type = $jsonArray[i]['type'];
     if($type == 'teacher') {
