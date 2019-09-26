@@ -67,10 +67,9 @@
 
   foreach($jsonData['teachers'] as $i => $object) {
     foreach($jsonData['teachers'][$i] as $key => $data) {
-      $sql = "CREATE TABLE $key (
-        id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-        day VARCHAR(30),
+      $sql = "CREATE TABLE '$key' (
         name VARCHAR(60),
+        day VARCHAR(30),
         email VARCHAR(50),
         room INT(10),
         flexStudents VARCHAR(65535),
