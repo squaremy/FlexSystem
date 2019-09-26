@@ -67,7 +67,7 @@
 
   foreach($jsonData['teachers'] as $i => $object) {
     foreach($jsonData['teachers'][$i] as $key => $data) {
-      $sql = "CREATE TABLE " . $key . " (
+      $sql = "CREATE TABLE `$key` (
         name VARCHAR(60),
         day VARCHAR(30),
         email VARCHAR(50),
