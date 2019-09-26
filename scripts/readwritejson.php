@@ -136,12 +136,8 @@
         $available = $jsonData[$email]['schedule'][$i]['available'];
         $flexStudents = implode(";", $jsonData[$email]['schedule'][$i]['flexstudents']);
         $visitingStudents = implode(";", $jsonData[$email]['schedule'][$i]['visitingstudents']);
-        $sql = "SELECT COUNT(*) AS @rows FROM `$email`
-        IF @rows == 0
-        BEGIN
-        INSERT INTO `$email` (id, day, name, email, type, room, available, flexStudents, visitingStudents)
-        VALUES ('$i', '$day', '$name', '$email', '$room', '$type', '$available', '$flexStudents', '$visitingStudents')
-        END";
+        $sql = "INSERT INTO `$email` (id, day, name, email, type, room, available, flexStudents, visitingStudents)
+        VALUES ('$i', '$day', '$name', '$email', '$room', '$type', '$available', '$flexStudents', '$visitingStudents')";
         if(!mysqli_query($connect, $sql)) {
           echo "Could not insert data... " . mysqli_error($connect) . "<br />";
         } else {
@@ -153,12 +149,8 @@
         $day = $jsonData[$email]['schedule'][$i]['day'];
         $teacher = $jsonData[$email]['schedule'][$i]['teacher'];
         $room = $jsonData[$email]['flex room'];
-        $sql = "SELECT COUNT(*) AS @rows FROM `$email`
-        IF @rows == 0
-        BEGIN
-        INSERT INTO `$email` (id, day, name, email, type, room, teacher)
-        VALUES ('$i', '$day', '$name', '$email', '$type', '$room', '$teacher')
-        END";
+        $sql = "INSERT INTO `$email` (id, day, name, email, type, room, teacher)
+        VALUES ('$i', '$day', '$name', '$email', '$type', '$room', '$teacher');";
         if(!mysqli_query($connect, $sql)) {
           echo "Could not insert data... " . mysqli_error($connect) . "<br />";
         } else {
