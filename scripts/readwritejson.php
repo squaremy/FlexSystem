@@ -93,22 +93,27 @@
   }
 ?>
 
-<!-- <?php
-  // $connect = mysqli_connect("localhost", "techmeds_FlexSystem", "Tennessee18!", "techmeds_FlexSystem") or die("Connection to database failed: " . mysqli_connect_error());
-  // $json = file_get_contents("../configs/GOAL_CONFIG.json");
-  // $jsonData = json_decode($json, true);
-  //
-  // foreach($jsonData as $email => $data) {
-  //   if($jsonData[$email]['type'] == 'teacher') {
-  //     $name = $jsonData[$email]['name'];
-  //     $room = $jsonData[$email]['room'];
-  //     foreach($jsonData[$email]['schedule'] as $i => $val) {
-  //       $day = $jsonData[$email]['schedule'][$i]['day'];
-  //       $flexStudents = implode(";", $jsonData[$email]['schedule'][$i]['flexstudents']);
-  //       $visitingStudents = implode(";", $jsonData[$email]['schedule'][$i]['visitingstudents']);
-  //       $sql = "INSERT INTO `$email` (name, day, email, room, flexStudents, visitingStudents) VALUES ($name, $day, $email, $room, $flexStudents, $visitingStudents)";
-  //     }
-  //   }
-  // }
+<?php
+  $connect = mysqli_connect("localhost", "techmeds_FlexSystem", "Tennessee18!", "techmeds_FlexSystem") or die("Connection to database failed: " . mysqli_connect_error());
+  $json = file_get_contents("../configs/GOAL_CONFIG.json");
+  $jsonData = json_decode($json, true);
 
- ?> -->
+  foreach($jsonData as $email => $data) {
+    if($jsonData[$email]['type'] == 'teacher') {
+      $name = $jsonData[$email]['name'];
+      $room = $jsonData[$email]['room'];
+      foreach($jsonData[$email]['schedule'] as $i => $val) {
+        $day = $jsonData[$email]['schedule'][$i]['day'];
+        $flexStudents = implode(";", $jsonData[$email]['schedule'][$i]['flexstudents']);
+        $visitingStudents = implode(";", $jsonData[$email]['schedule'][$i]['visitingstudents']);
+        $sql = "INSERT INTO `$email` (name, day, email, room, flexStudents, visitingStudents) VALUES ($name, $day, $email, $room, $flexStudents, $visitingStudents)";
+        if(!myysqli_query($connect, $sql)) {
+          echo "Could not insert data...<br />";
+        } else {
+          echo "Successfully inserted data!<br />";
+        }
+      }
+    }
+  }
+
+ ?>
