@@ -16,7 +16,7 @@
 			if(!$data = mysqli_query($connect, $sql)) {
 				die("error: " . mysqli_error($connect));
 			}
-			$parsedData = mysqli_fetch_row($data);
+			$parsedData = mysqli_fetch_assoc($data);
 			foreach($parsedData as $key => $value) {
 				echo "$key : $value <br />";
 			}
@@ -43,7 +43,7 @@
 					echo "<tr>";
 					for($i = 0; $i < mysqli_num_rows($data); $i++) {
 						mysqli_data_seek($data, $i);
-						$parsedData = mysqli_fetch_row($data);
+						$parsedData = mysqli_fetch_assoc($data);
 						$day = $parsedData["day"];
 						echo "<th>" . $day . "</th>";
 					}
@@ -52,7 +52,7 @@
 					if($type == "student") {
 						for($i = 0; $i < mysqli_num_rows($data); $i++) {
 							mysqli_data_seek($data, $i);
-							$parsedData = mysqli_fetch_row($data);
+							$parsedData = mysqli_fetch_assoc($data);
 							$teacher = $parsedData["teacher"];
 							echo "<td>" . $teacher . "</td>";
 						}
@@ -60,7 +60,7 @@
 					} else {
 						for($i = 0; $i < mysqli_num_rows($data); $i++) {
 							mysqli_data_seek($data, $i);
-							$parsedData = mysqli_fetch_row($data);
+							$parsedData = mysqli_fetch_assoc($data);
 							$available = $parsedData["available"];
 							echo "<td>" . $available . "</td>";
 						}
