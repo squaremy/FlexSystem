@@ -73,7 +73,7 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
 
 
   if(!mysqli_query($connect, $query)) {
-    die('Error : Query Not Executed. Please Fix the Issue! ' . mysqli_error());
+    die('Error : Query Not Executed. Please Fix the Issue! ' . mysqli_error($connect));
   } else {
     echo "Data Inserted Successully!!!";
   }
