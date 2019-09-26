@@ -11,6 +11,7 @@
 		<?php
 
 			function addStudentToVisitList($teacherLastName, $studentName, $desiredDay, $connect) {
+				$teacherLastName = strtolower($teacherLastName);
 				$query = "SHOW TABLES FROM techmeds_FlexSystem LIKE '$teacherLastName%'";
 				if(!$result = mysqli_query($connect, $query)) {
 					echo "Query failed: " . mysqli_error($connect);
