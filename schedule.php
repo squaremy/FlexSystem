@@ -32,7 +32,7 @@
 				$goingThu = $_GET["thu"];
 				$goingFri = $_GET["fri"];
 
-				$sql = "";
+				$query = "SELECT * FROM `$user`;";
 				if($goingMon) $sql .= "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Monday'" . ";";
 				if($goingTue) $sql .= "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Tuesday'" . ";";
 				if($goingWed) $sql .= "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Wednesday'" . ";";
