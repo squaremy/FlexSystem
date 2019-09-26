@@ -68,7 +68,7 @@
   foreach($jsonData['teachers'] as $i => $object) {
     foreach($jsonData['teachers'][$i] as $key => $data) {
       $key = strtolower($key);
-      $sql = "CREATE TABLE `$key` (
+      $sql = "CREATE TABLE IF NOT EXISTS `$key` (
         id INT(10),
         day VARCHAR(30),
         name VARCHAR(60),
@@ -96,7 +96,7 @@
   foreach($jsonData2['students'] as $i => $object) {
     foreach($jsonData2['students'][$i] as $key => $data) {
       $key = strtolower($key);
-      $sql = "CREATE TABLE `$key` (
+      $sql = "CREATE TABLE IF NOT EXISTS `$key` (
         id INT(10),
         day VARCHAR(30),
         name VARCHAR(60),
