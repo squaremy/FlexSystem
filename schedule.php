@@ -9,6 +9,27 @@
 		<meta name="google-signin-client_id" content="483422839968-llldr1bas7hurg44av8h9bh8dpqgtq98.apps.googleusercontent.com">
 		<script src="https://apis.google.com/js/platform.js" async defer></script>
 		<?php
+
+			function addStudentToVisitList($teacherLastName, $studentName, $desiredDay) {
+				$query = "SHOW TABLES FROM techmeds_FlexSystem LIKE '$teacherLastName%'";
+				if(!$result = mysqli_query($connect, $query)) {
+					echo "Query failed: " . mysqli_error($connect);
+				}
+				while($tables = mysqli_fetch_array($result)) {
+					$teacherTable = $teables[0];
+					$query = "SELECT visitingStudents FROM `$teacherTable`";
+					if(!$tableData = mysqli_query($connect, $query)) {
+						echo "Query failed: " . mysqli_error($connect);
+					}
+					$visitingStudents = $tableData["visitingStudents"];
+					$visitingStudents = $visitingStudents . ";" . $studentName;
+					$query = "UPDATE `$teacherTable` SET visitingStudents='$visitingStudents' WHERE day='$desiredDay'";
+					if(!mysqli_query($connect, $query)) {
+						echo "Query failed: " . mysqli_error($connect);
+					}
+				}
+			}
+
 			$connect = mysqli_connect("localhost", "techmeds_FlexSystem", "Tennessee18!", "techmeds_FlexSystem") or die("Connection to database failed: " . mysqli_connect_error());
 			$user = $_GET["user"];
 			$sql = "SELECT * FROM `$user`";
@@ -26,42 +47,53 @@
 			// update student & teacher data
 			if($type = 'student') {
 				$targetTeacher = $_GET["teacher"];
+				$names = explode(" ", $targetTeacher);
+				$lastName = $names[1];
 				$goingMon = filter_var($_GET["mon"], FILTER_VALIDATE_BOOLEAN);
 				$goingTue = filter_var($_GET["tue"], FILTER_VALIDATE_BOOLEAN);
 				$goingWed = filter_var($_GET["wed"], FILTER_VALIDATE_BOOLEAN);
 				$goingThu = filter_var($_GET["thu"], FILTER_VALIDATE_BOOLEAN);
 				$goingFri = filter_var($_GET["fri"], FILTER_VALIDATE_BOOLEAN);
-				echo "$goingMon, $goingTue, $goingWed, $goingThu, $goingFri<br/>";
 
 				if($goingMon == true) {
 					$query = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Monday'";
 					if(!mysqli_query($connect, $query)) {
 						echo "Query failed: " . mysqli_error($connect);
 					}
+
+					addStudentToVisitList($lastName, $name, 'Monday');
 				}
 				if($goingTue == true) {
 					$query1 = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Tuesday'";
 					if(!mysqli_query($connect, $query1)) {
 						echo "Query failed: " . mysqli_error($connect);
 					}
+
+					addStudentToVisitList($lastName, $name, 'Tuesday');
 				}
 				if($goingWed == true) {
 					$query2 = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Wednesday'";
 					if(!mysqli_query($connect, $query2)) {
 						echo "Query failed: " . mysqli_error($connect);
 					}
+
+					addStudentToVisitList($lastName, $name, 'Wednesday');
 				}
 				if($goingThu == true) {
 					$query3 = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Thursday'";
 					if(!mysqli_query($connect, $query3)) {
 						echo "Query failed: " . mysqli_error($connect);
 					}
+
+					addStudentToVisitList($lastName, $name, 'Thursday');
 				}
 				if($goingFri == true) {
 					$query4 = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Friday'";
 					if(!mysqli_query($connect, $query4)) {
 						echo "Query failed: " . mysqli_error($connect);
 					}
+
+					addStudentToVisitList($lastName, $name, 'Friday');
 				}
 			} else {
 
