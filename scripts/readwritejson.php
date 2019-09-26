@@ -108,7 +108,7 @@
         $visitingStudents = implode(";", $jsonData[$email]['schedule'][$i]['visitingstudents']);
         $sql = "INSERT INTO `$email` (name, day, email, room, flexStudents, visitingStudents) VALUES ($name, $day, $email, $room, $flexStudents, $visitingStudents)";
         if(!mysqli_query($connect, $sql)) {
-          echo "Could not insert data...<br />";
+          echo "Could not insert data... " . mysqli_error($connect) . "<br />";
         } else {
           echo "Successfully inserted data!<br />";
         }
