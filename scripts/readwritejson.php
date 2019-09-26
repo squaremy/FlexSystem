@@ -33,7 +33,7 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
     $schedule = $jsonArray[$key]['schedule'];
     echo $type;
 
-    if($type == 'teacher') {}
+    if($type == 'teacher') {
       $room = $jsonArray[$key]['room'];
       $query = "INSERT INTO teacherData(name, type, room, schedule) VALUES('$name', '$type', '$room', '$schedule')";
     } else {
