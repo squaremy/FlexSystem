@@ -17,9 +17,6 @@
 				die("error: " . mysqli_error($connect));
 			}
 			$parsedData = mysqli_fetch_assoc($data);
-			foreach($parsedData as $key => $value) {
-				echo "$key : $value <br />";
-			}
 			$name = $parsedData["name"];
 			$email = $parsedData["email"];
 			$room = $parsedData["room"];
@@ -27,6 +24,24 @@
 			$type = $parsedData["type"];
 
 			// update student & teacher data
+			if($type = 'student') {
+				$targetTeacher = $_GET["teacher"];
+				$goingMon = $_GET["mon"];
+				$goingTue = $_GET["tue"];
+				$goingWed = $_GET["wed"];
+				$goingThu = $_GET["thu"];
+				$goingFri = $_GET["fri"];
+
+				$sql = "";
+				if($goingMon) $sql += "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Monday'";
+				if($goingTue) $sql += "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Tuesday'";
+				if($goingWed) $sql += "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Wednesday'";
+				if($goingThu) $sql += "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Thursday'";
+				if($goingFri) $sql += "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Friday'";
+				echo $sql;
+			} else {
+
+			}
 		?>
 	</head>
 
