@@ -22,7 +22,7 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
 
   $jsonContents = file_get_contents("../configs/GOAL_CONFIG.json");
 
-  $jsonArray = json_decode($jsonContents, true);
+  $jsonArray = json_decode($jsonContents);
   print $jsonArray;
   $query = null;
 
