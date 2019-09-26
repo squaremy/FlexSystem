@@ -28,6 +28,7 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
 
   $query = null;
 
+  echo $jsonIterator;
   echo $jsonIterator->name;
   echo $jsonIterator->type;
 
