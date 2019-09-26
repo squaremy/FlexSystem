@@ -26,10 +26,10 @@
 					$tableData = mysqli_fetch_array($tableDataRaw);
 					$visitingStudents = $tableData["visitingStudents"];
 					if(strpos($visitingStudents, $studentName) !== false) {
+						echo "Student already visiting!";
+					} else {
 						if($visitingStudents == "NONE") $visitingStudents = $studentName;
 						else $visitingStudents = $visitingStudents . ";" . $studentName;
-					} else {
-						echo "Student already visiting!";
 					}
 					$query = "UPDATE `$teacherTable` SET visitingStudents='$visitingStudents' WHERE day='$desiredDay'";
 					if(!mysqli_query($connect, $query)) {
