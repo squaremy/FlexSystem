@@ -196,7 +196,7 @@ function confirmsignup() {
   var wed = document.getElementById("wedchk");
   var thu = document.getElementById("thuchk");
   var fri = document.getElementById("frichk");
-	var extension = "user=" + JSON.parse(sessionStorage.get("myUserEntity"))['Email'] + "&teacher=" + document.getElementById("searchtxt").innerHTML;
+	var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'] + "&teacher=" + document.getElementById("searchtxt").innerHTML;
 
 	if(myDat['type'] == "student") {
 	  extension += "&mon=" + mon.checked + "&tue=" + tue.checked + "&wed=" + wed.checked + "&thu=" + thu.checked + "&fri=" + fri.checked;
