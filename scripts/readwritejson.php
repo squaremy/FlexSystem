@@ -17,10 +17,10 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
 ?>
 
 <?php
-  $content = mysqli_connect("localhost", "techmeds_FlexSystem", "Tennessee18!") or die('Database Not Connected. Please Fix the Issue! ' . mysqli_error());
+  $connect = mysqli_connect("localhost", "techmeds_FlexSystem", "Tennessee18!") or die('Database Not Connected. Please Fix the Issue! ' . mysqli_error());
   mysqli_select_db("techmeds_FlexSystem", $connect);
 
-  $jsonContents = json_get_contents("../configs/GOAL_CONFIG.json");
+  $jsonContents = file_get_contents("../configs/GOAL_CONFIG.json");
 
   $jsonArray = json_decode($jsonContents, true);
 
