@@ -27,8 +27,10 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
   $query = null;
 
   for($i = 0; $i < count($jsonArray); $i++) {
+    echo $i;
     $name = $jsonArray[$i]['name'];
     $type = $jsonArray[$i]['type'];
+    echo $type;
     if($type == 'teacher') {
       echo "teacher";
       $room = $jsonArray[$i]['room'];
