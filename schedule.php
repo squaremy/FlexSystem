@@ -10,30 +10,34 @@
 		<script src="https://apis.google.com/js/platform.js" async defer></script>
 		<?php
 
-			function addStudentToVisitList($teacherLastName, $studentName, $desiredDay, $connect) {
+			function addStudentToVisitList($teacherLastName, $studentName, $desiredDay, $connect, $room) {
 				$teacherLastName = strtolower($teacherLastName);
-				$query = "SHOW TABLES FROM techmeds_FlexSystem LIKE '$teacherLastName%'";
-				if(!$result = mysqli_query($connect, $query)) {
-					echo "Query failed: " . mysqli_error($connect);
-				}
-				while($tables = mysqli_fetch_array($result)) {
-					$teacherTable = $tables[0];
-					echo $teacherTable;
-					$query = "SELECT visitingStudents FROM `$teacherTable` WHERE day='$desiredDay'";
-					if(!$tableDataRaw = mysqli_query($connect, $query)) {
+				$roomNames = explode(" ", $room);
+				$roomLastName = strtolower($roomNames[1]);
+				if($teacherLastName != $roomLastName) {
+					$query = "SHOW TABLES FROM techmeds_FlexSystem LIKE '$teacherLastName%'";
+					if(!$result = mysqli_query($connect, $query)) {
 						echo "Query failed: " . mysqli_error($connect);
 					}
-					$tableData = mysqli_fetch_array($tableDataRaw);
-					$visitingStudents = $tableData["visitingStudents"];
-					if(strpos($visitingStudents, $studentName) !== false) {
-						echo "Student already visiting!";
-					} else {
-						if($visitingStudents == "NONE") $visitingStudents = $studentName;
-						else $visitingStudents = $visitingStudents . ";" . $studentName;
-					}
-					$query = "UPDATE `$teacherTable` SET visitingStudents='$visitingStudents' WHERE day='$desiredDay'";
-					if(!mysqli_query($connect, $query)) {
-						echo "Query failed: " . mysqli_error($connect);
+					while($tables = mysqli_fetch_array($result)) {
+						$teacherTable = $tables[0];
+						echo $teacherTable;
+						$query = "SELECT visitingStudents FROM `$teacherTable` WHERE day='$desiredDay'";
+						if(!$tableDataRaw = mysqli_query($connect, $query)) {
+							echo "Query failed: " . mysqli_error($connect);
+						}
+						$tableData = mysqli_fetch_array($tableDataRaw);
+						$visitingStudents = $tableData["visitingStudents"];
+						if(strpos($visitingStudents, $studentName) !== false) {
+							echo "Student already visiting!";
+						} else {
+							if($visitingStudents == "NONE") $visitingStudents = $studentName;
+							else $visitingStudents = $visitingStudents . ";" . $studentName;
+						}
+						$query = "UPDATE `$teacherTable` SET visitingStudents='$visitingStudents' WHERE day='$desiredDay'";
+						if(!mysqli_query($connect, $query)) {
+							echo "Query failed: " . mysqli_error($connect);
+						}
 					}
 				}
 			}
@@ -69,7 +73,7 @@
 						echo "Query failed: " . mysqli_error($connect);
 					}
 
-					addStudentToVisitList($lastName, $name, 'Monday', $connect);
+					addStudentToVisitList($lastName, $name, 'Monday', $connect, $room);
 				}
 				if($goingTue == true) {
 					$query1 = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Tuesday'";
@@ -77,7 +81,7 @@
 						echo "Query failed: " . mysqli_error($connect);
 					}
 
-					addStudentToVisitList($lastName, $name, 'Tuesday', $connect);
+					addStudentToVisitList($lastName, $name, 'Tuesday', $connect, $room);
 				}
 				if($goingWed == true) {
 					$query2 = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Wednesday'";
@@ -85,7 +89,7 @@
 						echo "Query failed: " . mysqli_error($connect);
 					}
 
-					addStudentToVisitList($lastName, $name, 'Wednesday', $connect);
+					addStudentToVisitList($lastName, $name, 'Wednesday', $connect, $room);
 				}
 				if($goingThu == true) {
 					$query3 = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Thursday'";
@@ -93,7 +97,7 @@
 						echo "Query failed: " . mysqli_error($connect);
 					}
 
-					addStudentToVisitList($lastName, $name, 'Thursday', $connect);
+					addStudentToVisitList($lastName, $name, 'Thursday', $connect, $room);
 				}
 				if($goingFri == true) {
 					$query4 = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Friday'";
@@ -101,7 +105,7 @@
 						echo "Query failed: " . mysqli_error($connect);
 					}
 
-					addStudentToVisitList($lastName, $name, 'Friday', $connect);
+					addStudentToVisitList($lastName, $name, 'Friday', $connect, $room);
 				}
 			} else {
 
