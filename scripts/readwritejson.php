@@ -24,6 +24,8 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
 
   $jsonArray = json_decode($jsonContents, true);
 
+  echo $jsonArray;
+
   $query;
 
   for($i = 0; $i < count($jsonArray); $i++) {
