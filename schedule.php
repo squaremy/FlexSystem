@@ -40,26 +40,26 @@
 					}
 				}
 				if($goingTue) {
-					$query = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Tuesday'";
-					if(!mysqli_query($connect, $query)) {
+					$query1 = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Tuesday'";
+					if(!mysqli_query($connect, $query1)) {
 						echo "Query failed: " . mysqli_error($connect);
 					}
 				}
 				if($goingWed) {
-					$query = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Wednesday'";
-					if(!mysqli_query($connect, $query)) {
+					$query2 = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Wednesday'";
+					if(!mysqli_query($connect, $query2)) {
 						echo "Query failed: " . mysqli_error($connect);
 					}
 				}
 				if($goingThu) {
-					$query = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Thursday'";
-					if(!mysqli_query($connect, $query)) {
+					$query3 = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Thursday'";
+					if(!mysqli_query($connect, $query3)) {
 						echo "Query failed: " . mysqli_error($connect);
 					}
 				}
 				if($goingFri) {
-					$query = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Friday'";
-					if(!mysqli_query($connect, $query)) {
+					$query4 = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Friday'";
+					if(!mysqli_query($connect, $query4)) {
 						echo "Query failed: " . mysqli_error($connect);
 					}
 				}
