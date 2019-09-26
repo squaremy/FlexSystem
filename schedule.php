@@ -33,31 +33,31 @@
 				$goingFri = $_GET["fri"];
 				echo "$goingMon, $goingTue, $goingWed, $goingThu, $goingFri<br/>";
 
-				if($goingMon === true) {
+				if($goingMon == true) {
 					$query = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Monday'";
 					if(!mysqli_query($connect, $query)) {
 						echo "Query failed: " . mysqli_error($connect);
 					}
 				}
-				if($goingTue === true) {
+				if($goingTue == true) {
 					$query1 = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Tuesday'";
 					if(!mysqli_query($connect, $query1)) {
 						echo "Query failed: " . mysqli_error($connect);
 					}
 				}
-				if($goingWed === true) {
+				if($goingWed == true) {
 					$query2 = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Wednesday'";
 					if(!mysqli_query($connect, $query2)) {
 						echo "Query failed: " . mysqli_error($connect);
 					}
 				}
-				if($goingThu === true) {
+				if($goingThu == true) {
 					$query3 = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Thursday'";
 					if(!mysqli_query($connect, $query3)) {
 						echo "Query failed: " . mysqli_error($connect);
 					}
 				}
-				if($goingFri === true) {
+				if($goingFri == true) {
 					$query4 = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Friday'";
 					if(!mysqli_query($connect, $query4)) {
 						echo "Query failed: " . mysqli_error($connect);
