@@ -61,7 +61,8 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
  ?> -->
 
 <?php
-  $connect = msqli_connect("localhost", "techmeds_FlexSystem", "Tennessee18!", "techmeds_FlexSystem") or die("Connection failed: ", msqli_connect_error());
+  $connect = msqli_connect("localhost", "techmeds_FlexSystem", "Tennessee18!") or die("Connection failed: ", msqli_connect_error());
+  mysqli_select_db("techmeds_FlexSystem");
   $json = file_get_contents("../configs/teacherlist.json");
   $jsonData = json_decode($json, true);
 
