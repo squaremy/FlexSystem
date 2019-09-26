@@ -25,7 +25,7 @@
 					}
 					$tableData = mysqli_fetch_array($tableDataRaw);
 					$visitingStudents = $tableData["visitingStudents"];
-					if(strpos($visitingStudents, $name) !== false) {
+					if(strpos($visitingStudents, $studentName) !== false) {
 						if($visitingStudents == "NONE") $visitingStudents = $studentName;
 						else $visitingStudents = $visitingStudents . ";" . $studentName;
 					} else {
