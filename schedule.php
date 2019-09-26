@@ -9,6 +9,27 @@
 		<meta name="google-signin-client_id" content="483422839968-llldr1bas7hurg44av8h9bh8dpqgtq98.apps.googleusercontent.com">
 		<script src="https://apis.google.com/js/platform.js" async defer></script>
 		<?php
+			function getStudentTable($name, $connect) {
+				$names = explode(" ", $name);
+				$lastName = strtolower($names[1]);
+				$query = "SHOW TABLES FROM techmeds_FlexSystem LIKE '$lastName%'";
+				if(!$result = mysqli_query($connect, $query)) {
+					echo "Query failed: " . mysqli_error($connect);
+				}
+				while($tables = mysqli_fetch_array($result)) {
+					$studentTable = $tables[0];
+					return $studentTable;
+				}
+			}
+
+			function getStudentData($table, $desiredDay, $connect) {
+				$query = "SELECT * FROM `$table` WHERE day='$desiredDay'";
+				if(!$data = mysqli_query($connect, $query)) {
+					echo "Query failed: " . mysqli_error($connect);
+				}
+				$toReturn = mysqli_fetch_array($data);
+				return $toReturn;
+			}
 
 			function teacherIsAvailable($table, $desiredDay, $connect) {
 				$query = "SELECT available FROM `$table` WHERE day='$desiredDay'";
@@ -38,7 +59,7 @@
 				$roomLastName = strtolower($roomNames[1]);
 				if($teacherLastName != $roomLastName) {
 					$teacherTable = getTeacherTable($teacherLastName, $connect);
-					$query = "SELECT visitingStudents FROM `$teacherTable` WHERE day='$desiredDay'";
+					$query = "SELECT visitingStudents FROM `$teacherTable` WHERE id='$desiredDay'";
 					if(!$tableDataRaw = mysqli_query($connect, $query)) {
 						echo "Query failed: " . mysqli_error($connect);
 					}
@@ -184,14 +205,40 @@
 			<table id="flexstudents">
 				<?php
 					if($type == 'teacher') {
-
+						$dayOfWeek = get_date()[wday]-1;
+						if($dayOfWeek < 6 && $dayOfWeek >= 0) {
+							mysqli_data_seek($data, $dayOfWeek);
+							$parsedData = mysqli_fetch_assoc($data);
+							$flexStudentsStr = $parsedData["flexStudents"];
+							$flexStudents = explode(";", $flexStudentsStr);
+							echo "<tr><th>Kick?</th><th>My Students</th><th>Going To</th></tr>";
+							foreach($flexStudents as $studentName) {
+								$studentTable = getStudentTable($studentName, $connect);
+								$studentData = getStudentData($studentTable, $dayOfWeek, $connect);
+								$goingTo = $studentData["teacher"];
+								echo "<tr><input type=\"checkbox\" name=$studentName /><td>$studentName</td><td>$goingTo</td>";
+							}
+						}
 					}
 				 ?>
 			</table>
 			<table id="visitingstudents">
 				<?php
 					if($type == 'teacher') {
-
+						$dayOfWeek = get_date()[wday]-1;
+						if($dayOfWeek < 6 && $dayOfWeek >= 0) {
+							mysqli_data_seek($data, $dayOfWeek);
+							$parsedData = mysqli_fetch_assoc($data);
+							$visitingStudentsStr = $parsedData["visitingStudents"];
+							$visitingStudents = explode(";", $visitingStudentsStr);
+							echo "<tr><th>Kick?</th><th>Visiting Students</th><th>Coming From</th></tr>";
+							foreach($visitingStudents as $studentName) {
+								$studentTable = getStudentTable($studentName, $connect);
+								$studentData = getStudentData($studentTable, $desiredDay, $connect);
+								$comingFrom = $studentData["room"];
+								echo "<tr><input type=\"checkbox\" name=$studentName /><td>$studentName</td><td>$comingFrom</td>";
+							}
+						}
 					}
 				 ?>
 			</table>
