@@ -26,11 +26,11 @@
 			// update student & teacher data
 			if($type = 'student') {
 				$targetTeacher = $_GET["teacher"];
-				$goingMon = $_GET["mon"];
-				$goingTue = $_GET["tue"];
-				$goingWed = $_GET["wed"];
-				$goingThu = $_GET["thu"];
-				$goingFri = $_GET["fri"];
+				$goingMon = filter_var($_GET["mon"], FILTER_VALIDATE_BOOLEAN);
+				$goingTue = filter_var($_GET["tue"], FILTER_VALIDATE_BOOLEAN);
+				$goingWed = filter_var($_GET["wed"], FILTER_VALIDATE_BOOLEAN);
+				$goingThu = filter_var($_GET["thu"], FILTER_VALIDATE_BOOLEAN);
+				$goingFri = filter_var($_GET["fri"], FILTER_VALIDATE_BOOLEAN);
 				echo "$goingMon, $goingTue, $goingWed, $goingThu, $goingFri<br/>";
 
 				if($goingMon == true) {
