@@ -10,7 +10,7 @@
 		<script src="https://apis.google.com/js/platform.js" async defer></script>
 		<?php
 			$connect = mysqli_connect("localhost", "techmeds_FlexSystem", "Tennessee18!", "techmeds_FlexSystem") or die("Connection to database failed: " . mysqli_connect_error());
-			$sql = "SELECT * FROM `$_GET["user"]`";
+			$sql = "SELECT * FROM " . $_GET["user"];
 			$data = mysqli_query($connect, $sql);
 			$parsedData = mysqli_fetch_row($data);
 			$name = $parsedData["name"];
