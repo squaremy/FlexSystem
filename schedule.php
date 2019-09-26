@@ -25,8 +25,12 @@
 					}
 					$tableData = mysqli_fetch_array($tableDataRaw);
 					$visitingStudents = $tableData["visitingStudents"];
-					if($visitingStudents == "NONE") $visitingStudents = $studentName;
-					else $visitingStudents = $visitingStudents . ";" . $studentName;
+					if(strpos($visitingStudents, $name) !== false) {
+						if($visitingStudents == "NONE") $visitingStudents = $studentName;
+						else $visitingStudents = $visitingStudents . ";" . $studentName;
+					} else {
+						echo "Student already visiting!";
+					}
 					$query = "UPDATE `$teacherTable` SET visitingStudents='$visitingStudents' WHERE day='$desiredDay'";
 					if(!mysqli_query($connect, $query)) {
 						echo "Query failed: " . mysqli_error($connect);
