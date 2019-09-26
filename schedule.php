@@ -21,7 +21,6 @@
 					}
 					while($tables = mysqli_fetch_array($result)) {
 						$teacherTable = $tables[0];
-						echo $teacherTable;
 						$query = "SELECT visitingStudents FROM `$teacherTable` WHERE day='$desiredDay'";
 						if(!$tableDataRaw = mysqli_query($connect, $query)) {
 							echo "Query failed: " . mysqli_error($connect);
