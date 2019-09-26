@@ -24,9 +24,23 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
 
   $jsonArray = json_decode($jsonContents, true);
 
-  echo $jsonArray['jothma02@gmail.com'][name];
-
   $query = null;
+
+  foreach($jsonArray as $key => $val) {
+    echo $key;
+    $name = $jsonArray[$key]['name'];
+    $type = $jsonArray[$key]['type'];
+    $schedule = $jsonArray[$key]['schedule'];
+    echo $type;
+
+    if($type == 'teacher') {}
+      $room = $jsonArray[$key]['room'];
+      $query = "INSERT INTO teacherData(name, type, room, schedule) VALUES('$name', '$type', '$room', '$schedule')";
+    } else {
+      $flexRoom = $jsonArray[$key]['flex room'];
+      $query = "INSERT INTO teacherData(name, type, flexRoom, schedule) VALUES('$name', '$type', '$flexRoom', '$schedule')";
+    }
+  }
 
   // foreach($jsonIterator as $key => $val) {
   //   $name = $key['name'];
