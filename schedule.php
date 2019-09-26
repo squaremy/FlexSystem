@@ -10,7 +10,7 @@
 		<script src="https://apis.google.com/js/platform.js" async defer></script>
 		<?php
 
-			function addStudentToVisitList($teacherLastName, $studentName, $desiredDay) {
+			function addStudentToVisitList($teacherLastName, $studentName, $desiredDay, $connect) {
 				$query = "SHOW TABLES FROM techmeds_FlexSystem LIKE '$teacherLastName%'";
 				if(!$result = mysqli_query($connect, $query)) {
 					echo "Query failed: " . mysqli_error($connect);
@@ -61,7 +61,7 @@
 						echo "Query failed: " . mysqli_error($connect);
 					}
 
-					addStudentToVisitList($lastName, $name, 'Monday');
+					addStudentToVisitList($lastName, $name, 'Monday', $connect);
 				}
 				if($goingTue == true) {
 					$query1 = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Tuesday'";
@@ -69,7 +69,7 @@
 						echo "Query failed: " . mysqli_error($connect);
 					}
 
-					addStudentToVisitList($lastName, $name, 'Tuesday');
+					addStudentToVisitList($lastName, $name, 'Tuesday', $connect);
 				}
 				if($goingWed == true) {
 					$query2 = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Wednesday'";
@@ -77,7 +77,7 @@
 						echo "Query failed: " . mysqli_error($connect);
 					}
 
-					addStudentToVisitList($lastName, $name, 'Wednesday');
+					addStudentToVisitList($lastName, $name, 'Wednesday', $connect);
 				}
 				if($goingThu == true) {
 					$query3 = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Thursday'";
@@ -85,7 +85,7 @@
 						echo "Query failed: " . mysqli_error($connect);
 					}
 
-					addStudentToVisitList($lastName, $name, 'Thursday');
+					addStudentToVisitList($lastName, $name, 'Thursday', $connect);
 				}
 				if($goingFri == true) {
 					$query4 = "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Friday'";
@@ -93,7 +93,7 @@
 						echo "Query failed: " . mysqli_error($connect);
 					}
 
-					addStudentToVisitList($lastName, $name, 'Friday');
+					addStudentToVisitList($lastName, $name, 'Friday', $connect);
 				}
 			} else {
 
