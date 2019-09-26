@@ -17,6 +17,7 @@
 				}
 				while($tables = mysqli_fetch_array($result)) {
 					$teacherTable = $teables[0];
+					echo $teacherTable;
 					$query = "SELECT visitingStudents FROM `$teacherTable`";
 					if(!$tableData = mysqli_query($connect, $query)) {
 						echo "Query failed: " . mysqli_error($connect);
