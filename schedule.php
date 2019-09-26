@@ -25,7 +25,8 @@
 					}
 					$tableData = mysqli_fetch_array($tableDataRaw);
 					$visitingStudents = $tableData["visitingStudents"];
-					$visitingStudents = $visitingStudents . ";" . $studentName;
+					if($visitingStudents == "NONE") $visitingStudents = $studentName;
+					else $visitingStudents = $visitingStudents . ";" . $studentName;
 					$query = "UPDATE `$teacherTable` SET visitingStudents='$visitingStudents' WHERE day='$desiredDay'";
 					if(!mysqli_query($connect, $query)) {
 						echo "Query failed: " . mysqli_error($connect);
