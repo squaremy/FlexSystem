@@ -10,16 +10,19 @@
 		<script src="https://apis.google.com/js/platform.js" async defer></script>
 		<?php
 			function getStudentTable($name, $connect) {
-				$names = explode(" ", $name);
-				$lastName = strtolower($names[1]);
-				$query = "SHOW TABLES FROM techmeds_FlexSystem LIKE '$lastName%'";
-				if(!$result = mysqli_query($connect, $query)) {
-					echo "Query failed: " . mysqli_error($connect);
+				if($name != 'NONE') {
+					$names = explode(" ", $name);
+					$lastName = strtolower($names[1]);
+					$query = "SHOW TABLES FROM techmeds_FlexSystem LIKE '$lastName%'";
+					if(!$result = mysqli_query($connect, $query)) {
+						echo "Query failed: " . mysqli_error($connect);
+					}
+					while($tables = mysqli_fetch_array($result)) {
+						$studentTable = $tables[0];
+						return $studentTable;
+					}
 				}
-				while($tables = mysqli_fetch_array($result)) {
-					$studentTable = $tables[0];
-					return $studentTable;
-				}
+				return null;
 			}
 
 			function getStudentData($table, $desiredDay, $connect) {
@@ -205,7 +208,7 @@
 			<table id="flexstudents">
 				<?php
 					if($type == 'teacher') {
-						$dayOfWeek = getdate()[wday]-1;
+						$dayOfWeek = getdate()['wday']-1;
 						if($dayOfWeek < 6 && $dayOfWeek >= 0) {
 							mysqli_data_seek($data, $dayOfWeek);
 							$parsedData = mysqli_fetch_assoc($data);
@@ -214,9 +217,11 @@
 							echo "<tr><th>Kick?</th><th>My Students</th><th>Going To</th></tr>";
 							foreach($flexStudents as $studentName) {
 								$studentTable = getStudentTable($studentName, $connect);
-								$studentData = getStudentData($studentTable, $dayOfWeek, $connect);
-								$goingTo = $studentData["teacher"];
-								echo "<tr><input type=\"checkbox\" name=$studentName /><td>$studentName</td><td>$goingTo</td>";
+								if($studentTable != null) {
+									$studentData = getStudentData($studentTable, $dayOfWeek, $connect);
+									$goingTo = $studentData["teacher"];
+									echo "<tr><input type=\"checkbox\" name=$studentName /><td>$studentName</td><td>$goingTo</td>";
+								} else echo "<tr><td></td><td>NONE</td><td></td></tr>";
 							}
 						}
 					}
@@ -225,7 +230,7 @@
 			<table id="visitingstudents">
 				<?php
 					if($type == 'teacher') {
-						$dayOfWeek = getdate()[wday]-1;
+						$dayOfWeek = getdate()['wday']-1;
 						if($dayOfWeek < 6 && $dayOfWeek >= 0) {
 							mysqli_data_seek($data, $dayOfWeek);
 							$parsedData = mysqli_fetch_assoc($data);
@@ -234,9 +239,11 @@
 							echo "<tr><th>Kick?</th><th>Visiting Students</th><th>Coming From</th></tr>";
 							foreach($visitingStudents as $studentName) {
 								$studentTable = getStudentTable($studentName, $connect);
-								$studentData = getStudentData($studentTable, $desiredDay, $connect);
-								$comingFrom = $studentData["room"];
-								echo "<tr><input type=\"checkbox\" name=$studentName /><td>$studentName</td><td>$comingFrom</td>";
+								if($studentTable != null) {
+									$studentData = getStudentData($studentTable, $dayOfWeek, $connect);
+									$comingFrom = $studentData["room"];
+									echo "<tr><input type=\"checkbox\" name=$studentName /><td>$studentName</td><td>$comingFrom</td>";
+								} else echo "<tr><td></td><td>NONE</td><td></td></tr>";
 							}
 						}
 					}
