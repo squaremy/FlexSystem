@@ -78,7 +78,7 @@
       )";
 
       if(!mysqli_query($connect, $sql)) {
-        die("Couldn't create table: ", msqli_error($connect));
+        die("Couldn't create table: " . msqli_error($connect));
       } else {
         echo "Successully created teacher table!";
         echo "<br />";
