@@ -22,29 +22,32 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
 
   $jsonContents = file_get_contents("../configs/GOAL_CONFIG.json");
 
-  $jsonArray = json_decode($jsonContents);
-  print $jsonArray;
+  $jsonIterator = new RecursiveIteratorIterator(
+      new RecursiveArrayIterator(json_decode($jsonContents, true)),
+      RecursiveIteratorIterator::SELF_FIRST);
+
   $query = null;
 
-  for($i = 0; $i < count($jsonArray); $i++) {
-    echo $i;
-    $name = $jsonArray[$i]['name'];
-    $type = $jsonArray[$i]['type'];
-    echo $type;
-    if($type == 'teacher') {
-      echo "teacher";
-      $room = $jsonArray[$i]['room'];
-      $schedule = $jsonArray[$i]['schedule'];
-      $query = "INSERT INTO teacherData(name, type, room, schedule) VALUES('$name', '$type', '$room', '$schedule')";
-      echo $query;
-    } else {
-      echo "student";
-      $flexRoom = $jsonArray[$i]['flex room'];
-      $schedule = $jsonArray[$i]['schedule'];
-      $query = "INSERT INTO teacherData(name, type, flexRoom, schedule) VALUES('$name', '$type', '$flexRoom', '$schedule')";
-      echo $query;
-    }
-  }
+  echo $jsonIterator->name;
+  echo $jsonIterator->type;
+
+  // foreach($jsonIterator as $key => $val) {
+  //   $name = $key['name'];
+  //   $type = $key['type'];
+  //   if($type == 'teacher') {
+  //     echo "teacher";
+  //     $room = $key['room'];
+  //     $schedule = $key['schedule'];
+  //     $query = "INSERT INTO teacherData(name, type, room, schedule) VALUES('$name', '$type', '$room', '$schedule')";
+  //     echo $query;
+  //   } else {
+  //     echo "student";
+  //     $flexRoom = $key['flex room'];
+  //     $schedule = $key['schedule'];
+  //     $query = "INSERT INTO teacherData(name, type, flexRoom, schedule) VALUES('$name', '$type', '$flexRoom', '$schedule')";
+  //     echo $query;
+  //   }
+  // }
 
 
   if(!mysqli_query($connect, $query)) {
