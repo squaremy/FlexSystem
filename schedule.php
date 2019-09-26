@@ -55,7 +55,7 @@
 			$day = $parsedData["day"];
 			$type = $parsedData["type"];
 
-			// update student & teacher data
+
 			if($type = 'student') {
 				$targetTeacher = $_GET["teacher"];
 				$names = explode(" ", $targetTeacher);
@@ -107,7 +107,7 @@
 					addStudentToVisitList($lastName, $name, 'Friday', $connect, $room);
 				}
 			} else {
-
+				// may need to update teacher data here at some point
 			}
 		?>
 	</head>
