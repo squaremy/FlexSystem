@@ -51,8 +51,8 @@ function displayTeachers(teachers) {
 				cell.innerHTML = teachers[i+j];
 
 				var teacherData = readJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/teacherlist.json');
-				for(var i = 0; i < teacherData.length; i++) {
-					console.log(teacherData[i][0]);
+				for(var i = 0; i < teacherData[0].length; i++) {
+					console.log(teacherData[0][i][0]);
 				}
 		}
 		}
