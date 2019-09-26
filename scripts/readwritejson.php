@@ -24,7 +24,7 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
 
   $jsonArray = json_decode($jsonContents, true);
 
-  echo $jsonArray;
+  echo implode(", ", $jsonArray);
 
   $query;
 
