@@ -17,7 +17,7 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
 ?>
 
 <?php
-  $content = mysqli_connect("localhost", "root","") or die('Database Not Connected. Please Fix the Issue! ' . mysql_error());
+  $content = mysqli_connect("localhost", "root") or die('Database Not Connected. Please Fix the Issue! ' . mysqli_error());
   mysqli_select_db("techmeds_FlexSystem", $connect);
 
   $jsonContents = json_get_contents("../configs/GOAL_CONFIG.json");
@@ -42,7 +42,7 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
 
 
   if(!mysqli_query($query,$connect)) {
-    die('Error : Query Not Executed. Please Fix the Issue! ' . mysql_error());
+    die('Error : Query Not Executed. Please Fix the Issue! ' . mysqli_error());
   } else {
     echo "Data Inserted Successully!!!";
   }
