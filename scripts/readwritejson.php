@@ -33,10 +33,12 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
       $room = $jsonArray[$i]['room'];
       $schedule = $jsonArray[$i]['schedule'];
       $query = "INSERT INTO teacherData(name, type, room, schedule) VALUES('$name', '$type', '$room', '$schedule')";
+      echo $query;
     } else {
       $flexRoom = $jsonArray[$i]['flex room'];
       $schedule = $jsonArray[$i]['schedule'];
       $query = "INSERT INTO teacherData(name, type, flexRoom, schedule) VALUES('$name', '$type', '$flexRoom', '$schedule')";
+      echo $query;
     }
   }
 
