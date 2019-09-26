@@ -69,6 +69,7 @@
     foreach($jsonData['teachers'][$i] as $key => $data) {
       $key = strtolower($key);
       $sql = "CREATE TABLE `$key` (
+        id INT(10),
         day VARCHAR(30),
         name VARCHAR(60),
         email VARCHAR(50),
@@ -88,10 +89,29 @@
     }
   }
   echo "<br />";
+
+  $json2 = file_get_contents("../configs/studentlist.json");
+  $jsonData2 = json_decode($json2, true);
+
+  foreach($jsonData2['students'] as $i => $object) {
+    foreach($jsonData2['students'][$i] as $key => $data) {
+      $key = strtolower($key);
+      $sql = "CREATE TABLE `$key` (
+        id INT(10),
+        day VARCHAR(30),
+        name VARCHAR(60),
+        email VARCHAR(50),
+        type VARCHAR(30),
+        room VARCHAR(60),
+        teacher VARCHAR(60)
+      )";
+    }
+  }
+
   if(!mysqli_close($connect)) {
     die("Couldn't close sql connection: " . mysqli_error($connect));
   } else {
-    echo "Closed sql connection successfully!";
+    echo "Closed sql connection successfully!<br />";
   }
 ?>
 
@@ -101,20 +121,32 @@
   $jsonData = json_decode($json, true);
 
   foreach($jsonData as $email => $data) {
+    $name = $jsonData[$email]['name'];
+    $type = $jsonData[$email]['type'];
     if($jsonData[$email]['type'] == 'teacher') {
-      $name = $jsonData[$email]['name'];
-      $room = $jsonData[$email]['room'];
-      $type = $jsonData[$email]['type'];
       foreach($jsonData[$email]['schedule'] as $i => $val) {
         $day = $jsonData[$email]['schedule'][$i]['day'];
+        $room = $jsonData[$email]['room'];
         $available = $jsonData[$email]['schedule'][$i]['available'];
         $flexStudents = implode(";", $jsonData[$email]['schedule'][$i]['flexstudents']);
         $visitingStudents = implode(";", $jsonData[$email]['schedule'][$i]['visitingstudents']);
-        $sql = "INSERT INTO `$email` (name, day, email, type, room, available, flexStudents, visitingStudents) VALUES ('$name', '$day', '$email', '$room', '$type', '$available', '$flexStudents', '$visitingStudents')";
+        $sql = "INSERT INTO `$email` (id, day, name, email, type, room, available, flexStudents, visitingStudents) VALUES ('$i', '$day', '$name', '$email', '$room', '$type', '$available', '$flexStudents', '$visitingStudents')";
         if(!mysqli_query($connect, $sql)) {
           echo "Could not insert data... " . mysqli_error($connect) . "<br />";
         } else {
           echo "Successfully inserted data!<br />";
+        }
+      }
+    } else {
+      foreach($jsonData[$email]['schedule'] as $i => $val) {
+        $day = $jsonData[$email]['schedule'][$i]['day'];
+        $teacher = $jsonData[$email]['schedule'][$i]['teacher'];
+        $room = $jsonData[$email]['flex room'];
+        $sql = "INSERT INTO `$email` (id, day, name, email, type, room, teacher) VALUES ('$i', '$day', '$name', '$email', '$type', '$room', '$teacher')";
+        if(!mysqli_query($connect, $sql)) {
+          echo "Could not insert data... " . mysqli_error($connect) . "<br />";
+        } else {
+          echo "Successully inserted data!<br />";
         }
       }
     }
