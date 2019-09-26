@@ -60,38 +60,38 @@
   // }
  ?> -->
 
-<?php
-  $connect = mysqli_connect("localhost", "techmeds_FlexSystem", "Tennessee18!", "techmeds_FlexSystem") or die('Connection failed: ' . msqli_connect_error());
-  $json = file_get_contents("../configs/teacherlist.json");
-  $jsonData = json_decode($json, true);
-
-  foreach($jsonData['teachers'] as $i => $object) {
-    foreach($jsonData['teachers'][$i] as $key => $data) {
-      $sql = "CREATE TABLE `$key` (
-        name VARCHAR(60),
-        day VARCHAR(30),
-        email VARCHAR(50),
-        room INT(10),
-        available BOOLEAN,
-        flexStudents VARCHAR(65535),
-        visitingStudents VARCHAR(65535)
-      )";
-
-      if(!mysqli_query($connect, $sql)) {
-        die("Couldn't create table: " . mysqli_error($connect));
-      } else {
-        echo "Successully created teacher table!";
-        echo "<br />";
-      }
-    }
-  }
-  echo "<br />";
-  if(!mysqli_close($connect)) {
-    die("Couldn't close sql connection: " . mysqli_error($connect));
-  } else {
-    echo "Closed sql connection successfully!";
-  }
-?>
+<!-- <?php
+  // $connect = mysqli_connect("localhost", "techmeds_FlexSystem", "Tennessee18!", "techmeds_FlexSystem") or die('Connection failed: ' . msqli_connect_error());
+  // $json = file_get_contents("../configs/teacherlist.json");
+  // $jsonData = json_decode($json, true);
+  //
+  // foreach($jsonData['teachers'] as $i => $object) {
+  //   foreach($jsonData['teachers'][$i] as $key => $data) {
+  //     $sql = "CREATE TABLE `$key` (
+  //       name VARCHAR(60),
+  //       day VARCHAR(30),
+  //       email VARCHAR(50),
+  //       room INT(10),
+  //       available BOOLEAN,
+  //       flexStudents VARCHAR(65535),
+  //       visitingStudents VARCHAR(65535)
+  //     )";
+  //
+  //     if(!mysqli_query($connect, $sql)) {
+  //       die("Couldn't create table: " . mysqli_error($connect));
+  //     } else {
+  //       echo "Successully created teacher table!";
+  //       echo "<br />";
+  //     }
+  //   }
+  // }
+  // echo "<br />";
+  // if(!mysqli_close($connect)) {
+  //   die("Couldn't close sql connection: " . mysqli_error($connect));
+  // } else {
+  //   echo "Closed sql connection successfully!";
+  // }
+?> -->
 
 <?php
   $connect = mysqli_connect("localhost", "techmeds_FlexSystem", "Tennessee18!", "techmeds_FlexSystem") or die("Connection to database failed: " . mysqli_connect_error());
