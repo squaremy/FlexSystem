@@ -22,15 +22,11 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
 
   $jsonContents = file_get_contents("../configs/GOAL_CONFIG.json");
 
-  $jsonIterator = new RecursiveIteratorIterator(
-      new RecursiveArrayIterator(json_decode($jsonContents, true)),
-      RecursiveIteratorIterator::SELF_FIRST);
+  $jsonArray = json_decode($jsonContents, true);
+
+  echo $jsonArray['jothma02@gmail.com'][name];
 
   $query = null;
-
-  echo $jsonIterator;
-  echo $jsonIterator->name;
-  echo $jsonIterator->type;
 
   // foreach($jsonIterator as $key => $val) {
   //   $name = $key['name'];
