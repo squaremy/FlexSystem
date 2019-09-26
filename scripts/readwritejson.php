@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 // This PHP script must be in "SOME_PATH/jsonFile/index.php"
 $file = 'temp.json';
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -14,9 +14,9 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
     $final_data = json_encode($array_data);
     file_put_contents('temp.json', $final_data);
 }
-?>
+?> -->
 
-<?php
+<!-- <?php
   $connect = mysqli_connect("localhost", "techmeds_FlexSystem", "Tennessee18!") or die('Database Not Connected. Please Fix the Issue! ' . mysqli_error($connect));
   mysqli_select_db($connect, "techmeds_FlexSystem");
 
@@ -58,4 +58,32 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
       echo "Data Inserted Successully!!!";
     }
   }
- ?>
+ ?> -->
+
+<?php
+  $connect = msqli_connect("localhost", "techmeds_FlexSystem", "Tennessee18!", "techmeds_FlexSystem") or die("Connection failed: ", msqli_connect_error());
+  $json = file_get_contents("../configs/teacherlist.json");
+  $jsonData = json_decode($json, true);
+
+  foreach($jsonData as $i => $object) {
+    foreach($jsonData[$i] as $key => $data) {
+      echo $key;
+      echo <br>;
+      // $sql = "CREATE TABLE $key (
+      //   id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+      //   day VARCHAR(30),
+      //   name VARCHAR(60),
+      //   email VARCHAR(50),
+      //   room INT(10),
+      //   flexStudents VARCHAR(65535),
+      //   visitingStudents VARCHAR(65535)
+      // )";
+      //
+      // if(!msqli_query($connect, $sql)) {
+      //   die("Couldn't create table: ", msqli_error($connect));
+      // }
+    }
+  }
+
+  msqli_close($connect);
+?>
