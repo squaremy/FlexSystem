@@ -105,6 +105,12 @@
         room VARCHAR(60),
         teacher VARCHAR(60)
       )";
+
+      if(!mysqli_query($connect, $sql)) {
+        die("Couldn't create table: " . mysqli_error($connect));
+      } else {
+        echo "Successfully created student table!<br />";
+      }
     }
   }
 
@@ -134,7 +140,7 @@
         if(!mysqli_query($connect, $sql)) {
           echo "Could not insert data... " . mysqli_error($connect) . "<br />";
         } else {
-          echo "Successfully inserted data!<br />";
+          echo "Successfully inserted teacher data!<br />";
         }
       }
     } else {
@@ -146,7 +152,7 @@
         if(!mysqli_query($connect, $sql)) {
           echo "Could not insert data... " . mysqli_error($connect) . "<br />";
         } else {
-          echo "Successully inserted data!<br />";
+          echo "Successully inserted student data!<br />";
         }
       }
     }
