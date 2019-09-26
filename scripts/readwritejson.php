@@ -69,18 +69,16 @@
 
   foreach($jsonData['teachers'] as $i => $object) {
     foreach($jsonData['teachers'][$i] as $key => $data) {
-      echo $key;
-      echo '<br />';
-      // $sql = "CREATE TABLE $key (
-      //   id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-      //   day VARCHAR(30),
-      //   name VARCHAR(60),
-      //   email VARCHAR(50),
-      //   room INT(10),
-      //   flexStudents VARCHAR(65535),
-      //   visitingStudents VARCHAR(65535)
-      // )";
-      //
+      $sql = "CREATE TABLE $key (
+        id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        day VARCHAR(30),
+        name VARCHAR(60),
+        email VARCHAR(50),
+        room INT(10),
+        flexStudents VARCHAR(65535),
+        visitingStudents VARCHAR(65535)
+      )";
+      echo $sql;
       // if(!msqli_query($connect, $sql)) {
       //   die("Couldn't create table: ", msqli_error($connect));
       // }
