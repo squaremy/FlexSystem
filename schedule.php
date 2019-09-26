@@ -32,12 +32,12 @@
 				$goingThu = $_GET["thu"];
 				$goingFri = $_GET["fri"];
 
-				$query = "SELECT * FROM `$user`;";
-				if($goingMon) $query .= "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Monday'" . ";";
-				if($goingTue) $query .= "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Tuesday'" . ";";
-				if($goingWed) $query .= "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Wednesday'" . ";";
-				if($goingThu) $query .= "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Thursday'" . ";";
-				if($goingFri) $query .= "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Friday'" . ";";
+				$query = "SELECT * FROM `$user`" . ";";
+				if($goingMon) $query .= "UPDATE `$user` SET teacher=`$targetTeacher` WHERE day='Monday'" . ";";
+				if($goingTue) $query .= "UPDATE `$user` SET teacher=`$targetTeacher` WHERE day='Tuesday'" . ";";
+				if($goingWed) $query .= "UPDATE `$user` SET teacher=`$targetTeacher` WHERE day='Wednesday'" . ";";
+				if($goingThu) $query .= "UPDATE `$user` SET teacher=`$targetTeacher` WHERE day='Thursday'" . ";";
+				if($goingFri) $query .= "UPDATE `$user` SET teacher=`$targetTeacher` WHERE day='Friday'" . ";";
 
 				if(!mysqli_query($connect, $query)) {
 					echo "Query failed: " . mysqli_error($connect);
