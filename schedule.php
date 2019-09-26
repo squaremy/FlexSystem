@@ -38,7 +38,10 @@
 				if($goingWed) $sql += "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Wednesday'";
 				if($goingThu) $sql += "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Thursday'";
 				if($goingFri) $sql += "UPDATE `$user` SET teacher='$targetTeacher' WHERE day='Friday'";
-				echo $sql;
+
+				if(!mysqli_query($connect, $sql)) {
+					echo "Query failed: " . mysqli_error($connect);
+				}
 			} else {
 
 			}
