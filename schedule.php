@@ -17,6 +17,7 @@
 				die("error: " . mysqli_error($connect));
 			}
 			$parsedData = mysqli_fetch_row($data);
+			echo $parsedData;
 			$name = $parsedData["name"];
 			$email = $parsedData["email"];
 			$room = $parsedData["room"];
