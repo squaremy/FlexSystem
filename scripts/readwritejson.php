@@ -35,13 +35,14 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
     if($type == 'teacher') {
       $room = $jsonArray[$key]['room'];
       $available = $jsonArray[$key]['schedule'][0]['available'];
-      foreach($jsonArray[$key]['schedule'][0] as $k => $v) {
-        $flexStudents = null;
-        $visitingStudents = null;
-        if($k == 'flexstudents') $flexStudents = $v;
-        else if($k == 'visitingstudents') $visitingStudents = $v;
-        $query = "INSERT INTO teacherData(name, type, room, available, flexstudents, visitingstudents) VALUES('$name', '$type', '$room', '$available', '$flexStudents', '$visitingStudents')";
-      }
+      $query = "INSERT INTO teacherData(name, type, room, available) VALUES('$name', '$type', '$room', '$available')";
+      // foreach($jsonArray[$key]['schedule'][0] as $k => $v) {
+      //   $flexStudents = null;
+      //   $visitingStudents = null;
+      //   if($k == 'flexstudents') $flexStudents = $v;
+      //   else if($k == 'visitingstudents') $visitingStudents = $v;
+      //   $query = "INSERT INTO teacherData(name, type, room, available, flexstudents, visitingstudents) VALUES('$name', '$type', '$room', '$available', '$flexStudents', '$visitingStudents')";
+      // }
     } else {
       $flexRoom = $jsonArray[$key]['flex room'];
       foreach($jsonArray[$key]['schedule'][0] as $k => $v) {
