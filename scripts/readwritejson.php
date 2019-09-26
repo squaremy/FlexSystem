@@ -65,6 +65,8 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
   $json = file_get_contents("../configs/teacherlist.json");
   $jsonData = json_decode($json, true);
 
+  echo $jsonData;
+
   foreach($jsonData as $i => $object) {
     echo $i;
     echo $jsonData[$i];
