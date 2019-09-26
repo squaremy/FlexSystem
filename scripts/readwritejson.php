@@ -24,9 +24,7 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
 
   $jsonArray = json_decode($jsonContents, true);
 
-  echo $jsonContents;
-
-  $query;
+  $query = null;
 
   for($i = 0; $i < count($jsonArray); $i++) {
     $name = $jsonArray[$i]['name'];
