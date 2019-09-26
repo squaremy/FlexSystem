@@ -1,8 +1,10 @@
 {
-  "guptong@franklinacademy.org": {
+  [
+  {
     "name":"Grant Gupton",
     "type":"student",
     "flex room":"Steve Msarsa",
+    "email":"guptong@franklinacademy.org",
     "schedule":
       [ {"day":"Monday", "teacher":"Steve Msarsa"},
       {"day":"Tuesday", "teacher":"Steve Msarsa"},
@@ -11,10 +13,11 @@
       {"day":"Friday", "teacher":"Steve Msarsa"}]
   },
 
-  "martinj1@franklinacademy.org": {
+  {
     "name":"Jordan Martin",
     "type":"student",
     "flex room":"Thomas Styslinger",
+    "email":"martinj1@franklinacademy.org",
     "schedule":
       [ {"day":"Monday", "teacher":"Tom Styslinger"},
       {"day":"Tuesday", "teacher":"Tom Styslinger"},
@@ -23,10 +26,11 @@
       {"day":"Friday", "teacher":"Tom Styslinger"}]
   },
 
-  "styslingert@franklinacademy.org": {
+  {
     "name":"Tom Styslinger",
     "type":"teacher",
     "room":223,
+    "email":"styslingert@franklinacademy.org",
     "schedule":[
       {
         "day":"Monday",
@@ -61,10 +65,11 @@
     ]
   },
 
-  "abeach2010@gmail.com": {
+  {
     "name":"Grant Gupton",
     "type":"teacher",
     "room":1000,
+    "email":"abeach2010@gmail.com",
     "schedule":[
       {
         "day":"Monday",
@@ -99,10 +104,11 @@
     ]
   },
 
-  "jothma02@gmail.com": {
+  {
     "name":"Jordan Martin",
     "type":"teacher",
     "room":2002,
+    "email":"jothma02@gmail.com",
     "schedule":[
       {
         "day":"Monday",
@@ -136,4 +142,5 @@
       }
     ]
   }
+]
 }
