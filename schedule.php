@@ -32,7 +32,7 @@
 				$goingThu = $_GET["thu"];
 				$goingFri = $_GET["fri"];
 
-				$query = "UPDATE `martinj1@franklinacademy.org` SET teacher='Shelly Harper' WHERE day='Tuesday'";
+				$query = "UPDATE `martinj1@franklinacademy.org` SET teacher='$targetTeacher' WHERE day='Tuesday'";
 				// if($goingMon) $query .= "UPDATE `$user` SET teacher=`$targetTeacher` WHERE day='Monday'" . ";";
 				// if($goingTue) $query .= "UPDATE `$user` SET teacher=`$targetTeacher` WHERE day='Tuesday'" . ";";
 				// if($goingWed) $query .= "UPDATE `$user` SET teacher=`$targetTeacher` WHERE day='Wednesday'" . ";";
