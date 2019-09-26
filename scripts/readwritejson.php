@@ -67,7 +67,10 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
 
   foreach($jsonData as $i => $object) {
     foreach($jsonData[$i] as $key => $data) {
+      echo $i;
       echo $key;
+      echo $jsonData[$i];
+      echo $data;
       echo '<br />';
       // $sql = "CREATE TABLE $key (
       //   id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
