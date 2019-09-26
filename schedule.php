@@ -19,10 +19,11 @@
 				while($tables = mysqli_fetch_array($result)) {
 					$teacherTable = $tables[0];
 					echo $teacherTable;
-					$query = "SELECT visitingStudents FROM `$teacherTable`";
-					if(!$tableData = mysqli_query($connect, $query)) {
+					$query = "SELECT visitingStudents FROM `$teacherTable` WHERE day='$desiredDay'";
+					if(!$tableDataRaw = mysqli_query($connect, $query)) {
 						echo "Query failed: " . mysqli_error($connect);
 					}
+					$tableData = mysqli_fetch_array($tableDataRaw);
 					$visitingStudents = $tableData["visitingStudents"];
 					$visitingStudents = $visitingStudents . ";" . $studentName;
 					$query = "UPDATE `$teacherTable` SET visitingStudents='$visitingStudents' WHERE day='$desiredDay'";
