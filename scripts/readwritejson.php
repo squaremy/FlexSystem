@@ -26,7 +26,7 @@ else if($_SERVER['REQUEST_METHOD'] === 'GET'){
 
   $query;
 
-  for(int i = 0; i < $jsonArray.length; i++) {
+  for($i = 0; $i < $jsonArray.length; $i++) {
     $name = $jsonArray[i]['name'];
     $type = $jsonArray[i]['type'];
     if($type == 'teacher') {
