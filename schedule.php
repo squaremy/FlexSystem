@@ -96,7 +96,7 @@
 			$type = $parsedData["type"];
 
 
-			if($type == 'student') {
+			if($type == 'student' && $_GET["signedup"] == '1') {
 				$targetTeacher = $_GET["teacher"];
 				$names = explode(" ", $targetTeacher);
 				$lastName = $names[1];
@@ -199,8 +199,8 @@
 							mysqli_data_seek($data, $i);
 							$parsedData = mysqli_fetch_assoc($data);
 							$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
-							if($available == true) echo "<td>AVAILABLE</td>";
-							else echo "<td>BLOCKED</td>";
+							if($available == true) echo "<td><a id=\"available\">AVAILABLE</a></td>";
+							else echo "<td><a id=\"available\">BLOCKED</a></td>";
 						}
 						echo "</tr>";
 					}
