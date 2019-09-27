@@ -198,8 +198,9 @@
 						for($i = 0; $i < mysqli_num_rows($data); $i++) {
 							mysqli_data_seek($data, $i);
 							$parsedData = mysqli_fetch_assoc($data);
-							$available = $parsedData["available"];
-							echo "<td>" . $available . "</td>";
+							$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
+							if($available == true) echo "<td>AVAILABLE</td>";
+							else echo "<td>BLOCKED</td>"; 
 						}
 						echo "</tr>";
 					}
@@ -220,7 +221,7 @@
 								if($studentTable != null) {
 									$studentData = getStudentData($studentTable, $dayOfWeek, $connect);
 									$goingTo = $studentData["teacher"];
-									echo "<tr><input type=\"checkbox\" name=\"$studentName\" /><td>$studentName</td><td>$goingTo</td>";
+									echo "<tr><td><input type=\"checkbox\" name=\"$studentName\" /></td><td>$studentName</td><td>$goingTo</td>";
 								} else echo "<tr><td></td><td>NONE</td><td></td></tr>";
 							}
 						}
@@ -242,7 +243,7 @@
 								if($studentTable != null) {
 									$studentData = getStudentData($studentTable, $dayOfWeek, $connect);
 									$comingFrom = $studentData["room"];
-									echo "<tr><input type=\"checkbox\" name=\"$studentName\" /><td>$studentName</td><td>$comingFrom</td>";
+									echo "<tr><td><input type=\"checkbox\" name=\"$studentName\" /></td><td>$studentName</td><td>$comingFrom</td>";
 								} else echo "<tr><td></td><td>NONE</td><td></td></tr>";
 							}
 						}
