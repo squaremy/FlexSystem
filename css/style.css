@@ -41,18 +41,13 @@
 	position:absolute;
 	display: block;
 	top:200px;
-	width: 50%;
-	margin-left: 25%;
-	margin-right: 25%;
+	width: 480px;
+	left: calc(50%-240px);
 	text-align: center;
 	border:5px;
 	border-width: 5px;
 	border-color: black;
 	font-weight: bold;
-}
-
-body {
-	text-align: center;
 }
 
 #signin{
