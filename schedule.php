@@ -346,6 +346,20 @@
 						}
 					}
 				}
+
+				$day = getdate()['wday']-1;
+				if($day < 5 && $day >= 0) {
+					mysqli_data_seek($data, $day);
+					$parsedData = mysqli_fetch_array($data);
+					$visitingStudents = "NONE";
+					$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
+					if($available == false) {
+						$query = "UPDATE `$user` SET visitingStudents='$visitingStudents' WHERE id='$day'";
+						if(!mysqli_query($connect, $query)) {
+							echo "Query failed: " . mysqli_error($connect);
+						}
+					}
+				}
 			}
 		?>
 	</head>
@@ -393,7 +407,7 @@
 				<?php
 					if($type == 'teacher') {
 						$dayOfWeek = getdate()['wday']-1;
-						if($dayOfWeek < 6 && $dayOfWeek >= 0) {
+						if($dayOfWeek < 5 && $dayOfWeek >= 0) {
 							mysqli_data_seek($data, $dayOfWeek);
 							$parsedData = mysqli_fetch_assoc($data);
 							$flexStudentsStr = $parsedData["flexStudents"];
