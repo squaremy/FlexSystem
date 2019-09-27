@@ -50,6 +50,10 @@
 	font-weight: bold;
 }
 
+body {
+	text-align: center;
+}
+
 #signin{
 	position:absolute;
 	top:0%;
