@@ -8,6 +8,7 @@
 		<link rel="icon" href="favicon.ico"/>
 		<meta name="google-signin-client_id" content="483422839968-llldr1bas7hurg44av8h9bh8dpqgtq98.apps.googleusercontent.com">
 		<script src="https://apis.google.com/js/platform.js" async defer></script>
+		<script type="text/javascript" src="scripts/schedule.js"></script>
 		<?php
 			function getStudentTable($name, $connect) {
 				if($name != 'NONE') {
@@ -252,8 +253,8 @@
 							mysqli_data_seek($data, $i);
 							$parsedData = mysqli_fetch_assoc($data);
 							$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
-							if($available == true) echo "<td onclick=\"swapAvailability($i);\"><a id=\"available\">AVAILABLE</a></td>";
-							else echo "<td onclick=\"swapAvailability($i);\"><a id=\"available\">BLOCKED</a></td>";
+							if($available == true) echo "<td onclick=\"function(){swapAvailability($i);}\"><a id=\"available\">AVAILABLE</a></td>";
+							else echo "<td onclick=\"function(){swapAvailability($i);}\"><a id=\"available\">BLOCKED</a></td>";
 						}
 						echo "</tr>";
 					}
@@ -306,7 +307,6 @@
 		</div>
 		<div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="askForLogin" data-theme="dark" style="visibility: hidden;"></div>
 		<a href="#" style="position: absolute; top:80px; right: 10px;" onclick="logout()">Sign out</a>
-		<script type="text/javascript" src="scripts/schedule.js"></script>
 		<!-- <script>loadUser()</script> -->
 		<script type="text/javascript" src="scripts/signin.js"></script>
 	</body>
