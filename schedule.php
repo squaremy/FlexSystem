@@ -178,6 +178,32 @@
 						if(!mysqli_query($connect, $query)) {
 							echo "Query failed: " . mysqli_error($connect);
 						}
+
+						$flexStudentsStr = $parsedData["flexStudents"];
+						$flexStudents = explode(";", $flexStudentsStr);
+						foreach($flexStudents as $studentName) {
+							$studentTable = getStudentTable($studentName, $connect);
+							$goingTo = "undecided";
+							if($studentTable != null) {
+								$query = "UPDATE `$studentTable` SET teacher='$goingTo' WHERE day='Monday'";
+								if(!mysqli_query($connect, $query)) {
+									echo "Query failed: " . mysqli_error($connect);
+								}
+							}
+						}
+
+						$visitingStudentsStr = $parsedData["visitingStudents"];
+						$visitingStudents = explode(";", $visitingStudentsStr);
+						foreach($visitingStudents as $studentName) {
+							$studentTable = getStudentTable($studentName, $connect);
+							$goingTo = "undecided";
+							if($studentTable != null) {
+								$query = "UPDATE `$studentTable` SET teacher='$goingTo' WHERE day='Monday'";
+								if(!mysqli_query($connect, $query)) {
+									echo "Query failed: " . mysqli_error($connect);
+								}
+							}
+						}
 					} else if($swapTue == true) {
 						mysqli_data_seek($data, 1);
 						$parsedData = mysqli_fetch_array($data);
@@ -186,6 +212,32 @@
 						$query = "UPDATE `$user` SET available='$available' WHERE day='Tuesday'";
 						if(!mysqli_query($connect, $query)) {
 							echo "Query failed: " . mysqli_error($connect);
+						}
+
+						$flexStudentsStr = $parsedData["flexStudents"];
+						$flexStudents = explode(";", $flexStudentsStr);
+						foreach($flexStudents as $studentName) {
+							$studentTable = getStudentTable($studentName, $connect);
+							$goingTo = "undecided";
+							if($studentTable != null) {
+								$query = "UPDATE `$studentTable` SET teacher='$goingTo' WHERE day='Tuesday'";
+								if(!mysqli_query($connect, $query)) {
+									echo "Query failed: " . mysqli_error($connect);
+								}
+							}
+						}
+
+						$visitingStudentsStr = $parsedData["visitingStudents"];
+						$visitingStudents = explode(";", $visitingStudentsStr);
+						foreach($visitingStudents as $studentName) {
+							$studentTable = getStudentTable($studentName, $connect);
+							$goingTo = "undecided";
+							if($studentTable != null) {
+								$query = "UPDATE `$studentTable` SET teacher='$goingTo' WHERE day='Tuesday'";
+								if(!mysqli_query($connect, $query)) {
+									echo "Query failed: " . mysqli_error($connect);
+								}
+							}
 						}
 					} else if($swapWed == true) {
 						mysqli_data_seek($data, 2);
@@ -196,6 +248,32 @@
 						if(!mysqli_query($connect, $query)) {
 							echo "Query failed: " . mysqli_error($connect);
 						}
+
+						$flexStudentsStr = $parsedData["flexStudents"];
+						$flexStudents = explode(";", $flexStudentsStr);
+						foreach($flexStudents as $studentName) {
+							$studentTable = getStudentTable($studentName, $connect);
+							$goingTo = "undecided";
+							if($studentTable != null) {
+								$query = "UPDATE `$studentTable` SET teacher='$goingTo' WHERE day='Wednesday'";
+								if(!mysqli_query($connect, $query)) {
+									echo "Query failed: " . mysqli_error($connect);
+								}
+							}
+						}
+
+						$visitingStudentsStr = $parsedData["visitingStudents"];
+						$visitingStudents = explode(";", $visitingStudentsStr);
+						foreach($visitingStudents as $studentName) {
+							$studentTable = getStudentTable($studentName, $connect);
+							$goingTo = "undecided";
+							if($studentTable != null) {
+								$query = "UPDATE `$studentTable` SET teacher='$goingTo' WHERE day='Wednesday'";
+								if(!mysqli_query($connect, $query)) {
+									echo "Query failed: " . mysqli_error($connect);
+								}
+							}
+						}
 					} else if($swapThu == true) {
 						mysqli_data_seek($data, 3);
 						$parsedData = mysqli_fetch_array($data);
@@ -205,6 +283,32 @@
 						if(!mysqli_query($connect, $query)) {
 							echo "Query failed: " . mysqli_error($connect);
 						}
+
+						$flexStudentsStr = $parsedData["flexStudents"];
+						$flexStudents = explode(";", $flexStudentsStr);
+						foreach($flexStudents as $studentName) {
+							$studentTable = getStudentTable($studentName, $connect);
+							$goingTo = "undecided";
+							if($studentTable != null) {
+								$query = "UPDATE `$studentTable` SET teacher='$goingTo' WHERE day='Thursday'";
+								if(!mysqli_query($connect, $query)) {
+									echo "Query failed: " . mysqli_error($connect);
+								}
+							}
+						}
+
+						$visitingStudentsStr = $parsedData["visitingStudents"];
+						$visitingStudents = explode(";", $visitingStudentsStr);
+						foreach($visitingStudents as $studentName) {
+							$studentTable = getStudentTable($studentName, $connect);
+							$goingTo = "undecided";
+							if($studentTable != null) {
+								$query = "UPDATE `$studentTable` SET teacher='$goingTo' WHERE day='Thursday'";
+								if(!mysqli_query($connect, $query)) {
+									echo "Query failed: " . mysqli_error($connect);
+								}
+							}
+						}
 					} else if($swapFri == true) {
 						mysqli_data_seek($data, 4);
 						$parsedData = mysqli_fetch_array($data);
@@ -213,6 +317,32 @@
 						$query = "UPDATE `$user` SET available='$available' WHERE day='Friday'";
 						if(!mysqli_query($connect, $query)) {
 							echo "Query failed: " . mysqli_error($connect);
+						}
+
+						$flexStudentsStr = $parsedData["flexStudents"];
+						$flexStudents = explode(";", $flexStudentsStr);
+						foreach($flexStudents as $studentName) {
+							$studentTable = getStudentTable($studentName, $connect);
+							$goingTo = "undecided";
+							if($studentTable != null) {
+								$query = "UPDATE `$studentTable` SET teacher='$goingTo' WHERE day='Friday'";
+								if(!mysqli_query($connect, $query)) {
+									echo "Query failed: " . mysqli_error($connect);
+								}
+							}
+						}
+
+						$visitingStudentsStr = $parsedData["visitingStudents"];
+						$visitingStudents = explode(";", $visitingStudentsStr);
+						foreach($visitingStudents as $studentName) {
+							$studentTable = getStudentTable($studentName, $connect);
+							$goingTo = "undecided";
+							if($studentTable != null) {
+								$query = "UPDATE `$studentTable` SET teacher='$goingTo' WHERE day='Friday'";
+								if(!mysqli_query($connect, $query)) {
+									echo "Query failed: " . mysqli_error($connect);
+								}
+							}
 						}
 					}
 				}
