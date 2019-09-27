@@ -205,7 +205,7 @@ function swapAvailability(dayOfWeek) {
 			break;
 	}
 	var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'] + "&signedup=1" + day;
-	window.loction.href = 'schedule.php?' + extension;
+	window.location.href = 'schedule.php?' + extension;
 }
 
 function confirmsignup() {
