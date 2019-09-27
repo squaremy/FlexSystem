@@ -174,7 +174,7 @@
 			<a id="schedulebutton" href="schedule.html" class="disable-select">My Schedule</a>
 		</div>
 		<div class="signupmenu">
-			<p id="searchtxt"></p>
+			<p id="searchtxt"><?php echo $name; ?></p>
 			<table id="weektable">
 				<?php
 					echo "<tr>";
