@@ -185,8 +185,26 @@ function loadData(path, useremail) {
 		  })
 }
 
-function swapAvailability(){
-
+function swapAvailability(dayOfWeek) {
+	var day = "";
+	switch(dayOfWeek) {
+		case 0:
+			day = "&mon=1&tue=0&wed=0&thu=0&fri=0";
+			break;
+		case 1:
+			day = "&mon=0&tue=1&wed=0&thu=0&fri=0";
+			break;
+		case 2:
+			day = "&mon=0&tue=0&wed=1&thu=0&fri=0";
+			break;
+		case 3:
+			day = "&mon=0&tue=0&wed=0&thu=1&fri=0";
+			break;
+		case 4:
+			day = "&mon=0&tue=0&wed=0&thu=0&fri=1";
+			break;
+	}
+	var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'] + "&signedup=1" + day;
 }
 
 function confirmsignup() {

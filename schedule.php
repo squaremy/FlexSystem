@@ -162,7 +162,60 @@
 					} else echo "Teacher unavailable...";
 				}
 			} else {
-				// may need to update teacher data here at some point
+				if($_GET["signedup"] == '1') {
+					$swapMon = filter_var($_GET["mon"], FILTER_VALIDATE_BOOLEAN);
+					$swapTue = filter_var($_GET["tue"], FILTER_VALIDATE_BOOLEAN);
+					$swapWed = filter_var($_GET["wed"], FILTER_VALIDATE_BOOLEAN);
+					$swapThu = filter_var($_GET["thu"], FILTER_VALIDATE_BOOLEAN);
+					$swapFri = filter_var($_GET["fri"], FILTER_VALIDATE_BOOLEAN);
+
+					if($swapMon == true) {
+						mysqli_data_seek($connect, 0);
+						$parsedData = mysqli_fetch_array($data);
+						$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
+						$available != $available;
+						$query = "UPDATE `$user` SET available='$available' WHERE day='Monday'";
+						if(!mysqli_query($connect, $query)) {
+							echo "Query failed: " . mysqli_error($connect);
+						}
+					} else if($swapTue == true) {
+						mysqli_data_seek($connect, 1);
+						$parsedData = mysqli_fetch_array($data);
+						$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
+						$available != $available;
+						$query = "UPDATE `$user` SET available='$available' WHERE day='Tuesday'";
+						if(!mysqli_query($connect, $query)) {
+							echo "Query failed: " . mysqli_error($connect);
+						}
+					} else if($swapWed == true) {
+						mysqli_data_seek($connect, 2);
+						$parsedData = mysqli_fetch_array($data);
+						$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
+						$available != $available;
+						$query = "UPDATE `$user` SET available='$available' WHERE day='Wednesday'";
+						if(!mysqli_query($connect, $query)) {
+							echo "Query failed: " . mysqli_error($connect);
+						}
+					} else if($swapThu == true) {
+						mysqli_data_seek($connect, 3);
+						$parsedData = mysqli_fetch_array($data);
+						$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
+						$available != $available;
+						$query = "UPDATE `$user` SET available='$available' WHERE day='Thursday'";
+						if(!mysqli_query($connect, $query)) {
+							echo "Query failed: " . mysqli_error($connect);
+						}
+					} else if($swapFri == true) {
+						mysqli_data_seek($connect, 4);
+						$parsedData = mysqli_fetch_array($data);
+						$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
+						$available != $available;
+						$query = "UPDATE `$user` SET available='$available' WHERE day='Friday'";
+						if(!mysqli_query($connect, $query)) {
+							echo "Query failed: " . mysqli_error($connect);
+						}
+					}
+				}
 			}
 		?>
 	</head>
@@ -199,8 +252,8 @@
 							mysqli_data_seek($data, $i);
 							$parsedData = mysqli_fetch_assoc($data);
 							$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
-							if($available == true) echo "<td><a id=\"available\">AVAILABLE</a></td>";
-							else echo "<td><a id=\"available\">BLOCKED</a></td>";
+							if($available == true) echo "<td><a id=\"available\" onclick=\"swapAvailability($i);\">AVAILABLE</a></td>";
+							else echo "<td><a id=\"available\" onclick=\"swapAvailability($i);\">BLOCKED</a></td>";
 						}
 						echo "</tr>";
 					}
@@ -253,7 +306,7 @@
 		</div>
 		<div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="askForLogin" data-theme="dark" style="visibility: hidden;"></div>
 		<a href="#" style="position: absolute; top:80px; right: 10px;" onclick="logout()">Sign out</a>
-		<!-- <script type="text/javascript" src="scripts/schedule.js"></script> -->
+		<script type="text/javascript" src="scripts/schedule.js"></script>
 		<!-- <script>loadUser()</script> -->
 		<script type="text/javascript" src="scripts/signin.js"></script>
 	</body>
