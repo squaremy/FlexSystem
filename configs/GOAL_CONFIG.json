@@ -14,7 +14,7 @@
   "martinj1@franklinacademy.org": {
     "name":"Jordan Martin",
     "type":"student",
-    "flex room":"Thomas Styslinger",
+    "flex room":"Tom Styslinger",
     "schedule":
       [ {"day":"Monday", "teacher":"Tom Styslinger"},
       {"day":"Tuesday", "teacher":"Tom Styslinger"},
@@ -22,7 +22,7 @@
       {"day":"Thursday", "teacher":"Tom Styslinger"},
       {"day":"Friday", "teacher":"Tom Styslinger"}]
   },
-
+  
   "styslingert@franklinacademy.org": {
     "name":"Tom Styslinger",
     "type":"teacher",

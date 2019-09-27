@@ -162,6 +162,18 @@ table {
 	text-align:center;
 }
 
+a:link#available, a:visited#available {
+  color: black;
+  text-align: center;
+  text-decoration: none;
+}
+
+a:hover#available, a:active#available {
+  color: blue;
+	text-align: center;
+	text-decoration: none;
+}
+
 @media screen and (max-width: 600px) {
   #searchbar{
     text-align: center;

@@ -185,8 +185,27 @@ function loadData(path, useremail) {
 		  })
 }
 
-function swapAvailability(){
-
+function swapAvailability(dayOfWeek) {
+	var day = "";
+	switch(dayOfWeek) {
+		case 0:
+			day = "&mon=1&tue=0&wed=0&thu=0&fri=0";
+			break;
+		case 1:
+			day = "&mon=0&tue=1&wed=0&thu=0&fri=0";
+			break;
+		case 2:
+			day = "&mon=0&tue=0&wed=1&thu=0&fri=0";
+			break;
+		case 3:
+			day = "&mon=0&tue=0&wed=0&thu=1&fri=0";
+			break;
+		case 4:
+			day = "&mon=0&tue=0&wed=0&thu=0&fri=1";
+			break;
+	}
+	var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'] + "&signedup=1" + day;
+	window.location.href = 'schedule.php?' + extension;
 }
 
 function confirmsignup() {
@@ -196,23 +215,10 @@ function confirmsignup() {
   var wed = document.getElementById("wedchk");
   var thu = document.getElementById("thuchk");
   var fri = document.getElementById("frichk");
+	var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'] + "&teacher=" + document.getElementById("searchtxt").innerHTML + "&signedup=1";
 
 	if(myDat['type'] == "student") {
-	  if(mon.checked) {
-			$.get("/scripts/readwritejson.php");
-	  }
-	  if(tue.checked) {
-			myDat['schedule'][1]['teacher'] = document.getElementById("searchtxt").innerHTML;
-	  }
-	  if(wed.checked) {
-			myDat['schedule'][2]['teacher'] = document.getElementById("searchtxt").innerHTML;
-	  }
-	  if(thu.checked) {
-			myDat['schedule'][3]['teacher'] = document.getElementById("searchtxt").innerHTML;
-	  }
-	  if(fri.checked) {
-			myDat['schedule'][4]['teacher'] = document.getElementById("searchtxt").innerHTML;
-	  }
-		window.location.href = 'schedule.html';
+	  extension += "&mon=" + mon.checked + "&tue=" + tue.checked + "&wed=" + wed.checked + "&thu=" + thu.checked + "&fri=" + fri.checked;
+		window.location.href = 'schedule.php?' + extension;
 	}
 }
