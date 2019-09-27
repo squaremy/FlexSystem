@@ -347,8 +347,7 @@
 					}
 				}
 
-				$day = getdate()['wday']-1;
-				if($day < 5 && $day >= 0) {
+				for($day = 0; $day < 5; $day++) {
 					mysqli_data_seek($data, $day);
 					$parsedData = mysqli_fetch_array($data);
 					$visitingStudents = "NONE";
