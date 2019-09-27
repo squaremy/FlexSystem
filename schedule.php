@@ -173,9 +173,7 @@
 						mysqli_data_seek($data, 0);
 						$parsedData = mysqli_fetch_array($data);
 						$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
-						echo $available;
 						$available = !$available;
-						echo $available;
 						$query = "UPDATE `$user` SET available='$available' WHERE day='Monday'";
 						if(!mysqli_query($connect, $query)) {
 							echo "Query failed: " . mysqli_error($connect);
@@ -184,9 +182,7 @@
 						mysqli_data_seek($data, 1);
 						$parsedData = mysqli_fetch_array($data);
 						$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
-						echo $available;
-						$available != $available;
-						echo $available;
+						$available = !$available;
 						$query = "UPDATE `$user` SET available='$available' WHERE day='Tuesday'";
 						if(!mysqli_query($connect, $query)) {
 							echo "Query failed: " . mysqli_error($connect);
@@ -195,7 +191,7 @@
 						mysqli_data_seek($data, 2);
 						$parsedData = mysqli_fetch_array($data);
 						$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
-						$available != $available;
+						$available = !$available;
 						$query = "UPDATE `$user` SET available='$available' WHERE day='Wednesday'";
 						if(!mysqli_query($connect, $query)) {
 							echo "Query failed: " . mysqli_error($connect);
@@ -204,7 +200,7 @@
 						mysqli_data_seek($data, 3);
 						$parsedData = mysqli_fetch_array($data);
 						$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
-						$available != $available;
+						$available = !$available;
 						$query = "UPDATE `$user` SET available='$available' WHERE day='Thursday'";
 						if(!mysqli_query($connect, $query)) {
 							echo "Query failed: " . mysqli_error($connect);
@@ -213,7 +209,7 @@
 						mysqli_data_seek($data, 4);
 						$parsedData = mysqli_fetch_array($data);
 						$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
-						$available != $available;
+						$available = !$available;
 						$query = "UPDATE `$user` SET available='$available' WHERE day='Friday'";
 						if(!mysqli_query($connect, $query)) {
 							echo "Query failed: " . mysqli_error($connect);
