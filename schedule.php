@@ -170,7 +170,7 @@
 					$swapFri = filter_var($_GET["fri"], FILTER_VALIDATE_BOOLEAN);
 
 					if($swapMon == true) {
-						mysqli_data_seek($connect, 0);
+						mysqli_data_seek($data, 0);
 						$parsedData = mysqli_fetch_array($data);
 						$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
 						$available != $available;
@@ -179,7 +179,7 @@
 							echo "Query failed: " . mysqli_error($connect);
 						}
 					} else if($swapTue == true) {
-						mysqli_data_seek($connect, 1);
+						mysqli_data_seek($data, 1);
 						$parsedData = mysqli_fetch_array($data);
 						$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
 						$available != $available;
@@ -188,7 +188,7 @@
 							echo "Query failed: " . mysqli_error($connect);
 						}
 					} else if($swapWed == true) {
-						mysqli_data_seek($connect, 2);
+						mysqli_data_seek($data, 2);
 						$parsedData = mysqli_fetch_array($data);
 						$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
 						$available != $available;
@@ -197,7 +197,7 @@
 							echo "Query failed: " . mysqli_error($connect);
 						}
 					} else if($swapThu == true) {
-						mysqli_data_seek($connect, 3);
+						mysqli_data_seek($data, 3);
 						$parsedData = mysqli_fetch_array($data);
 						$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
 						$available != $available;
@@ -206,7 +206,7 @@
 							echo "Query failed: " . mysqli_error($connect);
 						}
 					} else if($swapFri == true) {
-						mysqli_data_seek($connect, 4);
+						mysqli_data_seek($data, 4);
 						$parsedData = mysqli_fetch_array($data);
 						$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
 						$available != $available;
