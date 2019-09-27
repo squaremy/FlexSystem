@@ -26,7 +26,7 @@
 			}
 
 			function getStudentData($table, $desiredDay, $connect) {
-				$query = "SELECT * FROM `$table` WHERE day='$desiredDay'";
+				$query = "SELECT * FROM `$table` WHERE id=$desiredDay";
 				if(!$data = mysqli_query($connect, $query)) {
 					echo "Query failed: " . mysqli_error($connect);
 				}
@@ -62,7 +62,7 @@
 				$roomLastName = strtolower($roomNames[1]);
 				if($teacherLastName != $roomLastName) {
 					$teacherTable = getTeacherTable($teacherLastName, $connect);
-					$query = "SELECT visitingStudents FROM `$teacherTable` WHERE id='$desiredDay'";
+					$query = "SELECT visitingStudents FROM `$teacherTable` WHERE day='$desiredDay'";
 					if(!$tableDataRaw = mysqli_query($connect, $query)) {
 						echo "Query failed: " . mysqli_error($connect);
 					}
@@ -200,7 +200,7 @@
 							$parsedData = mysqli_fetch_assoc($data);
 							$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
 							if($available == true) echo "<td>AVAILABLE</td>";
-							else echo "<td>BLOCKED</td>"; 
+							else echo "<td>BLOCKED</td>";
 						}
 						echo "</tr>";
 					}
