@@ -252,8 +252,8 @@
 							mysqli_data_seek($data, $i);
 							$parsedData = mysqli_fetch_assoc($data);
 							$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
-							if($available == true) echo "<td><a id=\"available\" onclick=\"swapAvailability($i);\">AVAILABLE</a></td>";
-							else echo "<td><a id=\"available\" onclick=\"swapAvailability($i);\">BLOCKED</a></td>";
+							if($available == true) echo "<td onclick=\"swapAvailability($i);\"><a id=\"available\">AVAILABLE</a></td>";
+							else echo "<td onclick=\"swapAvailability($i);\"><a id=\"available\">BLOCKED</a></td>";
 						}
 						echo "</tr>";
 					}
