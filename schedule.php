@@ -220,7 +220,7 @@
 								if($studentTable != null) {
 									$studentData = getStudentData($studentTable, $dayOfWeek, $connect);
 									$goingTo = $studentData["teacher"];
-									echo "<tr><input type=\"checkbox\" name=$studentName /><td>$studentName</td><td>$goingTo</td>";
+									echo "<tr><input type=\"checkbox\" name=\"$studentName\" /><td>$studentName</td><td>$goingTo</td>";
 								} else echo "<tr><td></td><td>NONE</td><td></td></tr>";
 							}
 						}
@@ -242,7 +242,7 @@
 								if($studentTable != null) {
 									$studentData = getStudentData($studentTable, $dayOfWeek, $connect);
 									$comingFrom = $studentData["room"];
-									echo "<tr><input type=\"checkbox\" name=$studentName /><td>$studentName</td><td>$comingFrom</td>";
+									echo "<tr><input type=\"checkbox\" name=\"$studentName\" /><td>$studentName</td><td>$comingFrom</td>";
 								} else echo "<tr><td></td><td>NONE</td><td></td></tr>";
 							}
 						}
