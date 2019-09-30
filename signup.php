@@ -7,7 +7,6 @@
 	<link rel="icon" href="favicon.ico">
 	<meta name="google-signin-client_id" content="483422839968-llldr1bas7hurg44av8h9bh8dpqgtq98.apps.googleusercontent.com">
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
-	<script type="text/javascript" src="scripts/linkSchedulePHP.js"></script>
 </head>
 
 <body>
@@ -16,6 +15,7 @@
 		<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
 		<a id="schedulebutton" class="disable-select">My Schedule</a>
 	</div>
+	<script type="text/javascript" src="scripts/linkSchedulePHP.js"></script>
 	<div id="signupmenu">
 		<p id="searchtxt"><?php echo $_GET["name"]; ?></p>
 		<!-- <div id="weektable"> -->

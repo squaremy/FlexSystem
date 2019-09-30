@@ -361,7 +361,6 @@
 				}
 			}
 		?>
-		<script type="text/javascript" src="scripts/linkSchedulePHP.js"></script>
 	</head>
 
 	<body>
@@ -370,6 +369,7 @@
 			<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
 			<a id="schedulebutton" class="disable-select">My Schedule</a>
 		</div>
+		<script type="text/javascript" src="scripts/linkSchedulePHP.js"></script>
 		<div class="signupmenu">
 			<p id="searchtxt"><?php echo $name; ?></p>
 			<table id="weektable">
