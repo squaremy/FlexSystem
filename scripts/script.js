@@ -33,7 +33,7 @@ function readJSON(path){
 		  })
 }
 
-readteacherJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/data.json');
+readteacherJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/data.json');
 
 function displayTeachers(teachers) {
 	//document.getElementById("searchtxt").innerHTML = teachers;
