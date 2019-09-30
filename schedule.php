@@ -370,7 +370,7 @@
 			<a id="schedulebutton" class="disable-select">My Schedule</a>
 		</div>
 		<script type="text/javascript" src="scripts/linkSchedulePHP.js"></script>
-		<div class="signupmenu">
+		<div id="signupmenu">
 			<p id="searchtxt"><?php echo $name; ?></p>
 			<table id="weektable">
 				<?php
