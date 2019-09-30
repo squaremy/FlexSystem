@@ -133,6 +133,12 @@
 	left:calc(50% - 150px);
 }
 
+#signupmenu {
+	width: 100%;
+	top: 0px;
+	height: 1000px;
+}
+
 .topnav {
 	position: absolute;
 	top: 0px;
