@@ -361,13 +361,14 @@
 				}
 			}
 		?>
+		<script type="text/javascript" src="scripts/linkSchedulePHP.js"></script>
 	</head>
 
 	<body>
 		<div class="topnav">
 			<img id="logo" href="index.html" src="faflexlogo.svg"/>
 			<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
-			<a id="schedulebutton" href="schedule.html" class="disable-select">My Schedule</a>
+			<a id="schedulebutton" class="disable-select">My Schedule</a>
 		</div>
 		<div class="signupmenu">
 			<p id="searchtxt"><?php echo $name; ?></p>
