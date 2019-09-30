@@ -447,6 +447,11 @@
 					}
 				 ?>
 			</table>
+			<?php
+				if($type == 'teacher') {
+					echo "<button id=\"kickbutton\" onclick=\"kickSelected()\">Kick Selected Students</button>";
+				}
+			?>
 		</div>
 		<div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="askForLogin" data-theme="dark" style="visibility: hidden;"></div>
 		<a href="#" style="position: absolute; top:80px; right: 10px;" onclick="logout()">Sign out</a>
@@ -458,6 +463,10 @@
 			</div>
 		</footer>
 		<script>
+			function kickSelected() {
+				// get each row in each table and get the name of the checkboxes that are checked, add that to a schedule php link which will reload and update the data
+			}
+
 			function swapAvailability(dayOfWeek) {
 				var day = "";
 				switch(dayOfWeek) {
