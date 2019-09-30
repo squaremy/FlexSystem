@@ -42,6 +42,7 @@
 	<a href="#" style="position: absolute; top:80px; right: 10px;" onclick="logout();">Sign out</a>
 	<footer>
 		&copy; 2019 Jordan Martin and Grant Gupton
+		<br/>
 		Class of 2020
 	</footer>
 </body>
