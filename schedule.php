@@ -13,13 +13,17 @@
 				if($name != 'NONE') {
 					$names = explode(" ", $name);
 					$lastName = strtolower($names[1]);
-					$query = "SHOW TABLES FROM techmeds_FlexSystem LIKE '$lastName%'";
+					$nameToSearch = $lastName + substr($names[0], 1, 1);
+					echo $nameToSearch;
+					$query = "SHOW TABLES FROM techmeds_FlexSystem LIKE '$nameToSearch%'";
 					if(!$result = mysqli_query($connect, $query)) {
 						echo "Query failed: " . mysqli_error($connect);
 					}
 					while($tables = mysqli_fetch_array($result)) {
-						$studentTable = $tables[0];
-						return $studentTable;
+						foreach($tables as $t) {
+							$data = getStudentData($t, 0, $connect);
+							if($data != null && $data["name"] == $name) return $t;
+						}
 					}
 				}
 				return null;
@@ -372,17 +376,22 @@
 						}
 					} else { // student is undecided, remove from list
 						$visitingStudents = explode(";", $parsedData["visitingStudents"]);
-						$newVisitingStudents = "";
+						$newVisitingStudents = [];
+						$count = 0;
 						foreach($visitingStudents as $studentName) {
 							$studentTable = getStudentTable($studentName, $connect);
 							if($studentTable != null) {
 								$studentData = getStudentData($studentTable, $day, $connect);
-								if($studentData["teacher"] != "undecided") $newVisitingStudents += $studentData["name"] + ";";
-								$query = "UPDATE `$user` SET visitingStudents='$newVisitingStudents' WHERE id='$day'";
-								if(!mysqli_query($connect, $query)) {
-									echo "Query failed: " . mysqli_error($connect);
+								if($studentData["teacher"] != "undecided") {
+									$newVisitingStudents[$count] = $studentData["name"];
+									$count += 1;
 								}
 							}
+						}
+						$newVisitingStudentsStr = implode(";", $newVisitingStudents);
+						$query = "UPDATE `$user` SET visitingStudents='$newVisitingStudentsStr' WHERE id='$day'";
+						if(!mysqli_query($connect, $query)) {
+							echo "Query failed: " . mysqli_error($connect);
 						}
 					}
 				}
