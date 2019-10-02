@@ -469,6 +469,7 @@
 				var table2 = document.getElementById("visitingstudents");
 				var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'] + "&signedup=0" + "&tokick=";
 				for(var i = 0; i < table1.rows.length; i++) {
+					console.log(table1.rows[i].cells[0].checked);
 					if(table1.rows[i].cells[1].innerHTML != "NONE" && table1.rows[i].cells[0].checked) {
 						extension += table1.rows[i].cells[0].name + ";";
 					}
