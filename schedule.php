@@ -376,10 +376,12 @@
 							echo "Query failed: " . mysqli_error($connect);
 						}
 					} else { // student is undecided, remove from list
+						echo $parsedData["visitingStudents"];
 						$visitingStudents = explode(";", $parsedData["visitingStudents"]);
 						$newVisitingStudents = [];
 						$count = 0;
 						foreach($visitingStudents as $studentName) {
+							echo $studentName;
 							$studentTable = getStudentTable($studentName, $connect);
 							if($studentTable != null) {
 								$studentData = getStudentData($studentTable, $day, $connect);
