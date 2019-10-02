@@ -139,6 +139,14 @@
 	height: 950px;
 }
 
+#kickbutton {
+	position: absolute;
+	left: 50%;
+	top: 1000px;
+	transform: translate(-50%, 0%);
+	text-align: center;
+}
+
 .topnav {
 	position: absolute;
 	top: 0px;
