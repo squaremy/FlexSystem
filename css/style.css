@@ -142,7 +142,7 @@
 #kickbutton {
 	position: absolute;
 	left: 50%;
-	top: 1000px;
+	top: 550px;
 	transform: translate(-50%, 0%);
 	text-align: center;
 }
