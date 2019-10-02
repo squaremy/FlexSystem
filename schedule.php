@@ -465,6 +465,21 @@
 		<script>
 			function kickSelected() {
 				// get each row in each table and get the name of the checkboxes that are checked, add that to a schedule php link which will reload and update the data
+				var table1 = document.getElementById("flexstudents");
+				var table2 = document.getElementById("visitingstudents");
+				var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'] + "&signedup=0" + "&tokick=";
+				for(var i = 0; i < table1.rows.length; i++) {
+					if(table1.rows[i].cell[0].checked) {
+						extension += table1.rows[i].cell[0].name + ";";
+					}
+				}
+				for(var i = 0; i < table2.rows.length; i++) {
+					if(table2.rows[i].cell[0].checked) {
+						extension += table2.rows[i].cell[0].name + ";";
+					}
+				}
+
+				console.log(extension);
 			}
 
 			function swapAvailability(dayOfWeek) {
