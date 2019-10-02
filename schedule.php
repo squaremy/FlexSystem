@@ -345,17 +345,44 @@
 							}
 						}
 					}
+				} else if($_GET["signedup"] == '2') {
+					$tokick = explode(";", $_GET["tockick"]);
+					$visitingStudentsStr = $parsedData["visitingStudents"];
+					$visitingStudents = explode(";", $visitingStudentsStr);
+					foreach($tokick as $studentName) {
+						$studentTable = getStudentTable($studentName, $connect);
+						if($studentTable != null) {
+							$dayOfWeek = getdate()['wday']-1;
+							$query = "UPDATE `$studentTable` SET teacher='undecided' WHERE day='$dayOfWeek'";
+							if(!mysqli_query($connect, $query)) {
+								echo "Query failed: " . mysqli_error($connect);
+							}
+						}
+					}
 				}
 
 				for($day = 0; $day < 5; $day++) {
 					mysqli_data_seek($data, $day);
 					$parsedData = mysqli_fetch_array($data);
-					$visitingStudents = "NONE";
 					$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
 					if($available == false) {
-						$query = "UPDATE `$user` SET visitingStudents='$visitingStudents' WHERE id='$day'";
+						$query = "UPDATE `$user` SET visitingStudents='NONE' WHERE id='$day'";
 						if(!mysqli_query($connect, $query)) {
 							echo "Query failed: " . mysqli_error($connect);
+						}
+					} else { // student is undecided, remove from list
+						$visitingStudents = explode(";", $parsedData["visitingStudents"]);
+						$newVisitingStudents = "";
+						foreach($visitingStudents as $studentName) {
+							$studentTable = getStudentTable($studentName, $connect);
+							if($studentTable != null) {
+								$studentData = getStudentData($studentTable, $day, $connect);
+								if($studentData["teacher"] != "undecided") $newVisitingStudents += $studentData["name"] + ";";
+								$query = "UPDATE `$user` SET visitingStudents='$newVisitingStudents' WHERE id='$day'";
+								if(!mysqli_query($connect, $query)) {
+									echo "Query failed: " . mysqli_error($connect);
+								}
+							}
 						}
 					}
 				}
@@ -467,7 +494,7 @@
 				// get each row in each table and get the name of the checkboxes that are checked, add that to a schedule php link which will reload and update the data
 				var table1 = document.getElementById("flexstudents");
 				var table2 = document.getElementById("visitingstudents");
-				var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'] + "&signedup=0" + "&tokick=";
+				var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'] + "&signedup=2" + "&tokick=";
 				var checkboxes1 = table1.getElementsByTagName("INPUT");
 				var checkboxes2 = table2.getElementsByTagName("INPUT");
 				for(var i = 0; i < checkboxes1.length; i++) {
@@ -481,7 +508,7 @@
 					}
 				}
 
-				console.log(extension);
+				window.location.href = "schedule.php?" + extension;
 			}
 
 			function swapAvailability(dayOfWeek) {
