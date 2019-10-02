@@ -12,6 +12,7 @@
 			function getStudentTable($name, $connect) {
 				if($name != 'NONE') {
 					$names = explode(" ", $name);
+					echo $name;
 					$lastName = strtolower($names[1]);
 					$nameToSearch = $lastName + substr($names[0], 1, 1);
 					echo $nameToSearch;
