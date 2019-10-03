@@ -12,10 +12,8 @@
 			function getStudentTable($name, $connect) {
 				if($name != 'NONE') {
 					$names = explode(" ", $name);
-					echo $name;
 					$lastName = strtolower($names[1]);
-					$nameToSearch = $lastName . substr($names[0], 1, 1);
-					echo $nameToSearch;
+					$nameToSearch = $lastName . substr($names[0], 0, 1);
 					$query = "SHOW TABLES FROM techmeds_FlexSystem LIKE '$nameToSearch%'";
 					if(!$result = mysqli_query($connect, $query)) {
 						echo "Query failed: " . mysqli_error($connect);
@@ -376,24 +374,27 @@
 							echo "Query failed: " . mysqli_error($connect);
 						}
 					} else {
-						echo $parsedData["visitingStudents"];
-						$visitingStudents = explode(";", $parsedData["visitingStudents"]);
-						$newVisitingStudents = [];
-						$count = 0;
-						foreach($visitingStudents as $studentName) {
-							$studentTable = getStudentTable($studentName, $connect);
-							if($studentTable != null) {
-								$studentData = getStudentData($studentTable, $day, $connect);
-								if($studentData["teacher"] != "undecided") {
-									$newVisitingStudents[$count] = $studentData["name"];
-									$count += 1;
+						if($parsedData["visitingStudents"] != "NONE" && $parsedData["visitingStudents"] != "") {
+							$visitingStudents = explode(";", $parsedData["visitingStudents"]);
+							$newVisitingStudents = [];
+							$count = 0;
+							foreach($visitingStudents as $studentName) {
+								$studentTable = getStudentTable($studentName, $connect);
+								if($studentTable != null) {
+									$studentData = getStudentData($studentTable, $day, $connect);
+									if($studentData["teacher"] != "undecided") {
+										$newVisitingStudents[$count] = $studentData["name"];
+										$count += 1;
+									}
 								}
 							}
-						}
-						$newVisitingStudentsStr = implode(";", $newVisitingStudents);
-						$query = "UPDATE `$user` SET visitingStudents='$newVisitingStudentsStr' WHERE id='$day'";
-						if(!mysqli_query($connect, $query)) {
-							echo "Query failed: " . mysqli_error($connect);
+							$newVisitingStudentsStr = implode(";", $newVisitingStudents);
+							$query = "UPDATE `$user` SET visitingStudents='$newVisitingStudentsStr' WHERE id='$day'";
+							if(!mysqli_query($connect, $query)) {
+								echo "Query failed: " . mysqli_error($connect);
+							}
+						} else if($parsedData["visitingStudents"] == "") {
+							$query = "UPDATE `$user` SET visitingStudents='NONE' WHERE id='$day'";
 						}
 					}
 				}
