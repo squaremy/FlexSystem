@@ -86,6 +86,7 @@
 
 			$connect = mysqli_connect("localhost", "techmeds_FlexSystem", "Tennessee18!", "techmeds_FlexSystem") or die("Connection to database failed: " . mysqli_connect_error());
 			$user = $_GET["user"];
+			// $parsedData = updateCurrentData($user, $connect);
 			$sql = "SELECT * FROM `$user`";
 			$data = null;
 			if(!$data = mysqli_query($connect, $sql)) {
@@ -108,7 +109,7 @@
 				$goingWed = filter_var($_GET["wed"], FILTER_VALIDATE_BOOLEAN);
 				$goingThu = filter_var($_GET["thu"], FILTER_VALIDATE_BOOLEAN);
 				$goingFri = filter_var($_GET["fri"], FILTER_VALIDATE_BOOLEAN);
-
+				// updateSignup($goingMon, $targetTeacher, 0, $user, $connect);
 				if($goingMon == true) {
 					$teacherTable = getTeacherTable($lastName, $connect);
 					if(teacherIsAvailable($teacherTable, 'Monday', $connect)) {
