@@ -368,7 +368,7 @@
 
 				for($day = 0; $day < 5; $day++) {
 					mysqli_data_seek($data, $day);
-					$parsedData = mysqli_fetch_array($data);
+					$parsedData = mysqli_fetch_assoc($data);
 					$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
 					if($available == false) {
 						$query = "UPDATE `$user` SET visitingStudents='NONE' WHERE id='$day'";
