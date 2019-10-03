@@ -14,7 +14,7 @@
 					$names = explode(" ", $name);
 					echo $name;
 					$lastName = strtolower($names[1]);
-					$nameToSearch = $lastName + substr($names[0], 1, 1);
+					$nameToSearch = $lastName . substr($names[0], 1, 1);
 					echo $nameToSearch;
 					$query = "SHOW TABLES FROM techmeds_FlexSystem LIKE '$nameToSearch%'";
 					if(!$result = mysqli_query($connect, $query)) {
@@ -375,13 +375,12 @@
 						if(!mysqli_query($connect, $query)) {
 							echo "Query failed: " . mysqli_error($connect);
 						}
-					} else { // student is undecided, remove from list
+					} else {
 						echo $parsedData["visitingStudents"];
 						$visitingStudents = explode(";", $parsedData["visitingStudents"]);
 						$newVisitingStudents = [];
 						$count = 0;
 						foreach($visitingStudents as $studentName) {
-							echo $studentName;
 							$studentTable = getStudentTable($studentName, $connect);
 							if($studentTable != null) {
 								$studentData = getStudentData($studentTable, $day, $connect);
