@@ -11,9 +11,12 @@
 		<?php
 			function getStudentTable($name, $connect) {
 				if($name != 'NONE') {
+					echo $name;
 					$names = explode(" ", $name);
+					foreach($names as $n) echo $n . "|";
 					$lastName = strtolower($names[1]);
 					$nameToSearch = $lastName . substr($names[0], 0, 1);
+					echo $nameToSearch;
 					$query = "SHOW TABLES FROM techmeds_FlexSystem LIKE '$nameToSearch%'";
 					if(!$result = mysqli_query($connect, $query)) {
 						echo "Query failed: " . mysqli_error($connect);
