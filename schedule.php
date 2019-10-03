@@ -173,6 +173,7 @@
 					$swapThu = filter_var($_GET["thu"], FILTER_VALIDATE_BOOLEAN);
 					$swapFri = filter_var($_GET["fri"], FILTER_VALIDATE_BOOLEAN);
 
+					// flipAvailability($swapMon, $data, 0, $user, $connect);
 					if($swapMon == true) {
 						mysqli_data_seek($data, 0);
 						$parsedData = mysqli_fetch_array($data);
@@ -350,6 +351,7 @@
 						}
 					}
 				} else if($_GET["signedup"] == '2') {
+					// updateKickedStudents(explode(";", $_GET["tokick"]), $parsedData, $connect);
 					$tokick = explode(";", $_GET["tockick"]);
 					$visitingStudentsStr = $parsedData["visitingStudents"];
 					$visitingStudents = explode(";", $visitingStudentsStr);
@@ -368,6 +370,7 @@
 				for($day = 0; $day < 5; $day++) {
 					mysqli_data_seek($data, $day);
 					$parsedData = mysqli_fetch_assoc($data);
+					// availabilityUpdates($day, $parsedData, $user, $connect);
 					$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
 					if($available == false) {
 						$query = "UPDATE `$user` SET visitingStudents='NONE' WHERE id='$day'";

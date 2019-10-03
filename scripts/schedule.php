@@ -98,4 +98,93 @@
       }
     }
   }
+
+  function updateKickedStudents($tokick, $parsedData, $connect) {
+    $visitingStudentsStr = $parsedData["visitingStudents"];
+    $visitingStudents = explode(";", $visitingStudentsStr);
+    foreach($tokick as $studentName) {
+      $studentTable = getStudentTable($studentName, $connect);
+      if($studentTable != null) {
+        $dayOfWeek = getdate()['wday']-1;
+        $query = "UPDATE `$studentTable` SET teacher='undecided' WHERE day='$dayOfWeek'";
+        if(!mysqli_query($connect, $query)) {
+          echo "Query failed: " . mysqli_error($connect);
+        }
+      }
+    }
+  }
+
+  function flipAvailability($swap, $data, $dayID, $user, $connect) {
+    if($swap) {
+      mysqli_data_seek($data, $dayID);
+      $parsedData = mysqli_fetch_array($data);
+      $available = !filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
+      $query = "UPDATE `$user` SET available='$available' WHERE id='$dayID'";
+      if(!mysqli_query($connect, $query)) {
+        echo "Query failed: " . mysqli_error($connect);
+      }
+
+      $flexStudentsStr = $parsedData["flexStudents"];
+      $flexStudents = explode(";", $flexStudentsStr);
+      foreach($flexStudents as $studentName) {
+        $studentTable = getStudentTable($studentName, $connect);
+        $goingTo = "undecided";
+        if($studentTable != null) {
+          $query = "UPDATE `$studentTable` SET teacher='$goingTo' WHERE id='$dayID'";
+          if(!mysqli_query($connect, $query)) {
+            echo "Query failed: " . mysqli_error($connect);
+          }
+        }
+      }
+
+      $visitingStudentsStr = $parsedData["visitingStudents"];
+      $visitingStudents = explode(";", $visitingStudentsStr);
+      foreach($visitingStudents as $studentName) {
+        $studentTable = getStudentTable($studentName, $connect);
+        $goingTo = "undecided";
+        if($studentTable != null) {
+          $query = "UPDATE `$studentTable` SET teacher='$goingTo' WHERE day='Monday'";
+          if(!mysqli_query($connect, $query)) {
+            echo "Query failed: " . mysqli_error($connect);
+          }
+        }
+      }
+    }
+  }
+
+  function availabilityUpdates($day, $parsedData, $user, $connect) {
+    $available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
+    if($available == false) {
+      $query = "UPDATE `$user` SET visitingStudents='NONE' WHERE id='$day'";
+      if(!mysqli_query($connect, $query)) {
+        echo "Query failed: " . mysqli_error($connect);
+      }
+    } else {
+      if($parsedData["visitingStudents"] != "NONE" && $parsedData["visitingStudents"] != "") {
+        $visitingStudents = explode(";", $parsedData["visitingStudents"]);
+        $newVisitingStudents = [];
+        $count = 0;
+        foreach($visitingStudents as $studentName) {
+          $studentTable = getStudentTable($studentName, $connect);
+          if($studentTable != null) {
+            $studentData = getStudentData($studentTable, $day, $connect);
+            if($studentData["teacher"] != "undecided" && $studentData["teacher"] == $name) {
+              $newVisitingStudents[$count] = $studentData["name"];
+              $count += 1;
+            }
+          }
+        }
+        $newVisitingStudentsStr = implode(";", $newVisitingStudents);
+        $query = "UPDATE `$user` SET visitingStudents='$newVisitingStudentsStr' WHERE id='$day'";
+        if(!mysqli_query($connect, $query)) {
+          echo "Query failed: " . mysqli_error($connect);
+        }
+      } else if($parsedData["visitingStudents"] == "") {
+        $query = "UPDATE `$user` SET visitingStudents='NONE' WHERE id='$day'";
+        if(!mysqli_query($connect, $query)) {
+          echo "Query failed: " . mysqli_error($connect);
+        }
+      }
+    }
+  }
 ?>
