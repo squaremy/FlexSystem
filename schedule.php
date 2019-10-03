@@ -382,7 +382,7 @@
 								$studentTable = getStudentTable($studentName, $connect);
 								if($studentTable != null) {
 									$studentData = getStudentData($studentTable, $day, $connect);
-									if($studentData["teacher"] != "undecided") {
+									if($studentData["teacher"] != "undecided" && $studentData["teacher"] == $name) {
 										$newVisitingStudents[$count] = $studentData["name"];
 										$count += 1;
 									}
