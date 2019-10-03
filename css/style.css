@@ -41,12 +41,12 @@
 	position:absolute;
 	display: block;
 	top:200px;
-	left: calc(50% - 240px);
+	left: 50%;
 	border:5px;
 	border-width: 5px;
-	width: 480px;
 	border-color: black;
 	font-weight: bold;
+	transform: translate(-50%, 0%);
 }
 
 #signin{
@@ -113,10 +113,10 @@
 	position: absolute;
 	text-align: center;
 	top: 100px;
-	left: 10%;
-	width: 80%;
+	left: 50%;
 	font-size: 30px;
 	font-family: "Arial";
+	transform: translate(-50%, 0%);
 }
 
 #googlebutton{
