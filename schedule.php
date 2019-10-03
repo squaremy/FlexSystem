@@ -456,7 +456,6 @@
 							$flexStudents = explode(";", $flexStudentsStr);
 							echo "<tr><th>Kick?</th><th>My Students</th><th>Going To</th></tr>";
 							foreach($flexStudents as $studentName) {
-								echo $studentName;
 								$studentTable = getStudentTable($studentName, $connect);
 								if($studentTable != null) {
 									$studentData = getStudentData($studentTable, $dayOfWeek, $connect);
