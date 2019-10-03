@@ -41,6 +41,21 @@
     $names = explode(" ", $teacherName);
     $teacherLastName = strtolower($names[1]);
     $toLookFor = $teacherLastName . strtolower(substr($names[0], 0, 1));
+    $query = "SHOW TABLES FROM techmeds_FlexSystem LIKE '$toLookFor%'";
+    if(!$result = mysqli_query($connect, $query)) {
+      echo "Query failed: " . mysqli_error($connect);
+    }
+    while($tables = mysqli_fetch_array($result)) {
+      foreach($tables as $t) {
+        $data = getTableData($t, 0, $connect);
+        if($data["name"] == $teacherName) return $t;
+      }
+    }
+    return null;
+  }
+
+  function getTeacherTableLessEffective($teacherLastName, $connect) {
+    $teacherLastName = strtolower($teacherLastName);
     $query = "SHOW TABLES FROM techmeds_FlexSystem LIKE '$teacherLastName%'";
     if(!$result = mysqli_query($connect, $query)) {
       echo "Query failed: " . mysqli_error($connect);
@@ -48,9 +63,11 @@
     while($tables = mysqli_fetch_array($result)) {
       foreach($tables as $t) {
         $data = getTableData($t, 0, $connect);
+        $lastName = strtolower(explode(" ", $data["name"])[1]);
+        if($teacherLastName == $lastName) return $t;
       }
-      return $teacherTable;
     }
+    return null;
   }
 
   function addStudentToVisitList($teacherTableData, $studentName, $desiredDay, $connect, $room) {
@@ -184,6 +201,29 @@
         if(!mysqli_query($connect, $query)) {
           echo "Query failed: " . mysqli_error($connect);
         }
+      }
+    }
+  }
+
+  function createNewUserIfNonexistent($user, $name, $connect) {
+    $query = "CREATE TABLE IF NOT EXISTS `$user` (
+      id INT(10),
+      day VARCHAR(30),
+      name VARCHAR(60),
+      email VARCHAR(50),
+      type VARCHAR(30),
+      room VARCHAR(60),
+      teacher VARCHAR(60)
+    )";
+    if(!mysqli_query($connect, $query)) {
+      echo "Failed to create new user table";
+    } else {
+      $teacherLastName = $_POST["roomInput"]; // TODO: add input for last name
+      $teacherTable = getTeacherTableLessEffective($teacherLastName, $connect);
+      $teacherData = getTableData($teacherTable, 0, $connect);
+      $room = $teacherData["name"];
+      for($i = 0; $i < 5; $i++) {
+        $query = "INSERT INTO `$user` (id, day, name, email, type, room, teacher) VALUES ('$i', '$days[$i]', '$name', '$user', 'student', '$room', '$room')"
       }
     }
   }
