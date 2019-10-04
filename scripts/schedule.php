@@ -196,17 +196,14 @@
         if(!mysqli_query($connect, $query)) {
           echo "Query failed: " . mysqli_error($connect);
         }
-      }else if($parsedData["visitingStudents"] == "") {
-          $query = "UPDATE `$user` SET visitingStudents='NONE' WHERE id='$day'";
-          if(!mysqli_query($connect, $query)) {
-            echo "Query failed: " . mysqli_error($connect);
-          }
+      } else if($parsedData["visitingStudents"] == "") {
+        $query = "UPDATE `$user` SET visitingStudents='NONE' WHERE id='$day'";
+        if(!mysqli_query($connect, $query)) {
+          echo "Query failed: " . mysqli_error($connect);
+        }
       }
     }
   }
-}
-}
-
 
   function createNewUserIfNonexistent($user, $name, $connect) {
     $query = "CREATE TABLE IF NOT EXISTS `$user` (
