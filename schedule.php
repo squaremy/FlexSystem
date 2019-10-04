@@ -13,12 +13,12 @@
 
 			$connect = mysqli_connect("localhost", "techmeds_FlexSystem", "Tennessee18!", "techmeds_FlexSystem") or die("Connection to database failed: " . mysqli_connect_error());
 			$user = $_GET["user"];
+			$name = $_GET["name"];
 
-			createNewUserIfNonexistent($user, $connect);
+			createNewUserIfNonexistent($user, $name, $connect);
 
 			$parsedData = updateCurrentData($user, $connect);
 
-			$name = $parsedData["name"];
 			$email = $parsedData["email"];
 			$room = $parsedData["room"];
 			$day = $parsedData["day"];
