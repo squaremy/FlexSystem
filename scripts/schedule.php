@@ -223,8 +223,8 @@
       $teacherData = getTableData($teacherTable, 0, $connect);
       $room = $teacherData["name"];
       for($i = 0; $i < 5; $i++) {
-        $query = "INSERT INTO `$user` (id, day, name, email, type, room, teacher) VALUES ('$i', '$days[$i]', '$name', '$user', 'student', '$room', '$room')"
+        $query = "INSERT INTO `$user` (id, day, name, email, type, room, teacher) VALUES ('$i', '$days[$i]', '$name', '$user', 'student', '$room', '$room')";
       }
     }
-  
+  }
 ?>
