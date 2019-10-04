@@ -226,5 +226,5 @@
         $query = "INSERT INTO `$user` (id, day, name, email, type, room, teacher) VALUES ('$i', '$days[$i]', '$name', '$user', 'student', '$room', '$room')"
       }
     }
-  }
+  
 ?>
