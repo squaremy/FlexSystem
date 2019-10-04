@@ -1,5 +1,5 @@
 <?php
-  function choice1(select) {
+  function choice1($select) {
      alert(select.options[select.selectedIndex].text);
   }
 
