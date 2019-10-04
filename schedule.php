@@ -8,12 +8,32 @@
 		<link rel="icon" href="favicon.ico"/>
 		<meta name="google-signin-client_id" content="483422839968-llldr1bas7hurg44av8h9bh8dpqgtq98.apps.googleusercontent.com">
 		<script src="https://apis.google.com/js/platform.js" async defer></script>
+	</head>
+
+	<body>
+		<div class="topnav">
+			<img id="logo" href="index.html" src="faflexlogo.svg"/>
+			<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
+			<a id="schedulebutton" class="disable-select">My Schedule</a>
+		</div>
 		<?php
 			include "scripts/schedule.php";
 
 			$connect = mysqli_connect("localhost", "techmeds_FlexSystem", "Tennessee18!", "techmeds_FlexSystem") or die("Connection to database failed: " . mysqli_connect_error());
 			$user = $_GET["user"];
 			$name = $_GET["name"];
+
+			//logic for new users
+			$NewUserExists = checkNewUser($user, $name, $connect)
+			if ($NewUserExists){
+				echo "<div class="NewUserPopup" id="NewUserPopup">
+					<select>
+						<option>Teacher 1</option>
+						<option>Teacher 1</option>
+						<option>Teacher 1</option>
+					</select>
+				</div>";
+			}
 
 			createNewUserIfNonexistent($user, $name, $connect);
 
@@ -60,21 +80,6 @@
 				}
 			}
 		?>
-	</head>
-
-	<body>
-		<div class="topnav">
-			<img id="logo" href="index.html" src="faflexlogo.svg"/>
-			<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
-			<a id="schedulebutton" class="disable-select">My Schedule</a>
-		</div>
-		<div class="NewUserPopup" id="NewUserPopup">
-			<select>
-				<option>Teacher 1</option>
-				<option>Teacher 1</option>
-				<option>Teacher 1</option>
-			</select>
-		</div>
 
 		</div>
 		<script type="text/javascript" src="scripts/linkSchedulePHP.js"></script>

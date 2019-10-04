@@ -227,4 +227,12 @@
       }
     }
   }
+
+  function checkNewUser($user, $name, $connect) {
+    $query = "CREATE TABLE IF NOT EXISTS `$user`";
+    if(!mysqli_query($connect, $query)) {
+      // do nothing
+    } else {
+      // go to new user teacherselect page
+  }
 ?>
