@@ -24,8 +24,8 @@
 			$name = $_GET["name"];
 
 			//logic for new users
-			$newUser = createNewUserIfNonexistent($user, $name, $connect)
-			if ($newUser){
+			$newUser = createNewUserIfNonexistent($user, $name, $connect);
+			if($newUser){
 				header("updateHomeroom.html");
 			}
 
