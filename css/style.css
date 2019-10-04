@@ -17,6 +17,15 @@
 	border-color: black;
 }
 
+#NewUserPopup {
+	position: absolute;
+	top:40%;
+	left:30%;
+	width:40%;
+	height:20%;
+	background-color: red;
+}
+
 #flexstudents {
 	position: absolute;
 	top: 275px;

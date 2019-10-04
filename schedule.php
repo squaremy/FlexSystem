@@ -68,6 +68,15 @@
 			<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
 			<a id="schedulebutton" class="disable-select">My Schedule</a>
 		</div>
+		<div class="NewUserPopup" id="NewUserPopup">
+			<select>
+				<option>Teacher 1</option>
+				<option>Teacher 1</option>
+				<option>Teacher 1</option>
+			</select>
+		</div>
+
+		</div>
 		<script type="text/javascript" src="scripts/linkSchedulePHP.js"></script>
 		<div id="signupmenu">
 			<p id="searchtxt"><?php echo $name; ?></p>
