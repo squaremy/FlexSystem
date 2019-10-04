@@ -205,6 +205,7 @@
     }
   }
 }
+}
 
 
   function createNewUserIfNonexistent($user, $name, $connect) {
