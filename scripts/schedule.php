@@ -196,7 +196,7 @@
         if(!mysqli_query($connect, $query)) {
           echo "Query failed: " . mysqli_error($connect);
         }
-        else if($parsedData["visitingStudents"] == "") {
+      }else if($parsedData["visitingStudents"] == "") {
           $query = "UPDATE `$user` SET visitingStudents='NONE' WHERE id='$day'";
           if(!mysqli_query($connect, $query)) {
             echo "Query failed: " . mysqli_error($connect);
