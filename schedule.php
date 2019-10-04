@@ -24,18 +24,10 @@
 			$name = $_GET["name"];
 
 			//logic for new users
-			$NewUserExists = checkNewUser($user, $name, $connect)
-			if ($NewUserExists){
-				echo "<div class="NewUserPopup" id="NewUserPopup">
-					<select>
-						<option>Teacher 1</option>
-						<option>Teacher 1</option>
-						<option>Teacher 1</option>
-					</select>
-				</div>";
+			$newUser = createNewUserIfNonexistent($user, $name, $connect)
+			if ($newUser){
+				header("updateHomeroom.html");
 			}
-
-			createNewUserIfNonexistent($user, $name, $connect);
 
 			$parsedData = updateCurrentData($user, $connect);
 

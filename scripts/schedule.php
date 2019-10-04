@@ -216,23 +216,17 @@
       teacher VARCHAR(60)
     )";
     if(!mysqli_query($connect, $query)) {
-      echo "Failed to create new user table";
+      // echo "Failed to create new user table";
+      return false;
     } else {
-      $teacherLastName = $_POST["roomInput"]; // TODO: add input for last name
-      $teacherTable = getTeacherTableLessEffective($teacherLastName, $connect);
-      $teacherData = getTableData($teacherTable, 0, $connect);
-      $room = $teacherData["name"];
-      for($i = 0; $i < 5; $i++) {
-        $query = "INSERT INTO `$user` (id, day, name, email, type, room, teacher) VALUES ('$i', '$days[$i]', '$name', '$user', 'student', '$room', '$room')";
-      }
+      return true;
+      // $teacherLastName = $_POST["roomInput"]; // TODO: add input for last name
+      // $teacherTable = getTeacherTableLessEffective($teacherLastName, $connect);
+      // $teacherData = getTableData($teacherTable, 0, $connect);
+      // $room = $teacherData["name"];
+      // for($i = 0; $i < 5; $i++) {
+      //   $query = "INSERT INTO `$user` (id, day, name, email, type, room, teacher) VALUES ('$i', '$days[$i]', '$name', '$user', 'student', '$room', '$room')";
+      // }
     }
-  }
-
-  function checkNewUser($user, $name, $connect) {
-    $query = "CREATE TABLE IF NOT EXISTS `$user`";
-    if(!mysqli_query($connect, $query)) {
-      // do nothing
-    } else {
-      // go to new user teacherselect page
   }
 ?>
