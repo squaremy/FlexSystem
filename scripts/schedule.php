@@ -1,8 +1,4 @@
 <?php
-  function choice1($select) {
-     alert(select.options[select.selectedIndex].text);
-  }
-
   function getStudentTable($name, $connect) {
     if($name != 'NONE') {
       $names = explode(" ", $name);
