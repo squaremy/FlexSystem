@@ -215,7 +215,6 @@
   }
 
   function createNewUserIfNonexistent($user, $connect) {
-    echo "Created table";
     $query = "CREATE TABLE IF NOT EXISTS `$user` (
       id INT(10),
       day VARCHAR(30),
@@ -226,8 +225,10 @@
       teacher VARCHAR(60)
     )";
     if(mysqli_query($connect, $query) !== false) {
+      echo "Created new user";
       return true;
     } else {
+      echo "Could not create new user";
       return false;
     }
   }
