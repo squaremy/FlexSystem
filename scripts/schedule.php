@@ -246,8 +246,8 @@
       else if($i == 2) $curDay = "Wednesday";
       else if($i == 3) $curDay = "Thursday";
       else if($i == 4) $curDay = "Friday";
-      $query = "INSERT INTO `$user` (id, day, name, email, type, room, teacher)
-      VALUES ('$i', '$curDay', '$name', '$user', 'student', '', '');";
+      $query = "INSERT INTO `$user` (id, day, name, email, type)
+      VALUES ('$i', '$curDay', '$name', '$user', 'student');";
       if(!mysqli_query($connect, $query)) {
         echo "Query failed: " . mysqli_error($connect);
       }
@@ -271,13 +271,12 @@
 
   function studentRoomIsEmpty($user, $connect) {
     $query = "SELECT room FROM `$user` WHERE id='0'";
-    $result = mysqli_query($connect, $query);
-    if(empty($result) || $result == '' || $result == null) {
-      echo "room empty";
-      return true;
-    } else {
-      echo "room not empty";
+    if($result = mysqli_query($connect, $query) !== false) {
+      echo "not empty room";
       return false;
+    } else {
+      echo "empty room";
+      return true;
     }
   }
 ?>
