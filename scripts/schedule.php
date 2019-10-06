@@ -271,12 +271,13 @@
 
   function studentRoomIsEmpty($user, $connect) {
     $query = "SELECT room FROM `$user` WHERE id='0'";
-    if($result = mysqli_query($connect, $query) !== false) {
-      echo "not empty room";
-      return false;
-    } else {
-      echo "empty room";
+    $result = mysqli_query($connect, $query);
+    if(mysqli_num_rows($result) == 0) {
+      echo "room empty";
       return true;
+    } else {
+      echo "room not empty";
+      return false;
     }
   }
 ?>
