@@ -215,20 +215,29 @@
   }
 
   function createNewUserIfNonexistent($user, $connect) {
-    $query = "CREATE TABLE IF NOT EXISTS `$user` (
-      id INT(10),
-      day VARCHAR(30),
-      name VARCHAR(60),
-      email VARCHAR(50),
-      type VARCHAR(30),
-      room VARCHAR(60),
-      teacher VARCHAR(60)
-    )";
-    if(mysqli_query($connect, $query) !== false) {
-      echo "Created new user";
-      return true;
+    $query = "SELECT name FROM `$user`";
+    $result = mysqli_query($connect, $query);
+
+    if(empty($result)) {
+      echo "table nonexistent";
+      $query = "CREATE TABLE `$user` (
+        id INT(10),
+        day VARCHAR(30),
+        name VARCHAR(60),
+        email VARCHAR(50),
+        type VARCHAR(30),
+        room VARCHAR(60),
+        teacher VARCHAR(60)
+      )";
+      if(mysqli_query($connect, $query) !== false) {
+        echo "Created new user";
+        return true;
+      } else {
+        echo "Could not create new user";
+        return false;
+      }
     } else {
-      echo "Could not create new user";
+      echo "table exists";
       return false;
     }
   }
