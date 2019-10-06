@@ -214,7 +214,7 @@
     }
   }
 
-  function createNewUserIfNonexistent($user, $name, $connect) {
+  function createNewUserIfNonexistent($user, $connect) {
     $query = "CREATE TABLE IF NOT EXISTS `$user` (
       id INT(10),
       day VARCHAR(30),
