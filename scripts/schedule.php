@@ -219,7 +219,6 @@
     $result = mysqli_query($connect, $query);
 
     if(empty($result)) {
-      echo "table nonexistent";
       $query = "CREATE TABLE `$user` (
         id INT(10),
         day VARCHAR(30),
@@ -230,14 +229,11 @@
         teacher VARCHAR(60)
       )";
       if(mysqli_query($connect, $query) !== false) {
-        echo "Created new user";
         return true;
       } else {
-        echo "Could not create new user";
         return false;
       }
     } else {
-      echo "table exists";
       return false;
     }
   }
@@ -262,32 +258,26 @@
     $query = "SELECT name FROM `$user` WHERE id='0'";
     $result = mysqli_query($connect, $query);
     if(empty($result)) {
-      echo "Table empty";
       return true;
     } else {
       $array = mysqli_fetch_assoc($result);
       if(empty($array["name"])) {
-        echo "table empty";
         return true;
       } else {
-        echo "not empty";
         return false;
       }
     }
   }
 
   function studentRoomIsEmpty($user, $connect) {
-    $query = "SELECT room FROM `$user`";
-    if($result = mysqli_query($connect, $query) !== false) {
-      $roomValues = mysqli_fetch_array($result);
-      foreach($roomValues as $r) {
-        echo $r;
-        if($r == null && $r != '') return false;
-      }
-      echo "empty...";
+    $query = "SELECT room FROM `$user` WHERE id='0'";
+    $result = mysqli_query($connect, $query);
+    if(empty($result)) {
+      echo "room empty";
       return true;
     } else {
-      echo "Query failed: " . mysqli_error($connect);
+      echo "room not empty";
+      return false;
     }
   }
 ?>

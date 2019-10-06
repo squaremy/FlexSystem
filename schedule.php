@@ -34,7 +34,6 @@
 						addDefaultStudentData($user, $name, $connect);
 					}
 					if(studentRoomIsEmpty($user, $connect) == true){
-						echo "room empty";
 						// echo "<script type=\"text/javascript\">window.location.href=\"updateHomeroom.php\"</script>";
 					} else {
 						$tempRoom = $_GET["room"];
