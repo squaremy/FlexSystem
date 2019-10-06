@@ -18,7 +18,7 @@
         if(!$result = mysqli_query($connect, $query)) {
           echo "Failed to obtain tables..." . mysqli_error($connect);
         } else {
-          while($tables = mysqli_fetch_array($result)) {
+          if($tables = mysqli_fetch_array($result)) {
             foreach($tables as $t) {
               $data = getTableData($t, 0, $connect);
               if($data["type"] != null && $data["type"] == "teacher") {
