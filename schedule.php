@@ -25,11 +25,14 @@
 
 			if($name != '???' && $user != '???') {
 				//logic for new users
-				$newUser = createNewUserIfNonexistent($user, $name, $connect);
+				$newUser = createNewUserIfNonexistent($user, $connect);
 				if($newUser){
 					header("updateHomeroom.php");
 				} else {
-					if(studentRoomIsEmpty($user, $connect)) {
+					if(studentTableIsEmpty($user, $connect)) {
+						addDefaultStudentData($user, $name, $connect);
+					}
+					if(studentRoomIsEmpty($user, $connect)){
 						header("updateHomeroom.php");
 					} else {
 						$tempRoom = $_GET["room"];
@@ -101,7 +104,7 @@
 					}
 					echo "</tr><tr>";
 
-					if($type == "student") {
+					if($type == 'student') {
 						for($i = 0; $i < mysqli_num_rows($data); $i++) {
 							mysqli_data_seek($data, $i);
 							$parsedData = mysqli_fetch_assoc($data);

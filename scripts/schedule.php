@@ -238,4 +238,41 @@
       // }
     }
   }
+
+  function addDefaultStudentData($user, $name, $connect) {
+    for($i = 0; $i < 5; $i++) {
+      $curDay = "";
+      if($i == 0) $curDay = "Monday";
+      else if($i == 1) $curDay = "Tuesday";
+      else if($i == 2) $curDay = "Wednesday";
+      else if($i == 3) $curDay = "Thursday";
+      else if($i == 4) $curDay = "Friday";
+      $query = "INSERT INTO `$user` (id, day, name, email, type) VALUES ('$i', '$curDay', '$name', `$user`, 'student')";
+      if(!mysqli_query($connect, $query)) {
+        echo "Query failed: " . mysqli_error($connect);
+      }
+    }
+  }
+
+  function studentTableIsEmpty($user, $connect) {
+    $query = "SELECT * FROM `$user`";
+    if(!$result = mysqli_query($connect, $query)) {
+      echo "Query failed: " . mysqli_error($connect);
+    }
+    $numRows = mysqli_num_rows($result);
+    if($numRows == 0) return true;
+    else return false;
+  }
+
+  function studentRoomIsEmpty($user, $connect) {
+    $query = "SELECT 'room' FROM `$user`";
+    if(!$result = mysqli_query($connect, $query)) {
+      echo "Query failed: " . mysqli_error($connect);
+    }
+    $roomValues = mysqli_fetch_array($result);
+    foreach($roomValues as $r) {
+      if($r != '') return false;
+    }
+    return true;
+  }
 ?>
