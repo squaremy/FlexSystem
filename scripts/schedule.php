@@ -247,9 +247,10 @@
   }
 
   function studentTableIsEmpty($user, $connect) {
-    $query = "SELECT COUNT(*) FROM `$user`";
+    $query = "SELECT * FROM `$user`";
     if($result = mysqli_query($connect, $query) !== false) {
       $numRows = mysqli_num_rows($result);
+      echo $numRows;
       if($numRows > 0) return false;
       else return true;
     } else {
@@ -258,12 +259,12 @@
   }
 
   function studentRoomIsEmpty($user, $connect) {
-    $query = "SELECT 'room' FROM `$user`";
+    $query = "SELECT room FROM `$user`";
     if(!$result = mysqli_query($connect, $query) !== false) {
       $roomValues = mysqli_fetch_array($result);
       foreach($roomValues as $r) {
         echo $r;
-        if($r != '') return false;
+        if($r == null && $r != '') return false;
       }
       echo "empty...";
       return true;
