@@ -278,7 +278,7 @@
 
   function studentRoomIsEmpty($user, $connect) {
     $query = "SELECT room FROM `$user`";
-    if(!$result = mysqli_query($connect, $query) !== false) {
+    if($result = mysqli_query($connect, $query) !== false) {
       $roomValues = mysqli_fetch_array($result);
       foreach($roomValues as $r) {
         echo $r;
