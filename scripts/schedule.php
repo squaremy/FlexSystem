@@ -261,10 +261,11 @@
     $query = "SELECT name FROM `$user`";
     $result = mysqli_query($connect, $query);
     if(empty($result)) {
-      echo $result;
+      echo "Table empty";
       return true;
     } else {
       echo "table not empty";
+      echo $result;
       return false;
     }
   }
