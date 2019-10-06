@@ -26,13 +26,14 @@
 			if($name != '???' && $user != '???') {
 				//logic for new users
 				$newUser = createNewUserIfNonexistent($user, $connect);
-				if($newUser){
+				if($newUser == true){
+					echo "redirect";
 					header("updateHomeroom.php");
 				} else {
-					if(studentTableIsEmpty($user, $connect)) {
+					if(studentTableIsEmpty($user, $connect) == true) {
 						addDefaultStudentData($user, $name, $connect);
 					}
-					if(studentRoomIsEmpty($user, $connect)){
+					if(studentRoomIsEmpty($user, $connect) == true){
 						header("updateHomeroom.php");
 					} else {
 						$tempRoom = $_GET["room"];
