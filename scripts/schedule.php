@@ -277,7 +277,7 @@
       return true;
     } else {
       $array = mysqli_fetch_assoc($result);
-      if($array["name"] == null || $array["name"] == '') {
+      if($array["room"] == null || $array["room"] == '') {
         echo "room empty";
         return true;
       }
