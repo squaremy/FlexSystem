@@ -259,13 +259,13 @@
 
   function studentTableIsEmpty($user, $connect) {
     $query = "SELECT * FROM `$user`";
-    if($result = mysqli_query($connect, $query) !== false) {
-      $numRows = mysqli_num_rows($result);
-      echo $numRows;
-      if($numRows > 0) return false;
-      else return true;
+    $result = mysqli_query($connect, $query);
+    if(empty($result)) {
+      echo "Table empty";
+      return true;
     } else {
-        echo "Query failed: " . mysqli_error($connect);
+      echo "table not empty";
+      return false;
     }
   }
 
