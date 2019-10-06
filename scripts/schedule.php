@@ -277,7 +277,10 @@
       return true;
     } else {
       $array = mysqli_fetch_assoc($result);
-      echo $array["room"];
+      if($array["name"] == null || $array["name"] == '') {
+        echo "room empty";
+        return true;
+      }
       return false;
     }
   }
