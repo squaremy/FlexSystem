@@ -260,6 +260,7 @@
       echo "Query failed: " . mysqli_error($connect);
     }
     $numRows = mysqli_num_rows($result);
+    echo $numRows;
     if($numRows == 0) return true;
     else return false;
   }
@@ -271,6 +272,7 @@
     }
     $roomValues = mysqli_fetch_array($result);
     foreach($roomValues as $r) {
+      echo $r;
       if($r != '') return false;
     }
     return true;
