@@ -224,18 +224,10 @@
       room VARCHAR(60),
       teacher VARCHAR(60)
     )";
-    if(!mysqli_query($connect, $query)) {
-      // echo "Failed to create new user table";
-      return false;
-    } else {
+    if(mysqli_query($connect, $query) !== false) {
       return true;
-      // $teacherLastName = $_POST["roomInput"]; // TODO: add input for last name
-      // $teacherTable = getTeacherTableLessEffective($teacherLastName, $connect);
-      // $teacherData = getTableData($teacherTable, 0, $connect);
-      // $room = $teacherData["name"];
-      // for($i = 0; $i < 5; $i++) {
-      //   $query = "INSERT INTO `$user` (id, day, name, email, type, room, teacher) VALUES ('$i', '$days[$i]', '$name', '$user', 'student', '$room', '$room')";
-      // }
+    } else {
+      return false;
     }
   }
 
@@ -256,26 +248,27 @@
 
   function studentTableIsEmpty($user, $connect) {
     $query = "SELECT COUNT(*) FROM `$user`";
-    if(!$result = mysqli_query($connect, $query)) {
-      echo "Query failed: " . mysqli_error($connect);
+    if($result = mysqli_query($connect, $query) !== false) {
+      $numRows = mysqli_num_rows($result);
+      if($numRows > 0) return false;
+      else return true;
+    } else {
+        echo "Query failed: " . mysqli_error($connect);
     }
-    $numRows = mysqli_num_rows($result);
-    echo "57";
-    if($numRows > 0) return false;
-    else return true;
   }
 
   function studentRoomIsEmpty($user, $connect) {
     $query = "SELECT 'room' FROM `$user`";
-    if(!$result = mysqli_query($connect, $query)) {
+    if(!$result = mysqli_query($connect, $query) !== false) {
+      $roomValues = mysqli_fetch_array($result);
+      foreach($roomValues as $r) {
+        echo $r;
+        if($r != '') return false;
+      }
+      echo "empty...";
+      return true;
+    } else {
       echo "Query failed: " . mysqli_error($connect);
     }
-    $roomValues = mysqli_fetch_array($result);
-    foreach($roomValues as $r) {
-      echo $r;
-      if($r != '') return false;
-    }
-    echo "empty...";
-    return true;
   }
 ?>
