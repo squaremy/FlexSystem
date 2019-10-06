@@ -261,7 +261,7 @@
     $query = "SELECT name FROM `$user`";
     $result = mysqli_query($connect, $query);
     if(empty($result)) {
-      echo "Table empty";
+      echo $result;
       return true;
     } else {
       echo "table not empty";
