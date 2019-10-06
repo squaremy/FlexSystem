@@ -32,7 +32,7 @@
 					if(studentRoomIsEmpty($user, $connect)) {
 						header("updateHomeroom.php");
 					} else {
-						$tempRoom = &_GET["room"];
+						$tempRoom = $_GET["room"];
 						$query = "UPDATE `$user` SET room='$tempRoom',teacher='$tempRoom'";
 						if(!mysqli_query($connect, $query)) {
 							echo "Query failed: " . mysqli_error($connect);
