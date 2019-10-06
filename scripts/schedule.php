@@ -258,7 +258,7 @@
   }
 
   function studentTableIsEmpty($user, $connect) {
-    $query = "SELECT * FROM `$user`";
+    $query = "SELECT name FROM `$user`";
     $result = mysqli_query($connect, $query);
     if(empty($result)) {
       echo "Table empty";
