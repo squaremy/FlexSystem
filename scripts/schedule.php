@@ -276,7 +276,8 @@
       echo "room empty";
       return true;
     } else {
-      echo "room not empty";
+      $array = mysqli_fetch_assoc($result);
+      echo $array;
       return false;
     }
   }
