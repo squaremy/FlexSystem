@@ -50,7 +50,7 @@
 				$room = $parsedData["room"];
 				$day = $parsedData["day"];
 				$type = $parsedData["type"];
-
+				echo $type;
 
 				if($type == 'student') {
 					if($_GET["signedup"] == '1') {
