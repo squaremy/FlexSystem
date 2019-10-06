@@ -261,8 +261,8 @@
     }
     $numRows = mysqli_num_rows($result);
     echo $numRows;
-    if($numRows == 0) return true;
-    else return false;
+    if($numRows > 0) return false;
+    else return true;
   }
 
   function studentRoomIsEmpty($user, $connect) {
@@ -275,6 +275,7 @@
       echo $r;
       if($r != '') return false;
     }
+    echo "empty...";
     return true;
   }
 ?>
