@@ -27,6 +27,7 @@
 				//logic for new users
 				$newUser = createNewUserIfNonexistent($user, $connect);
 				if($newUser == true){
+					echo "new user";
 					// echo "<script type=\"text/javascript\">window.location.href=\"updateHomeroom.php\"</script>";
 				} else {
 					if(studentTableIsEmpty($user, $connect) == true) {
