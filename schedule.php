@@ -40,6 +40,7 @@
 					}
 				}
 
+				$data = getRawData($user, $connect);
 				$parsedData = updateCurrentData($user, $connect);
 
 				$email = $parsedData["email"];

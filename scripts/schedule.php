@@ -100,6 +100,15 @@
     return $parsedData;
   }
 
+  function getRawData($user, $connect) {
+    $sql = "SELECT * FROM `$user`";
+    $data = null;
+    if(!$data = mysqli_query($connect, $sql)) {
+      die("error: " . mysqli_error($connect));
+    }
+    return $data;
+  }
+
   function updateSignup($going, $teacher, $dayID, $user, $connect) {
     if($going) {
       $targetTeacher = getTeacherTable($teacher, $connect);
