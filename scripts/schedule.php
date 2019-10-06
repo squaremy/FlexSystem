@@ -250,7 +250,7 @@
       else if($i == 2) $curDay = "Wednesday";
       else if($i == 3) $curDay = "Thursday";
       else if($i == 4) $curDay = "Friday";
-      $query = "INSERT INTO `$user` (id, day, name, email, type) VALUES ('$i', '$curDay', '$name', `$user`, 'student')";
+      $query = "INSERT INTO `$user` (id, day, name, email, type, room, teacher) VALUES ('$i', '$curDay', '$name', `$user`, 'student', '', '')";
       if(!mysqli_query($connect, $query)) {
         echo "Query failed: " . mysqli_error($connect);
       }

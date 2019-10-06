@@ -31,7 +31,6 @@
 					// echo "<script type=\"text/javascript\">window.location.href=\"updateHomeroom.php\"</script>";
 				} else {
 					if(studentTableIsEmpty($user, $connect) == true) {
-						echo "table empty";
 						addDefaultStudentData($user, $name, $connect);
 					}
 					if(studentRoomIsEmpty($user, $connect) == true){
