@@ -27,13 +27,15 @@
 				//logic for new users
 				$newUser = createNewUserIfNonexistent($user, $connect);
 				if($newUser == true){
-					echo "<script type=\"text/javascript\">window.location.href=\"updateHomeroom.php\"</script>";
+					// echo "<script type=\"text/javascript\">window.location.href=\"updateHomeroom.php\"</script>";
 				} else {
 					if(studentTableIsEmpty($user, $connect) == true) {
+						echo "table empty";
 						addDefaultStudentData($user, $name, $connect);
 					}
 					if(studentRoomIsEmpty($user, $connect) == true){
-						echo "<script type=\"text/javascript\">window.location.href=\"updateHomeroom.php\"</script>";
+						echo "room empty";
+						// echo "<script type=\"text/javascript\">window.location.href=\"updateHomeroom.php\"</script>";
 					} else {
 						$tempRoom = $_GET["room"];
 						$query = "UPDATE `$user` SET room='$tempRoom',teacher='$tempRoom'";
