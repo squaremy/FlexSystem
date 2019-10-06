@@ -277,7 +277,7 @@
       return true;
     } else {
       $array = mysqli_fetch_assoc($result);
-      echo $array;
+      echo $array["room"];
       return false;
     }
   }
