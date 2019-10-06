@@ -260,8 +260,7 @@
       echo "Query failed: " . mysqli_error($connect);
     }
     $numRows = mysqli_num_rows($result);
-    echo $result;
-    echo $numRows;
+    echo "57";
     if($numRows > 0) return false;
     else return true;
   }

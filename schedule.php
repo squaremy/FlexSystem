@@ -68,7 +68,7 @@
 						updateSignup($goingThu, $targetTeacher, 3, $user, $connect);
 						updateSignup($goingFri, $targetTeacher, 4, $user, $connect);
 					}
-				} else {
+				} else if($type == 'teacher'){
 					if($_GET["signedup"] == '1') {
 						$swapMon = filter_var($_GET["mon"], FILTER_VALIDATE_BOOLEAN);
 						$swapTue = filter_var($_GET["tue"], FILTER_VALIDATE_BOOLEAN);
