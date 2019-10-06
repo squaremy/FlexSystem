@@ -23,52 +23,64 @@
 			$user = $_GET["user"];
 			$name = $_GET["name"];
 
-			//logic for new users
-			$newUser = createNewUserIfNonexistent($user, $name, $connect);
-			if($newUser){
-				header("updateHomeroom.html");
-			}
-
-			$parsedData = updateCurrentData($user, $connect);
-
-			$email = $parsedData["email"];
-			$room = $parsedData["room"];
-			$day = $parsedData["day"];
-			$type = $parsedData["type"];
-
-
-			if($type == 'student' && $_GET["signedup"] == '1') {
-				$targetTeacher = $_GET["teacher"];
-				$goingMon = filter_var($_GET["mon"], FILTER_VALIDATE_BOOLEAN);
-				$goingTue = filter_var($_GET["tue"], FILTER_VALIDATE_BOOLEAN);
-				$goingWed = filter_var($_GET["wed"], FILTER_VALIDATE_BOOLEAN);
-				$goingThu = filter_var($_GET["thu"], FILTER_VALIDATE_BOOLEAN);
-				$goingFri = filter_var($_GET["fri"], FILTER_VALIDATE_BOOLEAN);
-				updateSignup($goingMon, $targetTeacher, 0, $user, $connect);
-				updateSignup($goingTue, $targetTeacher, 1, $user, $connect);
-				updateSignup($goingWed, $targetTeacher, 2, $user, $connect);
-				updateSignup($goingThu, $targetTeacher, 3, $user, $connect);
-				updateSignup($goingFri, $targetTeacher, 4, $user, $connect);
-			} else {
-				if($_GET["signedup"] == '1') {
-					$swapMon = filter_var($_GET["mon"], FILTER_VALIDATE_BOOLEAN);
-					$swapTue = filter_var($_GET["tue"], FILTER_VALIDATE_BOOLEAN);
-					$swapWed = filter_var($_GET["wed"], FILTER_VALIDATE_BOOLEAN);
-					$swapThu = filter_var($_GET["thu"], FILTER_VALIDATE_BOOLEAN);
-					$swapFri = filter_var($_GET["fri"], FILTER_VALIDATE_BOOLEAN);
-
-					flipAvailability($swapMon, $data, 0, $user, $connect);
-					flipAvailability($swapTue, $data, 1, $user, $connect);
-					flipAvailability($swapWed, $data, 2, $user, $connect);
-					flipAvailability($swapThu, $data, 3, $user, $connect);
-					flipAvailability($swapFri, $data, 4, $user, $connect);
-				} else if($_GET["signedup"] == '2') {
-					updateKickedStudents(explode(";", $_GET["tokick"]), $parsedData, $connect);
+			if($name != '???' && $user != '???') {
+				//logic for new users
+				$newUser = createNewUserIfNonexistent($user, $name, $connect);
+				if($newUser){
+					header("updateHomeroom.php");
+				} else {
+					if(studentRoomIsEmpty($user, $connect)) {
+						header("updateHomeroom.php");
+					} else {
+						$tempRoom = &_GET["room"];
+						$query = "UPDATE `$user` SET room='$tempRoom',teacher='$tempRoom'";
+						if(!mysqli_query($connect, $query)) {
+							echo "Query failed: " . mysqli_error($connect);
+						}
+					}
 				}
-				for($day = 0; $day < 5; $day++) {
-					mysqli_data_seek($data, $day);
-					$parsedData = mysqli_fetch_assoc($data);
-					availabilityUpdates($day, $parsedData, $user, $connect);
+
+				$parsedData = updateCurrentData($user, $connect);
+
+				$email = $parsedData["email"];
+				$room = $parsedData["room"];
+				$day = $parsedData["day"];
+				$type = $parsedData["type"];
+
+
+				if($type == 'student' && $_GET["signedup"] == '1') {
+					$targetTeacher = $_GET["teacher"];
+					$goingMon = filter_var($_GET["mon"], FILTER_VALIDATE_BOOLEAN);
+					$goingTue = filter_var($_GET["tue"], FILTER_VALIDATE_BOOLEAN);
+					$goingWed = filter_var($_GET["wed"], FILTER_VALIDATE_BOOLEAN);
+					$goingThu = filter_var($_GET["thu"], FILTER_VALIDATE_BOOLEAN);
+					$goingFri = filter_var($_GET["fri"], FILTER_VALIDATE_BOOLEAN);
+					updateSignup($goingMon, $targetTeacher, 0, $user, $connect);
+					updateSignup($goingTue, $targetTeacher, 1, $user, $connect);
+					updateSignup($goingWed, $targetTeacher, 2, $user, $connect);
+					updateSignup($goingThu, $targetTeacher, 3, $user, $connect);
+					updateSignup($goingFri, $targetTeacher, 4, $user, $connect);
+				} else {
+					if($_GET["signedup"] == '1') {
+						$swapMon = filter_var($_GET["mon"], FILTER_VALIDATE_BOOLEAN);
+						$swapTue = filter_var($_GET["tue"], FILTER_VALIDATE_BOOLEAN);
+						$swapWed = filter_var($_GET["wed"], FILTER_VALIDATE_BOOLEAN);
+						$swapThu = filter_var($_GET["thu"], FILTER_VALIDATE_BOOLEAN);
+						$swapFri = filter_var($_GET["fri"], FILTER_VALIDATE_BOOLEAN);
+
+						flipAvailability($swapMon, $data, 0, $user, $connect);
+						flipAvailability($swapTue, $data, 1, $user, $connect);
+						flipAvailability($swapWed, $data, 2, $user, $connect);
+						flipAvailability($swapThu, $data, 3, $user, $connect);
+						flipAvailability($swapFri, $data, 4, $user, $connect);
+					} else if($_GET["signedup"] == '2') {
+						updateKickedStudents(explode(";", $_GET["tokick"]), $parsedData, $connect);
+					}
+					for($day = 0; $day < 5; $day++) {
+						mysqli_data_seek($data, $day);
+						$parsedData = mysqli_fetch_assoc($data);
+						availabilityUpdates($day, $parsedData, $user, $connect);
+					}
 				}
 			}
 		?>
