@@ -52,18 +52,20 @@
 				$type = $parsedData["type"];
 
 
-				if($type == 'student' && $_GET["signedup"] == '1') {
-					$targetTeacher = $_GET["teacher"];
-					$goingMon = filter_var($_GET["mon"], FILTER_VALIDATE_BOOLEAN);
-					$goingTue = filter_var($_GET["tue"], FILTER_VALIDATE_BOOLEAN);
-					$goingWed = filter_var($_GET["wed"], FILTER_VALIDATE_BOOLEAN);
-					$goingThu = filter_var($_GET["thu"], FILTER_VALIDATE_BOOLEAN);
-					$goingFri = filter_var($_GET["fri"], FILTER_VALIDATE_BOOLEAN);
-					updateSignup($goingMon, $targetTeacher, 0, $user, $connect);
-					updateSignup($goingTue, $targetTeacher, 1, $user, $connect);
-					updateSignup($goingWed, $targetTeacher, 2, $user, $connect);
-					updateSignup($goingThu, $targetTeacher, 3, $user, $connect);
-					updateSignup($goingFri, $targetTeacher, 4, $user, $connect);
+				if($type == 'student') {
+					if($_GET["signedup"] == '1') {
+						$targetTeacher = $_GET["teacher"];
+						$goingMon = filter_var($_GET["mon"], FILTER_VALIDATE_BOOLEAN);
+						$goingTue = filter_var($_GET["tue"], FILTER_VALIDATE_BOOLEAN);
+						$goingWed = filter_var($_GET["wed"], FILTER_VALIDATE_BOOLEAN);
+						$goingThu = filter_var($_GET["thu"], FILTER_VALIDATE_BOOLEAN);
+						$goingFri = filter_var($_GET["fri"], FILTER_VALIDATE_BOOLEAN);
+						updateSignup($goingMon, $targetTeacher, 0, $user, $connect);
+						updateSignup($goingTue, $targetTeacher, 1, $user, $connect);
+						updateSignup($goingWed, $targetTeacher, 2, $user, $connect);
+						updateSignup($goingThu, $targetTeacher, 3, $user, $connect);
+						updateSignup($goingFri, $targetTeacher, 4, $user, $connect);
+					}
 				} else {
 					if($_GET["signedup"] == '1') {
 						$swapMon = filter_var($_GET["mon"], FILTER_VALIDATE_BOOLEAN);
@@ -88,8 +90,6 @@
 				}
 			}
 		?>
-
-		</div>
 		<script type="text/javascript" src="scripts/linkSchedulePHP.js"></script>
 		<div id="signupmenu">
 			<p id="searchtxt"><?php echo $name; ?></p>
