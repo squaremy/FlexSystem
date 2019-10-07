@@ -11,7 +11,7 @@
 
 <body>
 	<div class="topnav">
-		<img id="logo"  href="index.html" src="faflexlogo.svg">
+		<a href="index.html"><img id="logo"  href="index.html" src="faflexlogo.svg"></a>
 		<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
 		<a id="schedulebutton" class="disable-select">My Schedule</a>
 	</div>
