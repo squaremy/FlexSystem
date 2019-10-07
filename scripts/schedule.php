@@ -112,7 +112,7 @@
     if($going) {
       $targetTeacher = getTeacherTable($teacher, $connect);
       if(teacherIsAvailable($targetTeacher, $dayID, $connect)) {
-        $query = "UPDATE `$user` SET teacher='$targetTeacher' WHERE id='$dayID'";
+        $query = "UPDATE `$user` SET teacher='$teacher' WHERE id='$dayID'";
         if(!mysqli_query($connect, $query)) {
           echo "Query failed: " . mysqli_error($connect);
         }
