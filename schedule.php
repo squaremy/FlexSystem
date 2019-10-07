@@ -71,11 +71,13 @@
 					for($day = 0; $day < 5; $day++) {
 						mysqli_data_seek($data, $day);
 						$parsedData = mysqli_fetch_assoc($data);
-						$teacherTable = getTeacherTable($parsedData["teacher"], $connect);
-						if($teacherTable != null && !teacherIsAvailable($teacherTable, $day, $connect)) {
-							$query = "UPDATE `$user` SET teacher='undecided' WHERE id='$day'";
-							if(!mysqli_query($connect, $query)) {
-								echo "Query failed: " . mysqli_error($connect);
+						if($parsedData["teacher"] != 'undecided') {
+							$teacherTable = getTeacherTable($parsedData["teacher"], $connect);
+							if($teacherTable != null && !teacherIsAvailable($teacherTable, $day, $connect)) {
+								$query = "UPDATE `$user` SET teacher='undecided' WHERE id='$day'";
+								if(!mysqli_query($connect, $query)) {
+									echo "Query failed: " . mysqli_error($connect);
+								}
 							}
 						}
 					}
