@@ -173,7 +173,7 @@
 									$studentData = getTableData($studentTable, $dayOfWeek, $connect);
 									$goingTo = $studentData["teacher"];
 									echo "<tr><td><input type=\"checkbox\" name=\"$studentName\" /></td><td>$studentName</td><td>$goingTo</td>";
-								} else echo "<tr><td></td><td>NONE</td><td></td></tr>";
+								} else echo "<tr><td></td><td>\"$studentName\"</td><td>Not Registered</td></tr>";
 							}
 						}
 					}
@@ -195,7 +195,7 @@
 									$studentData = getStudentData($studentTable, $dayOfWeek, $connect);
 									$comingFrom = $studentData["room"];
 									echo "<tr><td><input type=\"checkbox\" name=\"$studentName\" /></td><td>$studentName</td><td>$comingFrom</td>";
-								} else echo "<tr><td></td><td>\"$studentName\"</td><td>\"Not Registered\"</td></tr>";
+								} else echo "<tr><td></td><td>NONE</td><td></td></tr>";
 							}
 						}
 					}
