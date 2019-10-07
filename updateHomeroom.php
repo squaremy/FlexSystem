@@ -18,16 +18,12 @@
         if(!$result = mysqli_query($connect, $query)) {
           echo "Failed to obtain tables..." . mysqli_error($connect);
         } else {
-          $whileCount = 0;
-          $forCount = 0;
           while($tables = mysqli_fetch_array($result)) {
-            $whileCount++;
             $data = getTableData($tables[0], 0, $connect);
             if($data["type"] != null && $data["type"] == "teacher") {
               $name = $data["name"];
               echo "<option>$name</option>";
             }
-            echo $whileCount . "While";
           }
         }
       ?>
