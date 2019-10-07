@@ -23,6 +23,7 @@
 			$connect = mysqli_connect("localhost", "techmeds_FlexSystem", "Tennessee18!", "techmeds_FlexSystem") or die("Connection to database failed: " . mysqli_connect_error());
 			$user = $_GET["user"];
 			$name = $_GET["name"];
+			$data = getRawData($user, $connect);
 
 			if($name != '???' && $user != '???' && $_GET["signedup"] != '3') {
 				$newUser = createNewUserIfNonexistent($user, $connect);
@@ -45,7 +46,6 @@
 					}
 				}
 
-				$data = getRawData($user, $connect);
 				$parsedData = updateCurrentData($user, $connect);
 
 				$email = $parsedData["email"];
