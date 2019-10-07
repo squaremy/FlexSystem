@@ -53,7 +53,6 @@
 				$room = $parsedData["room"];
 				$day = $parsedData["day"];
 				$type = $parsedData["type"];
-				echo $type;
 
 				if($type == 'student') {
 					if($_GET["signedup"] == '1') {
@@ -68,6 +67,17 @@
 						updateSignup($goingWed, $targetTeacher, 2, $user, $connect);
 						updateSignup($goingThu, $targetTeacher, 3, $user, $connect);
 						updateSignup($goingFri, $targetTeacher, 4, $user, $connect);
+					}
+					for($day = 0; $day < 5; $day++) {
+						mysqli_data_seek($data, $day);
+						$parsedData = mysqli_fetch_assoc($data);
+						$teacherTable = getTableData($parsedData["teacher"], $day, $connect);
+						if(!teacherIsAvailable($teacherTable, $day, $connect)) {
+							$query = "UPDATE `$user` SET teacher='undecided' WHERE id='$day'";
+							if(!mysqli_query($connect, $query)) {
+								echo "Query failed: " . mysqli_error($connect);
+							}
+						}
 					}
 				} else if($type == 'teacher'){
 					if($_GET["signedup"] == '1') {
