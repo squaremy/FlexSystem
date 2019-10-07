@@ -103,6 +103,7 @@
 					}
 				}
 			} else if($_GET["signedup"] == '3') {
+				echo "3";
 				$roomNum = filter_var($_GET["roomNum"], FILTER_VALIDATE_INT);
 				$flexStudents = $_GET["flexStudents"];
 
