@@ -116,10 +116,11 @@
         if(!mysqli_query($connect, $query)) {
           echo "Query failed: " . mysqli_error($connect);
         }
+        $teacherData = getTableData($targetTeacher, 0, $connect);
         $curData = updateCurrentData($user, $connect);
         $name = $curData["name"];
         $room = $curData["room"];
-        addStudentToVisitList($targetTeacher, $name, $dayID, $connect, $room);
+        addStudentToVisitList($teacherData, $name, $dayID, $connect, $room);
       }
     }
   }
