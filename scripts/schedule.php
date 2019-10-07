@@ -20,8 +20,7 @@
 
   function getTableData($table, $desiredDay, $connect) {
     $query = "SELECT * FROM `$table` WHERE id=$desiredDay";
-    $data = mysqli_query($connect, $query);
-    if(!$data) {
+    if(!$data = mysqli_query($connect, $query)) {
       echo "Query failed: " . mysqli_error($connect);
     }
     $toReturn = mysqli_fetch_assoc($data);
@@ -30,8 +29,7 @@
 
   function teacherIsAvailable($table, $desiredDay, $connect) {
     $query = "SELECT available FROM `$table` WHERE id='$desiredDay'";
-    $data = mysqli_query($connect, $query);
-    if(!$data) {
+    if(!$data = mysqli_query($connect, $query)) {
       echo "Query failed: " . mysqli_error($connect);
     }
     $readableData = mysqli_fetch_array($data);
