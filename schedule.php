@@ -74,6 +74,7 @@
 						}
 					}
 					for($day = 0; $day < 5; $day++) {
+						$data = getRawData($user, $connect);
 						mysqli_data_seek($data, $day);
 						$parsedData = mysqli_fetch_assoc($data);
 						if($parsedData["teacher"] != 'undecided') {
