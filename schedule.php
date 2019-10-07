@@ -238,7 +238,7 @@
 						day = "&mon=0&tue=0&wed=0&thu=0&fri=1";
 						break;
 				}
-				var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'] + "&signedup=1" + day;
+				var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'] + "&signedup=1&name=" + JSON.parse(sessionStorage.getItem("myUserEntity"))["Name"] + day;
 				window.location.href = 'schedule.php?' + extension;
 			}
 		</script>
