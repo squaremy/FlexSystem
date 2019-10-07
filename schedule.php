@@ -109,6 +109,12 @@
 
 				createTeacherTable($user, $name, $roomNum, $flexStudents, $connect);
 				$data = getRawData($user, $connect);
+				$parsedData = updateCurrentData($user, $connect);
+
+				$email = $parsedData["email"];
+				$room = $parsedData["room"];
+				$day = $parsedData["day"];
+				$type = $parsedData["type"];
 			}
 		?>
 		<div id="signupmenu">
