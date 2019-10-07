@@ -8,20 +8,11 @@
 	<link rel="icon" href="favicon.ico">
 	<meta name="google-signin-client_id" content="483422839968-llldr1bas7hurg44av8h9bh8dpqgtq98.apps.googleusercontent.com">
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
-	<!-- <meta name="google-signin-scope" content="profile email">
-	<meta name="google-signin-client_id" content="483422839968-llldr1bas7hurg44av8h9bh8dpqgtq98.apps.googleusercontent.com">
-	<script src="https://apis.google.com/js/platform.js" async defer></script> -->
-	<!-- MUST BE ADDED TO ALL PAGES, BUT HASN'T YET-->
-
-		<!-- php href for the my schedule hyperlink -->
-
-	<!-- END-->
 </head>
 
 <body>
-	<!--<button onclick="changefile()" style="position:absolute; left:50%; top:42%">Click here for file change</button>-->
 	<div class="topnav">
-		<a href="index.html"><img id="logo" style="height:50px; width:136px" src="faflexlogo.svg"></a>
+		<a href="index.html"><img id="logo" src="faflexlogo.svg"></a>
 		<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
 		<a id="schedulebutton" class="disable-select">My Schedule</a>
 	</div>
@@ -45,15 +36,5 @@
 	</footer>
 </body>
 <a href="#" style="position: absolute; top:80px; right: 10px;" onclick="logout();">Sign out</a>
-<script>(function(a,b,c){if(c in b&&b[c]){var d,e=a.location,f=/^(a|html)$/i;a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)}})(document,window.navigator,"standalone")</script>
-<!--This is code to read/write data to files-->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script>
-	function changefile(){
-		$.get("/scripts/readwritejson.php");
-		return false;
-	}
-	loadData('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/GOAL_CONFIG.json', JSON.parse(sessionStorage.getItem('myUserEntity'))["Email"]);
-	console.log(JSON.parse(sessionStorage.getItem('myUserEntity'))["Email"]);
-</script>
 </html>

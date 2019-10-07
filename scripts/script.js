@@ -1,6 +1,4 @@
-//var teacherlist = document.getElementbyId("teachertable");
-//	let newRow = teacherlist.insertRow(-1);
-//	newRow.innerHTML = "working";
+
 var teacherlist = [];
 var table;
 
@@ -9,13 +7,9 @@ function readteacherJSON(path){
 			let data = json['teachers'];
 			displayTeachers(data);
 			if (typeof(data) === 'undefined'){
-				console.log("No data");
 				return;
 			}
-			//console.log(data);
 			teacherlist = data;
-			//console.log("Heres the variable array");
-			//console.log(teacherlist);
 		  })
 }
 
@@ -23,20 +17,15 @@ function readJSON(path){
 	fetch(path).then(response => response.json()).then(json => {
 			let data = json['teachers'];
 			if (typeof(data) === 'undefined'){
-				console.log("No data");
 				return;
 			}
-			console.log(data);
 			return data;
-			//console.log("Heres the variable array");
-			//console.log(teacherlist);
 		  })
 }
 
 readteacherJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/data.json');
 
 function displayTeachers(teachers) {
-	//document.getElementById("searchtxt").innerHTML = teachers;
 	var table = document.getElementById("teachertable");
 	for(var i = 0; i < teachers.length; i=i+4){
 		var row = table.insertRow(-1);
@@ -56,7 +45,6 @@ function displayTeachers(teachers) {
 }
 
 function recreateTeachers(teachers) {
-	//document.getElementById("searchtxt").innerHTML = teachers;
 	table = document.getElementById("teachertable");
 	table.innerHTML = "";
 	table.style.width="90%";
@@ -106,8 +94,6 @@ function searchFilter1() {
     filter = input.value.toUpperCase();
     table = document.getElementById("teachertable");
 		var x = 0;
-		//console.log(teacherlist);
-		//console.log(teacherlist.length);
 		for(i = 0; i < filteredteacherlist.length; i++){
 			filteredteacherlist.splice(i, 1);
 		}
@@ -121,8 +107,6 @@ function searchFilter1() {
     }
 		while(x < filteredteacherlist.length){
 			var x = 0;
-			//console.log(teacherlist);
-			//console.log(teacherlist.length);
 			for(i = 0; i < filteredteacherlist.length; i++){
 				filteredteacherlist.splice(i, 1);
 			}
@@ -135,11 +119,8 @@ function searchFilter1() {
 					}
 			}
 		}
-		//console.log(x);
 		recreateTeachers(filteredteacherlist);
-		//console.log(filteredteacherlist);
 }
-//searchForTeacher();
 
 function teacherclick(teachername){
 	window.location.href="signup.php?name=" + teachername.id;
@@ -149,7 +130,6 @@ function readJSON2(path){
 	fetch(path).then(response => response.json()).then(json => {
 			let data = json['datapoint'];
 			if (typeof(data) === 'undefined'){
-				console.log("No data");
 				return;
 			}
 			tempvar = data;

@@ -11,14 +11,13 @@
 
 <body>
 	<div class="topnav">
-		<a href="index.html"><img id="logo"  href="index.html" src="faflexlogo.svg"></a>
+		<a href="index.html"><img id="logo" src="faflexlogo.svg"></a>
 		<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
 		<a id="schedulebutton" class="disable-select">My Schedule</a>
 	</div>
 	<script type="text/javascript" src="scripts/linkSchedulePHP.js"></script>
 	<div id="signupmenu">
 		<p id="searchtxt"><?php echo $_GET["name"]; ?></p>
-		<!-- <div id="weektable"> -->
 			<table id="weektable">
 			  <tr>
 				<th width="15%">Monday</th>
@@ -35,7 +34,6 @@
 				<td><input type="checkbox" id="frichk" name="fri" value="Friday"></td>
 			  </tr>
 			</table>
-		<!-- </div> -->
 		<button id="confirmsignup" type="button" onclick="confirmsignup()">Sign Up</button>
 	</div>
 	<div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="askForLogin" data-theme="dark" style="visibility: hidden;"></div>
@@ -52,5 +50,4 @@
 <script type="text/javascript" src="scripts/signin.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>loadData('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/GOAL_CONFIG.json', JSON.parse(sessionStorage.getItem('myUserEntity'))["Email"]);</script>
-<script>(function(a,b,c){if(c in b&&b[c]){var d,e=a.location,f=/^(a|html)$/i;a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)}})(document,window.navigator,"standalone")</script>
 </html>

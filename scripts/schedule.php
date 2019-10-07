@@ -77,7 +77,6 @@
     if($teacherTableData["name"] != $roomLastName) {
       $visitingStudents = $teacherTableData["visitingStudents"];
       if(strpos($visitingStudents, $studentName) !== false) {
-        // echo "Student already visiting!";
       } else {
         if($visitingStudents == "NONE") $visitingStudents = $studentName;
         else $visitingStudents = $visitingStudents . ";" . $studentName;

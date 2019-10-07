@@ -12,7 +12,7 @@
 
 	<body>
 		<div class="topnav">
-			<img id="logo" href="index.html" src="faflexlogo.svg"/>
+			<a href="index.html"><img id="logo" src="faflexlogo.svg"></a>
 			<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
 			<a id="schedulebutton" class="disable-select">My Schedule</a>
 		</div>
@@ -25,7 +25,6 @@
 			$name = $_GET["name"];
 
 			if($name != '???' && $user != '???') {
-				//logic for new users
 				$newUser = createNewUserIfNonexistent($user, $connect);
 				if($newUser == true){
 					echo "<script type=\"text/javascript\">window.location.href=\"updateHomeroom.php\"</script>";
