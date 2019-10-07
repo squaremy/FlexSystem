@@ -34,7 +34,7 @@
 					}
 					if(studentRoomIsEmpty($user, $connect) == true){
 						$tempRoom = $_GET["room"];
-						if($tempRoom != 'null') {
+						if($tempRoom != 'null' && $tempRoom != null && $tempRoom != '') {
 							$query = "UPDATE `$user` SET room='$tempRoom',teacher='$tempRoom'";
 							if(!mysqli_query($connect, $query)) {
 								echo "Query failed: " . mysqli_error($connect);
@@ -66,6 +66,12 @@
 						updateSignup($goingWed, $targetTeacher, 2, $user, $connect);
 						updateSignup($goingThu, $targetTeacher, 3, $user, $connect);
 						updateSignup($goingFri, $targetTeacher, 4, $user, $connect);
+					} else if($_GET["signedup"] == '0' && $_GET["room"] != null && $_GET["room"] != 'null' && $_GET["room"] != '') {
+						$tempRoom = $_GET["room"];
+						$query = "UPDATE `$user` SET room='$tempRoom',teacher='$tempRoom'";
+						if(!mysqli_query($connect, $query)) {
+							echo "Query failed: " . mysqli_error($connect);
+						}
 					}
 					for($day = 0; $day < 5; $day++) {
 						mysqli_data_seek($data, $day);
