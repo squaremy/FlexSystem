@@ -218,7 +218,6 @@
 		</footer>
 		<script type="text/javascript">
 			function kickSelected() {
-				// get each row in each table and get the name of the checkboxes that are checked, add that to a schedule php link which will reload and update the data
 				var table1 = document.getElementById("flexstudents");
 				var table2 = document.getElementById("visitingstudents");
 				var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'] + "&signedup=2&name=" + JSON.parse(sessionStorage.getItem("myUserEntity"))["Name"] + "&tokick=";
