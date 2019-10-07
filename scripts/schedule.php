@@ -308,7 +308,7 @@
         else if($id == 3) $day = "Thursday";
         else if($id == 4) $day = "Friday";
         $query = "INSERT INTO `$user` (id, day, name, email, type, room, available, flexStudents, visitingStudents) \
-        VALUES ('$id', '$day', '$name', '$email', 'teacher', '$roomNum', 1, '$flexStudents', 'NONE')";
+        VALUES ('$id', '$day', '$name', '$user', 'teacher', '$roomNum', 1, '$flexStudents', 'NONE')";
         if(!mysqli_query($connect, $query)) {
           echo "Query failed: " . mysqli_error($connect);
         }
