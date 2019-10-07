@@ -24,7 +24,7 @@
 			$user = $_GET["user"];
 			$name = $_GET["name"];
 
-			if($name != '???' && $user != '???') {
+			if($name != '???' && $user != '???' && $_GET["signedup"] != '3') {
 				$newUser = createNewUserIfNonexistent($user, $connect);
 				if($newUser == true){
 					echo "<script type=\"text/javascript\">window.location.href=\"updateHomeroom.php\"</script>";
@@ -102,6 +102,11 @@
 						availabilityUpdates($day, $parsedData, $user, $connect);
 					}
 				}
+			} else if($_GET["signedup"] == '3') {
+				$roomNum = filter_var($_GET["roomNum"], FILTER_VALIDATE_INT);
+				$flexStudents = $_GET["flexStudents"];
+
+				createTeacherTable($user, $name, $roomNum, $flexStudents, $connect);
 			}
 		?>
 		<div id="signupmenu">

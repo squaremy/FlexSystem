@@ -284,4 +284,35 @@
       return false;
     }
   }
+
+  function createTeacherTable($user, $name, $roomNum, $flexStudents, $connect) {
+    $query = "CREATE TABLE `$user` (
+      id INT(10),
+      day VARCHAR(30),
+      name VARCHAR(60),
+      email VARCHAR(50),
+      type VARCHAR(30),
+      room INT(10),
+      available BOOLEAN,
+      flexStudents VARCHAR(65535),
+      visitingStudents VARCHAR(65535)
+    )";
+    if(!mysqli_query($connect, $query)) {
+      echo "Query failed: " . mysqli_error($connect);
+    } else {
+      for($id = 0; $id < 5; $id++) {
+        $day = "";
+        if($id == 0) $day = "Monday";
+        else if($id == 1) $day = "Tuesday";
+        else if($id == 2) $day = "Wednesday";
+        else if($id == 3) $day = "Thursday";
+        else if($id == 4) $day = "Friday";
+        $query = "INSERT INTO `$user` (id, day, name, email, type, room, available, flexStudents, visitingStudents) \
+        VALUES ('$id', '$day', '$name', '$email', 'teacher', '$roomNum', 1, '$flexStudents', 'NONE')";
+        if(!mysqli_query($connect, $query)) {
+          echo "Query failed: " . mysqli_error($connect);
+        }
+      }
+    }
+  }
 ?>
