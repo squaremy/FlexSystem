@@ -129,12 +129,14 @@
     $visitingStudentsStr = $parsedData["visitingStudents"];
     $visitingStudents = explode(";", $visitingStudentsStr);
     foreach($tokick as $studentName) {
-      $studentTable = getStudentTable($studentName, $connect);
-      if($studentTable != null) {
-        $dayOfWeek = getdate()['wday']-1;
-        $query = "UPDATE `$studentTable` SET teacher='undecided' WHERE day='$dayOfWeek'";
-        if(!mysqli_query($connect, $query)) {
-          echo "Query failed: " . mysqli_error($connect);
+      if($studentName != '' && $studentName != 'NONE') {
+        $studentTable = getStudentTable($studentName, $connect);
+        if($studentTable != null) {
+          $dayOfWeek = getdate()['wday']-1;
+          $query = "UPDATE `$studentTable` SET teacher='undecided' WHERE day='$dayOfWeek'";
+          if(!mysqli_query($connect, $query)) {
+            echo "Query failed: " . mysqli_error($connect);
+          }
         }
       }
     }
