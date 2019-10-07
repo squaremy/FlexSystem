@@ -30,9 +30,9 @@
                 $name = $data["name"];
                 echo "<option>$name</option>";
               }
-              echo $forCount;
+              echo $forCount . "For";
             }
-            echo $whileCount;
+            echo $whileCount . "While";
           }
         }
       ?>
