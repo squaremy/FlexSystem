@@ -21,16 +21,11 @@
           $whileCount = 0;
           $forCount = 0;
           while($tables = mysqli_fetch_array($result)) {
-            $forCount = 0;
             $whileCount++;
-            foreach($tables as $t) {
-              $forCount++;
-              $data = getTableData($t, 0, $connect);
-              if($data["type"] != null && $data["type"] == "teacher") {
-                $name = $data["name"];
-                echo "<option>$name</option>";
-              }
-              echo $forCount . "For";
+            $data = getTableData($t, 0, $connect);
+            if($data["type"] != null && $data["type"] == "teacher") {
+              $name = $data["name"];
+              echo "<option>$name</option>";
             }
             echo $whileCount . "While";
           }
