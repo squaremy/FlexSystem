@@ -163,7 +163,7 @@
 							foreach($flexStudents as $studentName) {
 								$studentTable = getStudentTable($studentName, $connect);
 								if($studentTable != null) {
-									$studentData = getStudentData($studentTable, $dayOfWeek, $connect);
+									$studentData = getTableData($studentTable, $dayOfWeek, $connect);
 									$goingTo = $studentData["teacher"];
 									echo "<tr><td><input type=\"checkbox\" name=\"$studentName\" /></td><td>$studentName</td><td>$goingTo</td>";
 								} else echo "<tr><td></td><td>NONE</td><td></td></tr>";

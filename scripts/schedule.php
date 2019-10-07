@@ -194,7 +194,7 @@
         foreach($visitingStudents as $studentName) {
           $studentTable = getStudentTable($studentName, $connect);
           if($studentTable != null) {
-            $studentData = getStudentData($studentTable, $day, $connect);
+            $studentData = getTableData($studentTable, $day, $connect);
             if($studentData["teacher"] != "undecided" && $studentData["teacher"] == $name) {
               $newVisitingStudents[$count] = $studentData["name"];
               $count += 1;
