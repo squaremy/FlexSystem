@@ -16,6 +16,7 @@
 			<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
 			<a id="schedulebutton" class="disable-select">My Schedule</a>
 		</div>
+		<script type="text/javascript" src="scripts/linkSchedulePHP.js"></script>
 		<?php
 			include "scripts/schedule.php";
 
@@ -27,19 +28,20 @@
 				//logic for new users
 				$newUser = createNewUserIfNonexistent($user, $connect);
 				if($newUser == true){
-					echo "new user";
-					// echo "<script type=\"text/javascript\">window.location.href=\"updateHomeroom.php\"</script>";
+					echo "<script type=\"text/javascript\">window.location.href=\"updateHomeroom.php\"</script>";
 				} else {
 					if(studentTableIsEmpty($user, $connect) == true) {
 						addDefaultStudentData($user, $name, $connect);
 					}
 					if(studentRoomIsEmpty($user, $connect) == true){
-						// echo "<script type=\"text/javascript\">window.location.href=\"updateHomeroom.php\"</script>";
-					} else {
 						$tempRoom = $_GET["room"];
-						$query = "UPDATE `$user` SET room='$tempRoom',teacher='$tempRoom'";
-						if(!mysqli_query($connect, $query)) {
-							echo "Query failed: " . mysqli_error($connect);
+						if($tempRoom != 'null') {
+							$query = "UPDATE `$user` SET room='$tempRoom',teacher='$tempRoom'";
+							if(!mysqli_query($connect, $query)) {
+								echo "Query failed: " . mysqli_error($connect);
+							}
+						} else {
+							echo "<script type=\"text/javascript\">window.location.href=\"updateHomeroom.php\"</script>";
 						}
 					}
 				}
@@ -91,7 +93,6 @@
 				}
 			}
 		?>
-		<script type="text/javascript" src="scripts/linkSchedulePHP.js"></script>
 		<div id="signupmenu">
 			<p id="searchtxt"><?php echo $name; ?></p>
 			<table id="weektable">

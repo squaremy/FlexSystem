@@ -278,7 +278,6 @@
     } else {
       $array = mysqli_fetch_assoc($result);
       if($array["room"] == null || $array["room"] == '') {
-        echo "room empty";
         return true;
       }
       return false;
