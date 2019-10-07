@@ -32,6 +32,7 @@
     }
     </script>
   </div>
+  <div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="askForLogin" data-theme="dark" style="visibility: hidden;"></div>
   <a href="#" style="position: absolute; top:80px; right: 10px;" onclick="logout();">Sign out</a>
 </body>
 </html>
