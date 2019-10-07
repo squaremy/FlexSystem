@@ -6,6 +6,8 @@
 	<link rel="apple-touch-icon" href="/faflexappicon.png">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<link rel="icon" href="favicon.ico">
+  <meta name="google-signin-client_id" content="483422839968-llldr1bas7hurg44av8h9bh8dpqgtq98.apps.googleusercontent.com">
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
   <div id="newUserPopup">
@@ -30,5 +32,6 @@
     }
     </script>
   </div>
+  <a href="#" style="position: absolute; top:80px; right: 10px;" onclick="logout();">Sign out</a>
 </body>
 </html>
