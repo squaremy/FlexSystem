@@ -26,14 +26,12 @@
 
 			if($name != '???' && $user != '???' && $_GET["signedup"] != '3') {
 				$newUser = createNewUserIfNonexistent($user, $connect);
-				echo $newUser;
 				if($newUser == true && $newUser != null){
 					echo "<script type=\"text/javascript\">window.location.href=\"updateHomeroom.php\"</script>";
 				} else {
 					if(studentTableIsEmpty($user, $connect) == true) {
 						addDefaultStudentData($user, $name, $connect);
 					}
-					echo studentRoomIsEmpty($user, $connect);
 					if(studentRoomIsEmpty($user, $connect) == true){
 						$tempRoom = $_GET["room"];
 						if($tempRoom != null && $tempRoom != 'null' && $tempRoom != '') {
@@ -74,6 +72,8 @@
 						if(!mysqli_query($connect, $query)) {
 							echo "Query failed: " . mysqli_error($connect);
 						}
+					} else if(studentRoomIsEmpty($user, $connect) && ($_GET["room"] == null || $_GET["room"] == 'null' || $_GET["room"] == '')) {
+						echo "<script type=\"text/javascript\">window.location.href=\"updateHomeroom.php\"</script>";
 					}
 					for($day = 0; $day < 5; $day++) {
 						$data = getRawData($user, $connect);
