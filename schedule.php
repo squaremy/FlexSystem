@@ -32,9 +32,6 @@
 					if(studentTableIsEmpty($user, $connect) == true) {
 						addDefaultStudentData($user, $name, $connect);
 					}
-					echo studentRoomIsEmpty($user, $connect);
-					$parsedData = updateCurrentData($user, $connect);
-					echo $parsedData["room"];
 					if(studentRoomIsEmpty($user, $connect) == true){
 						$tempRoom = $_GET["room"];
 						if($tempRoom != null && $tempRoom != 'null' && $tempRoom != '') {
