@@ -26,6 +26,7 @@
 
 			if($name != '???' && $user != '???' && $_GET["signedup"] != '3') {
 				$newUser = createNewUserIfNonexistent($user, $connect);
+				echo $newUser;
 				if($newUser == true){
 					echo "<script type=\"text/javascript\">window.location.href=\"updateHomeroom.php\"</script>";
 				} else {
