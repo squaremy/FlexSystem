@@ -284,7 +284,7 @@
       return true;
     } else {
       $array = mysqli_fetch_assoc($result);
-      if($array["room"] == null || $array["room"] == '') {
+      if($array["room"] == null || $array["room"] == '' || $array["room"] == 'null') {
         return true;
       }
       return false;
