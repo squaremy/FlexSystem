@@ -32,14 +32,14 @@
 					if(studentTableIsEmpty($user, $connect) == true) {
 						addDefaultStudentData($user, $name, $connect);
 					}
-					if(studentRoomIsEmpty($user, $connect) == true){
+					if(studentRoomIsEmpty($user, $connect) == true && $_GET["room"] != null && $_GET["room"] != 'null' && $_GET["room"] != ''){
 						$tempRoom = $_GET["room"];
 						if($tempRoom != 'null' && $tempRoom != null && $tempRoom != '') {
 							$query = "UPDATE `$user` SET room='$tempRoom',teacher='$tempRoom'";
 							if(!mysqli_query($connect, $query)) {
 								echo "Query failed: " . mysqli_error($connect);
 							}
-						} else {
+						} else if(studentRoomIsEmpty($user, $connect) == true){
 							echo "<script type=\"text/javascript\">window.location.href=\"updateHomeroom.php\"</script>";
 						}
 					}
