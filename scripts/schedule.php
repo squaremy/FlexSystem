@@ -11,7 +11,7 @@
       while($tables = mysqli_fetch_array($result)) {
         foreach($tables as $t) {
           $data = getTableData($t, 0, $connect);
-          if($data != null && $data["name"] == $name) return $t;
+          if($data != null && $data["name"] == $name && $data["type"] == 'student') return $t;
         }
       }
     }
@@ -48,7 +48,7 @@
     while($tables = mysqli_fetch_array($result)) {
       foreach($tables as $t) {
         $data = getTableData($t, 0, $connect);
-        if($data["name"] == $teacherName) return $t;
+        if($data != null && $data["name"] == $teacherName && $data["type"] == 'teacher') return $t;
       }
     }
     return null;
