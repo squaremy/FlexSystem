@@ -26,14 +26,15 @@
 
 			if($name != '???' && $user != '???' && $_GET["signedup"] != '3') {
 				$newUser = createNewUserIfNonexistent($user, $connect);
-				echo $newUser;
-				if($newUser == true && $newUser != null){
+				if($newUser == true){
 					echo "<script type=\"text/javascript\">window.location.href=\"updateHomeroom.php\"</script>";
 				} else {
 					if(studentTableIsEmpty($user, $connect) == true) {
 						addDefaultStudentData($user, $name, $connect);
 					}
 					echo studentRoomIsEmpty($user, $connect);
+					$parsedData = updateCurrentData($user, $connect);
+					echo $parsedData["room"];
 					if(studentRoomIsEmpty($user, $connect) == true){
 						$tempRoom = $_GET["room"];
 						if($tempRoom != null && $tempRoom != 'null' && $tempRoom != '') {
