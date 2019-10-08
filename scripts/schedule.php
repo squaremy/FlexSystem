@@ -226,7 +226,7 @@
     $result = mysqli_query($connect, $query);
 
     if(empty($result)) {
-      $query = "CREATE TABLE `$user` (
+      $query = "CREATE TABLE IF NOT EXISTS `$user` (
         id INT(10),
         day VARCHAR(30),
         name VARCHAR(60),
