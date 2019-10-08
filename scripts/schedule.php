@@ -277,18 +277,9 @@
   }
 
   function studentRoomIsEmpty($user, $connect) {
-    $query = "SELECT room FROM `$user` WHERE id='0'";
-    $result = mysqli_query($connect, $query);
-    if(mysqli_num_rows($result) == 0) {
-      echo "room empty";
-      return true;
-    } else {
-      $array = mysqli_fetch_assoc($result);
-      if($array["room"] == null || $array["room"] == '' || $array["room"] == 'null') {
-        return true;
-      }
-      return false;
-    }
+    $parsedData = updateCurrentData($user, $connect);
+    if($parsedData["room"] == null || $parsedData["room"] == 'null' || $parsedData["room"] == '') return true;
+    return false;
   }
 
   function createTeacherTable($user, $name, $roomNum, $flexStudents, $connect) {
