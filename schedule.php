@@ -164,13 +164,14 @@
 							if($available == true) echo "<td onclick=\"swapAvailability($i)\"><a id=\"available\">AVAILABLE</a></td>";
 							else echo "<td onclick=\"swapAvailability($i)\"><a id=\"available\">BLOCKED</a></td>";
 						}
-						echo "</tr>";
+						echo "</tr><tr>";
 						for($i = 0; $i < mysqli_num_rows($data); $i++) {
 							mysqli_data_seek($data, $i);
 							$parsedData = mysqli_fetch_assoc($data);
 							$slots = filter_var($parsedData["slots"], FILTER_VALIDATE_INT);
-							echo "<input type=\"number\" id=\"numbox$i\"placeholder=\"Number Of Possible Visiting Students\">$slots</input>";
+							echo "<td><input type=\"number\" id=\"numbox$i\"placeholder=\"Number Of Possible Visiting Students\">$slots</input></td>";
 						}
+						echo "</tr>";
 					}
 				 ?>
 			</table>
