@@ -56,16 +56,20 @@
 				if($type == 'student') {
 					if($_GET["signedup"] == '1') {
 						$targetTeacher = $_GET["teacher"];
-						$goingMon = filter_var($_GET["mon"], FILTER_VALIDATE_BOOLEAN);
-						$goingTue = filter_var($_GET["tue"], FILTER_VALIDATE_BOOLEAN);
-						$goingWed = filter_var($_GET["wed"], FILTER_VALIDATE_BOOLEAN);
-						$goingThu = filter_var($_GET["thu"], FILTER_VALIDATE_BOOLEAN);
-						$goingFri = filter_var($_GET["fri"], FILTER_VALIDATE_BOOLEAN);
-						updateSignup($goingMon, $targetTeacher, 0, $user, $connect);
-						updateSignup($goingTue, $targetTeacher, 1, $user, $connect);
-						updateSignup($goingWed, $targetTeacher, 2, $user, $connect);
-						updateSignup($goingThu, $targetTeacher, 3, $user, $connect);
-						updateSignup($goingFri, $targetTeacher, 4, $user, $connect);
+						$teacherTable = getTeacherTable($targetTeacher, $connect);
+						$teacherData = getTableData($teacherTable, 0, $connect);
+						if($teacherData["slotsUsed"] < $teacherData["slots"]) {
+							$goingMon = filter_var($_GET["mon"], FILTER_VALIDATE_BOOLEAN);
+							$goingTue = filter_var($_GET["tue"], FILTER_VALIDATE_BOOLEAN);
+							$goingWed = filter_var($_GET["wed"], FILTER_VALIDATE_BOOLEAN);
+							$goingThu = filter_var($_GET["thu"], FILTER_VALIDATE_BOOLEAN);
+							$goingFri = filter_var($_GET["fri"], FILTER_VALIDATE_BOOLEAN);
+							updateSignup($goingMon, $targetTeacher, 0, $user, $connect);
+							updateSignup($goingTue, $targetTeacher, 1, $user, $connect);
+							updateSignup($goingWed, $targetTeacher, 2, $user, $connect);
+							updateSignup($goingThu, $targetTeacher, 3, $user, $connect);
+							updateSignup($goingFri, $targetTeacher, 4, $user, $connect);
+						}
 					} else if($_GET["signedup"] == '0' && $_GET["room"] != null && $_GET["room"] != 'null' && $_GET["room"] != '') {
 						$tempRoom = $_GET["room"];
 						$query = "UPDATE `$user` SET room='$tempRoom',teacher='$tempRoom'";
@@ -77,10 +81,11 @@
 						$data = getRawData($user, $connect);
 						mysqli_data_seek($data, $day);
 						$parsedData = mysqli_fetch_assoc($data);
-						if($parsedData["teacher"] != 'undecided') {
+						if($parsedData["teacher"] != $parsedData["room"]) {
 							$teacherTable = getTeacherTable($parsedData["teacher"], $connect);
 							if($teacherTable != null && !teacherIsAvailable($teacherTable, $day, $connect)) {
-								$query = "UPDATE `$user` SET teacher='undecided' WHERE id='$day'";
+								$room = $parsedData["room"];
+								$query = "UPDATE `$user` SET teacher='$room' WHERE id='$day'";
 								if(!mysqli_query($connect, $query)) {
 									echo "Query failed: " . mysqli_error($connect);
 								}
@@ -102,6 +107,10 @@
 						flipAvailability($swapFri, $data, 4, $user, $connect);
 					} else if($_GET["signedup"] == '2') {
 						updateKickedStudents(explode(";", $_GET["tokick"]), $parsedData, $connect);
+					} else if($_GET["signedup"] == '4') {
+						$slots = explode(";", $_GET["slots"]);
+						$data = getRawData($user, $connect);
+						updateSlots($slots, $data, $connect);
 					}
 					for($day = 0; $day < 5; $day++) {
 						$data = getRawData($user, $connect);
@@ -114,8 +123,9 @@
 				echo "3";
 				$roomNum = filter_var($_GET["roomNum"], FILTER_VALIDATE_INT);
 				$flexStudents = $_GET["flexStudents"];
+				$slots = filter_var($_GET["slots"], FILTER_VALIDATE_INT);
 
-				createTeacherTable($user, $name, $roomNum, $flexStudents, $connect);
+				createTeacherTable($user, $name, $roomNum, $flexStudents, $slots, $connect);
 				$data = getRawData($user, $connect);
 				$parsedData = updateCurrentData($user, $connect);
 
@@ -155,6 +165,12 @@
 							else echo "<td onclick=\"swapAvailability($i)\"><a id=\"available\">BLOCKED</a></td>";
 						}
 						echo "</tr>";
+						for($i = 0; $i < mysqli_num_rows($data); $i++) {
+							mysqli_data_seek($data, $i);
+							$parsedData = mysqli_fetch_assoc($data);
+							$slots = filter_var($parsedData["slots"], FILTER_VALIDATE_INT);
+							echo "<input type=\"number\" id=\"numbox$i\"placeholder=\"Number Of Possible Visiting Students\">$slots</input>"
+						}
 					}
 				 ?>
 			</table>
@@ -167,14 +183,14 @@
 							$parsedData = mysqli_fetch_assoc($data);
 							$flexStudentsStr = $parsedData["flexStudents"];
 							$flexStudents = explode(";", $flexStudentsStr);
-							echo "<tr><th>Kick?</th><th>My Students</th><th>Going To</th></tr>";
+							echo "<tr><th>My Students</th><th>Going To</th></tr>";
 							foreach($flexStudents as $studentName) {
 								$studentTable = getStudentTable($studentName, $connect);
 								if($studentTable != null) {
 									$studentData = getTableData($studentTable, $dayOfWeek, $connect);
 									$goingTo = $studentData["teacher"];
-									echo "<tr><td><input type=\"checkbox\" name=\"$studentName\" /></td><td>$studentName</td><td>$goingTo</td>";
-								} else echo "<tr><td></td><td>$studentName</td><td>Not Registered</td></tr>";
+									echo "<tr><td>$studentName</td><td>$goingTo</td>";
+								} else echo "<tr><td>$studentName</td><td>Not Registered</td></tr>";
 							}
 						}
 					}
@@ -205,6 +221,7 @@
 			<?php
 				if($type == 'teacher') {
 					echo "<button id=\"kickbutton\" onclick=\"kickSelected()\">Kick Selected Students</button>";
+					echo "<button id=\"updateSlots\" onclick=\"updateSlots()\">Update Slots Available</button>"
 				}
 			?>
 		</div>
@@ -218,6 +235,18 @@
 			</div>
 		</footer>
 		<script type="text/javascript">
+			function updateSlots() {
+				var monSlots = document.getElementById("numbox0").value;
+				var tueSlots = document.getElementById("numbox1").value;
+				var wedSlots = document.getElementById("numbox2").value;
+				var thuSlots = document.getElementById("numbox3").value;
+				var friSlots = document.getElementById("numbox4").value;
+				var slots = monSlots + ";" + tueSlots + ";" + wedSlots + ";" + thuSlots + ";" + friSlots;
+
+				var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'] + "&signedup=4&name=" + JSON.parse(sessionStorage.getItem("myUserEntity"))["Name"] + "&slots=" + slots;
+				window.location.href = "schedule.php?" + extension;
+			}
+
 			function kickSelected() {
 				var table1 = document.getElementById("flexstudents");
 				var table2 = document.getElementById("visitingstudents");

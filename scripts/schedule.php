@@ -74,6 +74,7 @@
     $roomNames = explode(" ", $room);
     $roomLastName = strtolower($roomNames[1]);
     $email = $teacherTableData["email"];
+    $slotsUsed = $teacherTableData["slotsUsed"] + 1;
     if($teacherTableData["name"] != $roomLastName) {
       $visitingStudents = $teacherTableData["visitingStudents"];
       if(strpos($visitingStudents, $studentName) !== false) {
@@ -81,7 +82,7 @@
         if($visitingStudents == "NONE") $visitingStudents = $studentName;
         else $visitingStudents = $visitingStudents . ";" . $studentName;
       }
-      $query = "UPDATE `$email` SET visitingStudents='$visitingStudents' WHERE id='$desiredDay'";
+      $query = "UPDATE `$email` SET visitingStudents='$visitingStudents',slotsUsed='$slotsUsed' WHERE id='$desiredDay'";
       if(!mysqli_query($connect, $query)) {
         echo "Query failed: " . mysqli_error($connect);
       }
@@ -133,7 +134,8 @@
           $dayOfWeek = getdate()['wday']-1;
           $studentData = getTableData($studentTable, $dayOfWeek, $connect);
           if($studentData["teacher"] == $parsedData["name"]) {
-            $query = "UPDATE `$studentTable` SET teacher='undecided' WHERE day='$dayOfWeek'";
+            $room = $studentData["room"];
+            $query = "UPDATE `$studentTable` SET teacher='$room' WHERE day='$dayOfWeek'";
             if(!mysqli_query($connect, $query)) {
               echo "Query failed: " . mysqli_error($connect);
             }
@@ -153,21 +155,6 @@
         echo "Query failed: " . mysqli_error($connect);
       }
 
-      $flexStudentsStr = $parsedData["flexStudents"];
-      $flexStudents = explode(";", $flexStudentsStr);
-      foreach($flexStudents as $studentName) {
-        $studentTable = getStudentTable($studentName, $connect);
-        if($studentTable != null) {
-          $studentData = getTableData($studentTable, $dayID, $connect);
-          if($studentData["teacher"] == $parsedData["name"]) {
-            $query = "UPDATE `$studentTable` SET teacher='undecided' WHERE id='$dayID'";
-            if(!mysqli_query($connect, $query)) {
-              echo "Query failed: " . mysqli_error($connect);
-            }
-          }
-        }
-      }
-
       $visitingStudentsStr = $parsedData["visitingStudents"];
       $visitingStudents = explode(";", $visitingStudentsStr);
       foreach($visitingStudents as $studentName) {
@@ -175,7 +162,8 @@
         if($studentTable != null) {
           $studentData = getTableData($studentTable, $dayID, $connect);
           if($studentData["teacher"] == $parsedData["name"]) {
-            $query = "UPDATE `$studentTable` SET teacher='undecided' WHERE id='$dayID'";
+            $room = $studentData["room"];
+            $query = "UPDATE `$studentTable` SET teacher='$room' WHERE id='$dayID'";
             if(!mysqli_query($connect, $query)) {
               echo "Query failed: " . mysqli_error($connect);
             }
@@ -245,6 +233,37 @@
     }
   }
 
+  function updateSlots($slots, $data, $connect) {
+    for($day = 0; $day < 5; $day++) {
+      $parsedData = mysqli_data_seek($data, $day);
+      $slotAmt = $slots[$day];
+      $user = $parsedData["email"];
+      $query = "UPDATE `$user` SET slots='$slotAmt' WHERE id='$day'";
+      if(!mysqli_query($connect, $query)) {
+        echo "Query failed: " . mysqli_error($connect);
+      }
+      $visitingStudents = explode(";", $parsedData["visitingStudents"]);
+      while(sizeof($visitingStudents) > $slotAmt) {
+        $student = array_pop($visitingStudents);
+        $studentTable = getStudentTable($student, $connect);
+        $studentData = getTableData($studentTable, $day, $connect);
+        $teacher = $studentData["teacher"];
+        if($teacher == $parsedData["name"]) {
+          $teacher = $studentData["room"];
+          $query = "UPDATE `$studentTable` SET teacher='$teacher' WHERE id='$day'";
+          if(!mysqli_query($connect, $query)) {
+            echo "Query failed: " . mysqli_error($connect);
+          }
+        }
+      }
+      $visitingStudentsStr = implode(";", $visitingStudents);
+      $query = "UPDATE `$user` SET visitingStudents='$visitingStudentsStr' WHERE id='$day'";
+      if(!mysqli_query($connect, $query)) {
+        echo "Query failed: " . mysqli_error($connect);
+      }
+    }
+  }
+
   function addDefaultStudentData($user, $name, $connect) {
     for($i = 0; $i < 5; $i++) {
       $curDay = "";
@@ -282,7 +301,7 @@
     return false;
   }
 
-  function createTeacherTable($user, $name, $roomNum, $flexStudents, $connect) {
+  function createTeacherTable($user, $name, $roomNum, $flexStudents, $slots, $connect) {
     $query = "CREATE TABLE `$user` (
       id INT(10),
       day VARCHAR(30),
@@ -290,6 +309,8 @@
       email VARCHAR(50),
       type VARCHAR(30),
       room INT(10),
+      slots INT(10),
+      slotsUsed INT(10),
       available BOOLEAN,
       flexStudents VARCHAR(65535),
       visitingStudents VARCHAR(65535)
@@ -304,8 +325,8 @@
         else if($id == 2) $day = "Wednesday";
         else if($id == 3) $day = "Thursday";
         else if($id == 4) $day = "Friday";
-        $query = "INSERT INTO `$user` (id, day, name, email, type, room, available, flexStudents, visitingStudents)
-        VALUES ('$id', '$day', '$name', '$user', 'teacher', '$roomNum', 1, '$flexStudents', 'NONE')";
+        $query = "INSERT INTO `$user` (id, day, name, email, type, room, slots, slotsUsed, available, flexStudents, visitingStudents)
+        VALUES ('$id', '$day', '$name', '$user', 'teacher', '$roomNum', '$slots', '0', 1, '$flexStudents', 'NONE')";
         if(!mysqli_query($connect, $query)) {
           echo "Query failed: " . mysqli_error($connect);
         }
