@@ -180,9 +180,9 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 }
 
 .slotsInput {
-	position: absolute;
+	position: relative;
 	text-align: center;
-	align: middle;
+	align-self: center;
 	width: 100px;
 }
 
