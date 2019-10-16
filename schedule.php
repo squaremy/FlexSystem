@@ -169,7 +169,7 @@
 							mysqli_data_seek($data, $i);
 							$parsedData = mysqli_fetch_assoc($data);
 							$slots = filter_var($parsedData["slots"], FILTER_VALIDATE_INT);
-							echo "<td><input type=\"number\" id=\"numbox$i\"placeholder=\"Number Of Possible Visiting Students\">$slots</input></td>";
+							echo "<td><input type=\"number\" id=\"numbox$i\"placeholder=\"Number Of Possible Visiting Students\" value=\"$slots\"></td>";
 						}
 						echo "</tr>";
 					}
