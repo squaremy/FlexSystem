@@ -177,6 +177,8 @@
 .slotsInput {
 	position: absolute;
 	text-align: center;
+	-webkit-appearance: none;
+  margin: 0; 
 }
 
 .topnav {
