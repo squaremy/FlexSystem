@@ -182,6 +182,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 .slotsInput {
 	position: absolute;
 	text-align: center;
+	align: middle;
 	width: 100px;
 }
 
