@@ -178,7 +178,8 @@
 	position: absolute;
 	text-align: center;
 	-webkit-appearance: none;
-  margin: 0; 
+  margin: 0;
+	width: 100px;
 }
 
 .topnav {
