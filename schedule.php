@@ -221,7 +221,7 @@
 			<?php
 				if($type == 'teacher') {
 					echo "<button id=\"kickbutton\" onclick=\"kickSelected()\">Kick Selected Students</button>";
-					echo "<button id=\"updateSlots\" onclick=\"updateSlots()\">Update Slots Available</button>"
+					echo "<button id=\"updateSlots\" onclick=\"updateSlots()\">Update Slots Available</button>";
 				}
 			?>
 		</div>
