@@ -141,7 +141,7 @@
 #updateSlots {
 	position: absolute;
 	text-align: center;
-	top: 250px;
+	top: 280px;
 	left: 50%;
 	transform: translate(-50%, 0%);
 }
@@ -171,6 +171,11 @@
 	left: 50%;
 	top: 550px;
 	transform: translate(-50%, 0%);
+	text-align: center;
+}
+
+.slotsInput {
+	position: absolute;
 	text-align: center;
 }
 
