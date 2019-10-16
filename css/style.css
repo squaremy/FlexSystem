@@ -174,11 +174,14 @@
 	text-align: center;
 }
 
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 .slotsInput {
 	position: absolute;
 	text-align: center;
-	-webkit-appearance: none;
-  margin: 0;
 	width: 100px;
 }
 
