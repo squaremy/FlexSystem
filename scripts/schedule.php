@@ -249,10 +249,11 @@
       mysqli_data_seek($data, $day);
       $parsedData = mysqli_fetch_assoc($data);
       $slotAmt = $slots[$day];
+      if($slotAmt < 0) $slotAmt = 0;
       $user = $parsedData["email"];
       $query = "UPDATE `$user` SET slots='$slotAmt' WHERE id='$day'";
       if(!mysqli_query($connect, $query)) {
-        echo "scripts/schedule.php:255::Query failed: " . mysqli_error($connect);
+        echo "scripts/schedule.php:256::Query failed: " . mysqli_error($connect);
       }
       if($parsedData["visitingStudents"] != null && $parsedData["visitingStudents"] != "NONE" && $parsedData["visitingStudents"] != "") {
         $visitingStudents = explode(";", $parsedData["visitingStudents"]);
@@ -265,14 +266,14 @@
             $teacher = $studentData["room"];
             $query = "UPDATE `$studentTable` SET teacher='$teacher' WHERE id='$day'";
             if(!mysqli_query($connect, $query)) {
-              echo "scripts/schedule.php:268::Query failed: " . mysqli_error($connect);
+              echo "scripts/schedule.php:269::Query failed: " . mysqli_error($connect);
             }
           }
         }
         $visitingStudentsStr = implode(";", $visitingStudents);
         $query = "UPDATE `$user` SET visitingStudents='$visitingStudentsStr' WHERE id='$day'";
         if(!mysqli_query($connect, $query)) {
-          echo "scripts/schedule.php:275::Query failed: " . mysqli_error($connect);
+          echo "scripts/schedule.php:276::Query failed: " . mysqli_error($connect);
         }
       }
     }
@@ -289,7 +290,7 @@
       $query = "INSERT INTO `$user` (id, day, name, email, type)
       VALUES ('$i', '$curDay', '$name', '$user', 'student');";
       if(!mysqli_query($connect, $query)) {
-        echo "scripts/schedule.php:292::Query failed: " . mysqli_error($connect);
+        echo "scripts/schedule.php:293::Query failed: " . mysqli_error($connect);
       }
     }
   }
@@ -330,7 +331,7 @@
       visitingStudents VARCHAR(65535)
     )";
     if(!mysqli_query($connect, $query)) {
-      echo "scripts/schedule.php:333::Query failed: " . mysqli_error($connect);
+      echo "scripts/schedule.php:334::Query failed: " . mysqli_error($connect);
     } else {
       for($id = 0; $id < 5; $id++) {
         $day = "";
@@ -342,7 +343,7 @@
         $query = "INSERT INTO `$user` (id, day, name, email, type, room, slots, slotsUsed, available, flexStudents, visitingStudents)
         VALUES ('$id', '$day', '$name', '$user', 'teacher', '$roomNum', '$slots', '0', 1, '$flexStudents', 'NONE')";
         if(!mysqli_query($connect, $query)) {
-          echo "scripts/schedule.php:345::Query failed: " . mysqli_error($connect);
+          echo "scripts/schedule.php:346::Query failed: " . mysqli_error($connect);
         }
       }
     }
