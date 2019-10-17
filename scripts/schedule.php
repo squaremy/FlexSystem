@@ -235,7 +235,8 @@
 
   function updateSlots($slots, $data, $connect) {
     for($day = 0; $day < 5; $day++) {
-      $parsedData = mysqli_data_seek($data, $day);
+      mysqli_data_seek($data, $day);
+      $parsedData = mysqli_fetch_assoc($data);
       $slotAmt = $slots[$day];
       $user = $parsedData["email"];
       echo "scripts/schedule.php:241::".$user;
