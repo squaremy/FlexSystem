@@ -238,6 +238,7 @@
       $parsedData = mysqli_data_seek($data, $day);
       $slotAmt = $slots[$day];
       $user = $parsedData["email"];
+      echo "scripts/schedule.php:241::".$user;
       $query = "UPDATE `$user` SET slots='$slotAmt' WHERE id='$day'";
       if(!mysqli_query($connect, $query)) {
         echo "scripts/schedule.php:243::Query failed: " . mysqli_error($connect);
