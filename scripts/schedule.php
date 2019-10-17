@@ -242,25 +242,27 @@
       if(!mysqli_query($connect, $query)) {
         echo "Query failed: " . mysqli_error($connect);
       }
-      $visitingStudents = explode(";", $parsedData["visitingStudents"]);
-      while(sizeof($visitingStudents) > $slotAmt) {
-        $student = array_pop($visitingStudents);
-        echo "ln248||" . $student . "||ln248";
-        $studentTable = getStudentTable($student, $connect); // TODO: fix this line - invalid index 1
-        $studentData = getTableData($studentTable, $day, $connect);
-        $teacher = $studentData["teacher"];
-        if($teacher == $parsedData["name"]) {
-          $teacher = $studentData["room"];
-          $query = "UPDATE `$studentTable` SET teacher='$teacher' WHERE id='$day'";
-          if(!mysqli_query($connect, $query)) {
-            echo "Query failed: " . mysqli_error($connect);
+      if($parsedData["visitingStudents"] != null && $parsedData["visitingStudents"] != "NONE" && $parsedData["visitingStudents"] != "") {
+        $visitingStudents = explode(";", $parsedData["visitingStudents"]);
+        while(sizeof($visitingStudents) > $slotAmt) {
+          $student = array_pop($visitingStudents);
+          echo "ln248||" . $student . "||ln248";
+          $studentTable = getStudentTable($student, $connect); // TODO: fix this line - invalid index 1
+          $studentData = getTableData($studentTable, $day, $connect);
+          $teacher = $studentData["teacher"];
+          if($teacher == $parsedData["name"]) {
+            $teacher = $studentData["room"];
+            $query = "UPDATE `$studentTable` SET teacher='$teacher' WHERE id='$day'";
+            if(!mysqli_query($connect, $query)) {
+              echo "Query failed: " . mysqli_error($connect);
+            }
           }
         }
-      }
-      $visitingStudentsStr = implode(";", $visitingStudents);
-      $query = "UPDATE `$user` SET visitingStudents='$visitingStudentsStr' WHERE id='$day'";
-      if(!mysqli_query($connect, $query)) {
-        echo "Query failed: " . mysqli_error($connect);
+        $visitingStudentsStr = implode(";", $visitingStudents);
+        $query = "UPDATE `$user` SET visitingStudents='$visitingStudentsStr' WHERE id='$day'";
+        if(!mysqli_query($connect, $query)) {
+          echo "Query failed: " . mysqli_error($connect);
+        }
       }
     }
   }
