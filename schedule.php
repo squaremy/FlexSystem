@@ -20,7 +20,7 @@
 		<?php
 			include "scripts/schedule.php";
 
-			$connect = mysqli_connect("localhost", "techmeds_FlexSystem", "Tennessee18!", "techmeds_FlexSystem") or die("Connection to database failed: " . mysqli_connect_error());
+			$connect = mysqli_connect("localhost", "techmeds_FlexSystem", "password", "techmeds_FlexSystem") or die("Connection to database failed: " . mysqli_connect_error());
 			$user = $_GET["user"];
 			$name = $_GET["name"];
 
