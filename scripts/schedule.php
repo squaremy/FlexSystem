@@ -245,7 +245,7 @@
       $visitingStudents = explode(";", $parsedData["visitingStudents"]);
       while(sizeof($visitingStudents) > $slotAmt) {
         $student = array_pop($visitingStudents);
-        echo $student;
+        echo "ln248||" . $student . "||ln248";
         $studentTable = getStudentTable($student, $connect); // TODO: fix this line - invalid index 1
         $studentData = getTableData($studentTable, $day, $connect);
         $teacher = $studentData["teacher"];
