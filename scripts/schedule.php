@@ -339,8 +339,8 @@
       slots INT(10),
       slotsUsed INT(10),
       available BOOLEAN,
-      flexStudents VARCHAR(65535),
-      visitingStudents VARCHAR(65535)
+      flexStudents TEXT,
+      visitingStudents TEXT
     )";
     if(!mysqli_query($connect, $query)) {
       echo "scripts/schedule.php:334::Query failed: " . mysqli_error($connect);
