@@ -21,7 +21,7 @@
 		<p id="underSearchtxt"><?php
 			include "scripts/schedule.php";
 
-			$connect = mysqli_connect("localhost", "techmeds_FlexSystem", "Tennessee18!", "techmeds_FlexSystem") or die("Connection to database failed: " . mysqli_connect_error());
+			$connect = mysqli_connect("localhost", "franklin_flexsys", "PASSWORD", "franklin_flexSystem") or die("Connection to database failed: " . mysqli_connect_error());
 
 			$teacherTable = getTeacherTable($_GET["name"], $connect);
 			$teacherData = getTableData($teacherTable, 0, $connect);

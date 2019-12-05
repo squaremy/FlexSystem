@@ -15,8 +15,8 @@
       <?php
         include "scripts/schedule.php";
 
-        $connect = mysqli_connect("localhost", "techmeds_FlexSystem", "password", "techmeds_FlexSystem") or die("Connection to database failed: " . mysqli_connect_error());
-        $query = "SHOW TABLES FROM techmeds_FlexSystem";
+        $connect = mysqli_connect("localhost", "franklin_flexsys", "PASSWORD", "franklin_flexSystem") or die("Connection to database failed: " . mysqli_connect_error());
+        $query = "SHOW TABLES FROM franklin_flexSystem";
         if(!$result = mysqli_query($connect, $query)) {
           echo "Failed to obtain tables..." . mysqli_error($connect);
         } else {
