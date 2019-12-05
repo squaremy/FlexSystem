@@ -150,7 +150,8 @@
       mysqli_data_seek($data, $dayID);
       $parsedData = mysqli_fetch_array($data);
       $available = !filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
-      $query = "UPDATE `$user` SET available='$available' WHERE id='$dayID'";
+      $slots = ($available)? '0':$parsedData["slots"];
+      $query = "UPDATE `$user` SET available='$available',slots='$slots' WHERE id='$dayID'";
       if(!mysqli_query($connect, $query)) {
         echo "scripts/schedule.php:155::Query failed: " . mysqli_error($connect);
       }
