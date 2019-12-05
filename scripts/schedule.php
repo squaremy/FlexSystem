@@ -184,7 +184,7 @@
 				echo "Query failed: " . mysqli_error($connect);
 			}
 		}
-
+    
     if($available == false) {
       $query = "UPDATE `$user` SET visitingStudents='NONE' WHERE id='$day'";
       if(!mysqli_query($connect, $query)) {
