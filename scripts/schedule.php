@@ -251,6 +251,8 @@
       $parsedData = mysqli_fetch_assoc($data);
       $slotAmt = $slots[$day];
       if($slotAmt < 0) $slotAmt = 0;
+      $available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
+      if(!$available && $slotAmt > 0) $slotAmt = 0;
       $user = $parsedData["email"];
       $query = "UPDATE `$user` SET slots='$slotAmt' WHERE id='$day'";
       if(!mysqli_query($connect, $query)) {
