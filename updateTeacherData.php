@@ -14,7 +14,7 @@
     <input type="text" id="name" placeholder="Name">
     <input type="text" id="email" placeholder="Email">
     <input type="number" id="roomNum" placeholder="Room Number">
-    <input type="number" id="slots" placeholder="Number Of Possible Visiting Students">
+    <input type="number" id="slots" placeholder="# Visiting Students Slots">
     <p id="flexStudentsDisplay">In this text box, input your flex students and separate each with a semi-colon as shown here: FirstName LastName;FirstName LastName</p>
     <input type="text" id="flexStudents" placeholder="Your Flex Students">
     <button id="submit" onclick="submit()">Submit</button>
