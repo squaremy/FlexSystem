@@ -210,7 +210,7 @@
 							foreach($visitingStudents as $studentName) {
 								$studentTable = getStudentTable($studentName, $connect);
 								if($studentTable != null) {
-									$studentData = getStudentData($studentTable, $dayOfWeek, $connect);
+									$studentData = getTableData($studentTable, $dayOfWeek, $connect);
 									$comingFrom = $studentData["room"];
 									echo "<tr><td><input type=\"checkbox\" name=\"$studentName\" /></td><td>$studentName</td><td>$comingFrom</td>";
 								} else echo "<tr><td></td><td>NONE</td><td></td></tr>";

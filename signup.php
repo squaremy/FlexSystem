@@ -58,5 +58,5 @@
 <script type="text/javascript" src="scripts/schedule.js"></script>
 <script type="text/javascript" src="scripts/signin.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script>loadData('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/GOAL_CONFIG.json', JSON.parse(sessionStorage.getItem('myUserEntity'))["Email"]);</script>
+<script>loadData('./configs/GOAL_CONFIG.json', JSON.parse(sessionStorage.getItem('myUserEntity'))["Email"]);</script>
 </html>
