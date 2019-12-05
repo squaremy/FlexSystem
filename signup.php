@@ -18,6 +18,15 @@
 	<script type="text/javascript" src="scripts/linkSchedulePHP.js"></script>
 	<div id="signupmenu">
 		<p id="searchtxt"><?php echo $_GET["name"]; ?></p>
+		<p id="underSearchtxt"><?php
+			include "scripts/schedule.php";
+
+			$connect = mysqli_connect("localhost", "techmeds_FlexSystem", "Tennessee18!", "techmeds_FlexSystem") or die("Connection to database failed: " . mysqli_connect_error());
+
+			$teacherTable = getTeacherTable($_GET["name"], $connect);
+			$teacherData = getTableData($teacherTable, 0, $connect);
+			echo $teacherData["room"];
+		?></p>
 			<table id="weektable">
 			  <tr>
 				<th width="15%">Monday</th>
@@ -49,5 +58,5 @@
 <script type="text/javascript" src="scripts/schedule.js"></script>
 <script type="text/javascript" src="scripts/signin.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script>loadData('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/GOAL_CONFIG.json', JSON.parse(sessionStorage.getItem('myUserEntity'))["Email"]);</script>
+<script>loadData('./configs/GOAL_CONFIG.json', JSON.parse(sessionStorage.getItem('myUserEntity'))["Email"]);</script>
 </html>

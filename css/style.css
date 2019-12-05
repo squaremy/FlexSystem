@@ -128,6 +128,24 @@
 	transform: translate(-50%, 0%);
 }
 
+#underSearchtxt {
+	position: absolute;
+	text-align: center;
+	top: 130px;
+	left: 50%;
+	font-size: 22px;
+	font-family: "Arial";
+	transform: translate(-50%, 0%);
+}
+
+#updateSlots {
+	position: absolute;
+	text-align: center;
+	top: 280px;
+	left: 50%;
+	transform: translate(-50%, 0%);
+}
+
 #googlebutton{
 	position: absolute;
 	top:0%;
@@ -154,6 +172,18 @@
 	top: 550px;
 	transform: translate(-50%, 0%);
 	text-align: center;
+}
+
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    /* margin: 0; */
+}
+
+.slotsInput {
+	position: relative;
+	text-align: center;
+	align-self: center;
+	width: 100px;
 }
 
 .topnav {

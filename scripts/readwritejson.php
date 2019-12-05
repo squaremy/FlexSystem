@@ -13,6 +13,8 @@
         email VARCHAR(50),
         type VARCHAR(30),
         room INT(10),
+        slots INT(10),
+        slotsUsed INT(10),
         available BOOLEAN,
         flexStudents VARCHAR(65535),
         visitingStudents VARCHAR(65535)
@@ -74,8 +76,8 @@
         $available = $jsonData[$email]['schedule'][$i]['available'];
         $flexStudents = implode(";", $jsonData[$email]['schedule'][$i]['flexstudents']);
         $visitingStudents = implode(";", $jsonData[$email]['schedule'][$i]['visitingstudents']);
-        $sql = "INSERT INTO `$email` (id, day, name, email, type, room, available, flexStudents, visitingStudents)
-        VALUES ('$i', '$day', '$name', '$email', '$type', '$room', '$available', '$flexStudents', '$visitingStudents')";
+        $sql = "INSERT INTO `$email` (id, day, name, email, type, room, slots, slotsUsed, available, flexStudents, visitingStudents)
+        VALUES ('$i', '$day', '$name', '$email', '$type', '$room', '0', '0', '$available', '$flexStudents', '$visitingStudents')";
         if(!mysqli_query($connect, $sql)) {
           echo "Could not insert data... " . mysqli_error($connect) . "<br />";
         } else {

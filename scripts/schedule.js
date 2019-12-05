@@ -141,11 +141,11 @@ function checktype(teacherelist){
 
 	var name = document.getElementById("searchtxt");
 	name.innerHTML = userEntity["Name"];
-	readaJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/GOAL_CONFIG.json',userEntity["Email"]);
+	readaJSON('./configs/GOAL_CONFIG.json',userEntity["Email"]);
 }
 
 function loadUser() {
-	read2JSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/teacherlist.json');
+	read2JSON('./configs/teacherlist.json');
 }
 
 function loadData(path, useremail) {
@@ -178,7 +178,7 @@ function swapAvailability(dayOfWeek) {
 }
 
 function confirmsignup() {
-	loadData('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/GOAL_CONFIG.json', JSON.parse(sessionStorage.getItem('myUserEntity'))['Email']);
+	loadData('./configs/GOAL_CONFIG.json', JSON.parse(sessionStorage.getItem('myUserEntity'))['Email']);
 	var mon = document.getElementById("monchk");
   var tue = document.getElementById("tuechk");
   var wed = document.getElementById("wedchk");
