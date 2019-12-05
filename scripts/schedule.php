@@ -176,6 +176,15 @@
 
   function availabilityUpdates($day, $parsedData, $user, $connect) {
     $available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
+		$slots = filter_var($parsedData["slots"], FILTER_VALIDATE_INT);
+		if(!$available && $slots > 0) {
+			$slots = 0;
+			$query = "UPDATE `$user` SET slots='$slots' WHERE id='$day'";
+			if(!mysqli_query($connect, $query)) {
+				echo "Query failed: " . mysqli_error($connect);
+			}
+		}
+    
     if($available == false) {
       $query = "UPDATE `$user` SET visitingStudents='NONE' WHERE id='$day'";
       if(!mysqli_query($connect, $query)) {
