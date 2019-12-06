@@ -33,9 +33,11 @@
       echo "scripts/schedule.php:33::Query failed: " . mysqli_error($connect);
     }
     $readableData = mysqli_fetch_array($data);
-    $result = filter_var($readableData["available"], FILTER_VALIDATE_BOOLEAN);
+    $available = filter_var($readableData["available"], FILTER_VALIDATE_BOOLEAN);
     $slotsUsed = filter_var($readableData["slotsUsed"], FILTER_VALIDATE_INT);
     $slots = filter_var($readableData["slots"], FILTER_VALIDATE_INT);
+    echo "Slots " . $slots . " # used " . $slotsUsed;
+    $result = ($available && $slotsUsed < $slots);
     return ($result && $slotsUsed < $slots);
   }
 
