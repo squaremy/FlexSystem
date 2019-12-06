@@ -58,18 +58,16 @@
 						$targetTeacher = $_GET["teacher"];
 						$teacherTable = getTeacherTable($targetTeacher, $connect);
 						$teacherData = getTableData($teacherTable, 0, $connect);
-						if($teacherData["slotsUsed"] < $teacherData["slots"]) {
-							$goingMon = filter_var($_GET["mon"], FILTER_VALIDATE_BOOLEAN);
-							$goingTue = filter_var($_GET["tue"], FILTER_VALIDATE_BOOLEAN);
-							$goingWed = filter_var($_GET["wed"], FILTER_VALIDATE_BOOLEAN);
-							$goingThu = filter_var($_GET["thu"], FILTER_VALIDATE_BOOLEAN);
-							$goingFri = filter_var($_GET["fri"], FILTER_VALIDATE_BOOLEAN);
-							updateSignup($goingMon, $targetTeacher, 0, $user, $connect);
-							updateSignup($goingTue, $targetTeacher, 1, $user, $connect);
-							updateSignup($goingWed, $targetTeacher, 2, $user, $connect);
-							updateSignup($goingThu, $targetTeacher, 3, $user, $connect);
-							updateSignup($goingFri, $targetTeacher, 4, $user, $connect);
-						}
+						$goingMon = filter_var($_GET["mon"], FILTER_VALIDATE_BOOLEAN);
+						$goingTue = filter_var($_GET["tue"], FILTER_VALIDATE_BOOLEAN);
+						$goingWed = filter_var($_GET["wed"], FILTER_VALIDATE_BOOLEAN);
+						$goingThu = filter_var($_GET["thu"], FILTER_VALIDATE_BOOLEAN);
+						$goingFri = filter_var($_GET["fri"], FILTER_VALIDATE_BOOLEAN);
+						updateSignup($goingMon, $targetTeacher, 0, $user, $connect);
+						updateSignup($goingTue, $targetTeacher, 1, $user, $connect);
+						updateSignup($goingWed, $targetTeacher, 2, $user, $connect);
+						updateSignup($goingThu, $targetTeacher, 3, $user, $connect);
+						updateSignup($goingFri, $targetTeacher, 4, $user, $connect);
 					} else if($_GET["signedup"] == '0' && $_GET["room"] != null && $_GET["room"] != 'null' && $_GET["room"] != '') {
 						$tempRoom = $_GET["room"];
 						$query = "UPDATE `$user` SET room='$tempRoom',teacher='$tempRoom'";

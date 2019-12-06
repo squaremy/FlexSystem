@@ -25,7 +25,7 @@
 
 			$teacherTable = getTeacherTable($_GET["name"], $connect);
 			$teacherData = getTableData($teacherTable, 0, $connect);
-			echo $teacherData["room"];
+			echo "rm " . $teacherData["room"];
 		?></p>
 			<table id="weektable">
 			  <tr>

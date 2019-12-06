@@ -34,7 +34,9 @@
     }
     $readableData = mysqli_fetch_array($data);
     $result = filter_var($readableData["available"], FILTER_VALIDATE_BOOLEAN);
-    return $result;
+    $slotsUsed = filter_var($readableData["slotsUsed"], FILTER_VALIDATE_INT);
+    $slots = filter_var($readableData["slots"], FILTER_VALIDATE_INT);
+    return ($result && $slotsUsed < $slots);
   }
 
   function getTeacherTable($teacherName, $connect) {
@@ -184,7 +186,7 @@
 				echo "Query failed: " . mysqli_error($connect);
 			}
 		}
-    
+
     if($available == false) {
       $query = "UPDATE `$user` SET visitingStudents='NONE' WHERE id='$day'";
       if(!mysqli_query($connect, $query)) {
