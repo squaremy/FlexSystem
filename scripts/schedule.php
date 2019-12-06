@@ -28,11 +28,12 @@
   }
 
   function teacherIsAvailable($table, $desiredDay, $connect) {
-    $query = "SELECT available FROM `$table` WHERE id='$desiredDay'";
-    if(!$data = mysqli_query($connect, $query)) {
-      echo "scripts/schedule.php:33::Query failed: " . mysqli_error($connect);
-    }
-    $readableData = mysqli_fetch_array($data);
+    // $query = "SELECT available FROM `$table` WHERE id='$desiredDay'";
+    // if(!$data = mysqli_query($connect, $query)) {
+    //   echo "scripts/schedule.php:33::Query failed: " . mysqli_error($connect);
+    // }
+    // $readableData = mysqli_fetch_array($data);
+    $readableData = getTableData($table, $desiredDay, $connect);
     $available = filter_var($readableData["available"], FILTER_VALIDATE_BOOLEAN);
     $slotsUsed = filter_var($readableData["slotsUsed"], FILTER_VALIDATE_INT);
     $slots = filter_var($readableData["slots"], FILTER_VALIDATE_INT);
