@@ -69,20 +69,19 @@
   }
 
   function addStudentToVisitList($teacherTableData, $studentName, $desiredDay, $connect, $room) {
-    $roomNames = explode(" ", $room);
-    $roomLastName = strtolower($roomNames[1]);
     $email = $teacherTableData["email"];
     $slotsUsed = $teacherTableData["slotsUsed"] + 1;
-    if($teacherTableData["name"] != $roomLastName) {
+    if($teacherTableData["name"] != $room) {
       $visitingStudents = $teacherTableData["visitingStudents"];
       if(strpos($visitingStudents, $studentName) !== false) {
+        // do nothing, name is already in the list
       } else {
-        if($visitingStudents == "NONE") $visitingStudents = $studentName;
+        if($visitingStudents == null || $visitingStudents == "" || $visitingStudents == '' || $visitingStudents == "NONE") $visitingStudents = $studentName;
         else $visitingStudents = $visitingStudents . ";" . $studentName;
-      }
-      $query = "UPDATE `$email` SET visitingStudents='$visitingStudents',slotsUsed='$slotsUsed' WHERE id='$desiredDay'";
-      if(!mysqli_query($connect, $query)) {
-        echo "scripts/schedule.php:87::Query failed: " . mysqli_error($connect);
+        $query = "UPDATE `$email` SET visitingStudents='$visitingStudents',slotsUsed='$slotsUsed' WHERE id='$desiredDay'";
+        if(!mysqli_query($connect, $query)) {
+          echo "scripts/schedule.php:87::Query failed: " . mysqli_error($connect);
+        }
       }
     }
   }
