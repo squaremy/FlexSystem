@@ -123,7 +123,7 @@ function searchFilter1() {
 }
 
 function teacherclick(teachername){
-	window.location.href="signup.php?name=" + teachername.id;
+	window.location.href="signup.php?name=" + teachername.id + "&user=" + sessionStorage.getItem("myUserEntity")['Email'];
 }
 
 function readJSON2(path){

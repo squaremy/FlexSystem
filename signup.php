@@ -27,6 +27,8 @@
 			$teacherData = null;
 			if($teacherTable != null && $teacherTable != '' && $teacherTable != "") $teacherData = getTableData($teacherTable, 0, $connect);
 			if($teacherTable != null && $teacherData != null && $teacherData["room"] != null && $teacherData["room"] != "" && $teacherData["room"] != '') echo "rm " . $teacherData["room"];
+			$myData = getTableData($_GET["user"], 0, $connect);
+			$type = $myData["type"];
 		?></p>
 			<table id="weektable">
 			  <tr>
@@ -44,7 +46,9 @@
 				<td><input type="checkbox" id="frichk" name="fri" value="Friday"></td>
 			  </tr>
 			</table>
-		<button id="confirmsignup" type="button" onclick="confirmsignup()">Sign Up</button>
+		<?php
+			if($type == "student") echo "<button id="confirmsignup" type="button" onclick="confirmsignup()">Sign Up</button>";
+		?>
 	</div>
 	<div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="askForLogin" data-theme="dark" style="visibility: hidden;"></div>
 	<a href="#" style="position: absolute; top:80px; right: 10px;" onclick="logout();">Sign out</a>
