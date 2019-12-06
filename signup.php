@@ -47,7 +47,7 @@
 			  </tr>
 			</table>
 		<?php
-			if($type == "student") echo "<button id="confirmsignup" type="button" onclick="confirmsignup()">Sign Up</button>";
+			if($type == "student") echo "<button id=\"confirmsignup\" type=\"button\" onclick=\"confirmsignup()\">Sign Up</button>";
 		?>
 	</div>
 	<div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="askForLogin" data-theme="dark" style="visibility: hidden;"></div>
