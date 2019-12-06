@@ -24,8 +24,9 @@
 			$connect = mysqli_connect("localhost", "franklin_flexsys", "PASSWORD", "franklin_flexSystem") or die("Connection to database failed: " . mysqli_connect_error());
 
 			$teacherTable = getTeacherTable($_GET["name"], $connect);
-			$teacherData = getTableData($teacherTable, 0, $connect);
-			if($teacherData != NULL && $teacherData["room"] != NULL && $teacherData["room"] != "" && $teacherData["room"] != '') echo "rm " . $teacherData["room"];
+			$teacherData = null;
+			if($teacherTable != null && $teacherTable != '' && $teacherTable != "") $teacherData = getTableData($teacherTable, 0, $connect);
+			if($teacherTable != null && $teacherData != null && $teacherData["room"] != null && $teacherData["room"] != "" && $teacherData["room"] != '') echo "rm " . $teacherData["room"];
 		?></p>
 			<table id="weektable">
 			  <tr>
