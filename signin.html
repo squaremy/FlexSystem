@@ -40,7 +40,7 @@
 
 		  var myUserEntity = {};
 		  myUserEntity.Name = profile.getName();
-			myUserEntity.Email = profile.getEmail()
+			myUserEntity.Email = profile.getEmail().toLowerCase();
 		  sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
 
 			if(JSON.parse(sessionStorage.getItem('prevPage')) == null){
