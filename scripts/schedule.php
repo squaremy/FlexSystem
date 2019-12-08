@@ -109,8 +109,8 @@
   function updateSignup($going, $teacher, $dayID, $user, $connect) {
     if($going) {
       $targetTeacher = getTeacherTable($teacher, $connect);
-      if(teacherIsAvailable($targetTeacher, $dayID, $connect)) {
-        $curData = updateCurrentData($user, $connect);
+      $curData = updateCurrentData($user, $connect);
+      if(teacherIsAvailable($targetTeacher, $dayID, $connect) || $teacher == $curData["room"]) {
         $curTeacher = $curData["teacher"];
         if($curTeacher != $curData["room"]) {
           $curTeacherTable = getTeacherTable($curTeacher, $connect);
@@ -125,10 +125,10 @@
               if($s != $curData["name"]) array_push($newArray, $s);
             }
             $visitingStudents = implode(";", $newArray);
-          }
-          $query = "UPDATE `$curTeacherTable` SET visitingStudents='$visitingStudents',slotsUsed='$slotsUsed' WHERE id='$dayID'";
-          if(!mysqli_query($connect, $query)) {
-            echo "Query failed: " . mysqli_error($connect);
+            $query = "UPDATE `$curTeacherTable` SET visitingStudents='$visitingStudents',slotsUsed='$slotsUsed' WHERE id='$dayID'";
+            if(!mysqli_query($connect, $query)) {
+              echo "Query failed: " . mysqli_error($connect);
+            }
           }
         }
 
@@ -140,7 +140,7 @@
         $curData = updateCurrentData($user, $connect);
         $name = $curData["name"];
         $room = $curData["room"];
-        addStudentToVisitList($teacherData, $name, $dayID, $connect, $room);
+        if($teacher != $curData["room"]) addStudentToVisitList($teacherData, $name, $dayID, $connect, $room);
       }
     }
   }
