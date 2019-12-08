@@ -228,6 +228,7 @@
   }
 
   function createNewUserIfNonexistent($user, $connect) {
+    strtolower($user);
     $query = "SELECT name FROM `$user`";
     $result = mysqli_query($connect, $query);
 
@@ -326,6 +327,7 @@
   }
 
   function createTeacherTable($user, $name, $roomNum, $flexStudents, $slots, $connect) {
+    strtolower($user);
     $query = "CREATE TABLE `$user` (
       id INT(10),
       day VARCHAR(30),

@@ -10,6 +10,11 @@
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
+  <div class="topnav">
+		<a href="index.html"><img id="logo" src="faflexlogo.svg"></a>
+		<a id="schedulebutton" class="disable-select">My Schedule</a>
+		<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
+	</div>
   <div id="newUserPopup">
     <input type="text" id="name" placeholder="Name">
     <input type="text" id="email" placeholder="Email">

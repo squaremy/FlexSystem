@@ -8,13 +8,10 @@
 }
 
 #teachertable {
-	position:absolute;
-	top:50%;
-	left:5%;
 	border:5px;
-	border-width: 5px;
 	width: 90%;
 	border-color: black;
+	margin: 5% 5% 0% 5%;
 }
 
 #newUserPopup {
@@ -27,35 +24,24 @@
 }
 
 #flexstudents {
-	position: absolute;
-	top: 325px;
-	left: 5%;
+	margin-left: 5%;
+	margin-top: 8%;
+	margin-right: auto;
 	width: 35%;
-	border: 5px;
-	border-width: 5px;
-	border-color: black;
 }
 
 #visitingstudents {
-	position: absolute;
-	top: 325px;
-	right: 5%;
+	margin-right: 5%;
+	margin-top: 8%;
 	width: 35%;
-	border: 5px;
-	border-width: 5px;
-	border-color: black;
 }
 
 #weektable {
-	position:absolute;
-	display: block;
-	top:200px;
-	left: 50%;
-	border:5px;
-	border-width: 5px;
+	margin-top: 2%;
 	border-color: black;
 	font-weight: bold;
-	transform: translate(-50%, 0%);
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #signin{
@@ -79,71 +65,52 @@
 	z-index: 3;
 }
 #signupbutton {
-	position: absolute;
-	right: 250px;
-	top:20px;
 	font-size: 30px;
 	font-family: "Arial";
 	color: white;
 	text-decoration: none;
+	padding: 20px;
+	padding-right: 0px;
+	float: right;
 }
 
 #confirmsignup {
-	position: absolute;
-	top: 300px;
-	width: 25%;
-	left: calc(50% - 12.5%);
-	font-family: "Arial";
-	color: black;
-	text-decoration: none;
-	text-align: center;
+	margin-top: 2%;
 }
 
 #schedulebutton {
-	position: absolute;
-	right: 20px;
-	top: 20px;
 	font-size: 30px;
 	font-family: "Arial";
 	color: white;
 	text-decoration: none;
+	padding: 20px;
+	float: right;
 }
 
 #searchbar {
-	position: absolute;
-	left: 40%;
+	margin-top: 2%;
 	text-align: center;
-	top: 200px;
 	width: 20%;
 	height: 50px;
 }
 
 #searchtxt {
-	position: absolute;
+	margin-bottom: 0px;
 	text-align: center;
-	top: 100px;
-	left: 50%;
 	font-size: 30px;
 	font-family: "Arial";
-	transform: translate(-50%, 0%);
 }
 
 #underSearchtxt {
-	position: absolute;
+	margin-top: 0px;
 	text-align: center;
-	top: 145px;
-	left: 50%;
 	font-size: 22px;
 	font-family: "Arial";
-	transform: translate(-50%, 0%);
 }
 
 #updateSlots {
-	position: absolute;
 	text-align: center;
-	top: 280px;
-	left: 50%;
-	transform: translate(-50%, 0%);
+	margin-top: 2%;
 }
 
 #googlebutton{
@@ -173,6 +140,11 @@
 	text-align: center;
 }
 
+#tableContainer {
+	display: flex;
+	width: 100%;
+}
+
 input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     /* margin: 0; */
@@ -186,9 +158,6 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 }
 
 .topnav {
-	position: absolute;
-	top: 0px;
-	left: 0px;
 	width: 100%;
 	height: 75px;
 	background-color:#09093b;
@@ -214,6 +183,11 @@ table {
 	text-align:center;
 }
 
+body {
+	margin: 0px;
+	text-align: center;
+}
+
 footer {
 	position: fixed;
 	bottom: 0px;
@@ -228,6 +202,7 @@ footer {
 #footerSpace {
 	height: 60px;
 	width: 100%;
+	margin-top: 5%;
 }
 
 .foot {

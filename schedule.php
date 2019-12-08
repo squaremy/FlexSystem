@@ -13,8 +13,8 @@
 	<body>
 		<div class="topnav">
 			<a href="index.html"><img id="logo" src="faflexlogo.svg"></a>
-			<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
 			<a id="schedulebutton" class="disable-select">My Schedule</a>
+			<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
 		</div>
 		<script type="text/javascript" src="scripts/linkSchedulePHP.js"></script>
 		<?php
@@ -133,46 +133,52 @@
 				$type = $parsedData["type"];
 			}
 		?>
-		<div id="signupmenu">
-			<p id="searchtxt"><?php echo $name; ?></p>
-			<table id="weektable">
-				<?php
-					echo "<tr>";
+		<p id="searchtxt"><?php echo $name; ?></p>
+		<table id="weektable">
+			<?php
+				echo "<tr>";
+				for($i = 0; $i < mysqli_num_rows($data); $i++) {
+					mysqli_data_seek($data, $i);
+					$parsedData = mysqli_fetch_assoc($data);
+					$day = $parsedData["day"];
+					echo "<th>" . $day . "</th>";
+				}
+				echo "</tr><tr>";
+
+				if($type == 'student') {
 					for($i = 0; $i < mysqli_num_rows($data); $i++) {
 						mysqli_data_seek($data, $i);
 						$parsedData = mysqli_fetch_assoc($data);
-						$day = $parsedData["day"];
-						echo "<th>" . $day . "</th>";
+						$teacher = $parsedData["teacher"];
+						echo "<td>" . $teacher . "</td>";
+					}
+					echo "</tr>";
+				} else {
+					for($i = 0; $i < mysqli_num_rows($data); $i++) {
+						mysqli_data_seek($data, $i);
+						$parsedData = mysqli_fetch_assoc($data);
+						$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
+						if($available == true) echo "<td onclick=\"swapAvailability($i)\"><a id=\"available\">AVAILABLE</a></td>";
+						else echo "<td onclick=\"swapAvailability($i)\"><a id=\"available\">BLOCKED</a></td>";
 					}
 					echo "</tr><tr>";
-
-					if($type == 'student') {
-						for($i = 0; $i < mysqli_num_rows($data); $i++) {
-							mysqli_data_seek($data, $i);
-							$parsedData = mysqli_fetch_assoc($data);
-							$teacher = $parsedData["teacher"];
-							echo "<td>" . $teacher . "</td>";
-						}
-						echo "</tr>";
-					} else {
-						for($i = 0; $i < mysqli_num_rows($data); $i++) {
-							mysqli_data_seek($data, $i);
-							$parsedData = mysqli_fetch_assoc($data);
-							$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
-							if($available == true) echo "<td onclick=\"swapAvailability($i)\"><a id=\"available\">AVAILABLE</a></td>";
-							else echo "<td onclick=\"swapAvailability($i)\"><a id=\"available\">BLOCKED</a></td>";
-						}
-						echo "</tr><tr>";
-						for($i = 0; $i < mysqli_num_rows($data); $i++) {
-							mysqli_data_seek($data, $i);
-							$parsedData = mysqli_fetch_assoc($data);
-							$slots = filter_var($parsedData["slots"], FILTER_VALIDATE_INT);
-							echo "<td><input type=\"number\" class=\"slotsInput\" id=\"numbox$i\"placeholder=\"Number Of Possible Visiting Students\" value=\"$slots\"></td>";
-						}
-						echo "</tr>";
+					for($i = 0; $i < mysqli_num_rows($data); $i++) {
+						mysqli_data_seek($data, $i);
+						$parsedData = mysqli_fetch_assoc($data);
+						$slots = filter_var($parsedData["slots"], FILTER_VALIDATE_INT);
+						echo "<td><input type=\"number\" class=\"slotsInput\" id=\"numbox$i\"placeholder=\"Number Of Possible Visiting Students\" value=\"$slots\"></td>";
 					}
-				 ?>
-			</table>
+					echo "</tr>";
+				}
+			 ?>
+		</table>
+		<?php
+			if($type == 'teacher') {
+				echo "<button id=\"kickbutton\" onclick=\"kickSelected()\">Kick Selected Students</button>";
+				echo "<button id=\"updateSlots\" onclick=\"updateSlots()\">Update Slots Available</button>";
+			}
+		?>
+		<div id="tableContainer">
 			<table id="flexstudents">
 				<?php
 					if($type == 'teacher') {
@@ -217,12 +223,6 @@
 					}
 				 ?>
 			</table>
-			<?php
-				if($type == 'teacher') {
-					echo "<button id=\"kickbutton\" onclick=\"kickSelected()\">Kick Selected Students</button>";
-					echo "<button id=\"updateSlots\" onclick=\"updateSlots()\">Update Slots Available</button>";
-				}
-			?>
 		</div>
 		<div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="askForLogin" data-theme="dark" style="visibility: hidden;"></div>
 		<a href="#" style="position: absolute; top:80px; right: 10px;" onclick="logout()">Sign out</a>
