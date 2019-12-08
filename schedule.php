@@ -81,7 +81,8 @@
 						$parsedData = mysqli_fetch_assoc($data);
 						if($parsedData["teacher"] != $parsedData["room"]) {
 							$teacherTable = getTeacherTable($parsedData["teacher"], $connect);
-							if($teacherTable != null && !teacherIsAvailable($teacherTable, $day, $connect)) {
+							$available = filter_var($teacherTable["available"], FILTER_VALIDATE_BOOLEAN);
+							if($teacherTable != null && !teacherIsAvailable($teacherTable, $day, $connect) && !$available) {
 								$room = $parsedData["room"];
 								$query = "UPDATE `$user` SET teacher='$room' WHERE id='$day'";
 								if(!mysqli_query($connect, $query)) {
@@ -118,7 +119,6 @@
 					}
 				}
 			} else if($_GET["signedup"] == '3') {
-				echo "3";
 				$roomNum = filter_var($_GET["roomNum"], FILTER_VALIDATE_INT);
 				$flexStudents = $_GET["flexStudents"];
 				$slots = filter_var($_GET["slots"], FILTER_VALIDATE_INT);

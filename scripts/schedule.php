@@ -110,6 +110,27 @@
     if($going) {
       $targetTeacher = getTeacherTable($teacher, $connect);
       if(teacherIsAvailable($targetTeacher, $dayID, $connect)) {
+        $curData = updateCurrentData($user, $connect);
+        $curTeacher = $curData["teacher"];
+        if($curTeacher != $curData["room"]) {
+          $prevTeacher = getTableData($curTeacher, $dayID, $connect);
+          $visitingStudents = $prevTeacher["visitingStudents"];
+          if(strpos($visitingStudents, $curData["name"]) !== false) {
+            $slotsUsed = filter_var($prevTeacher["slotsUsed"], FILTER_VALIDATE_INT) - 1;
+            if($slotsUsed < 0) $slotsUsed = 0;
+            $visitingStudentsArray = explode(";", $visitingStudents);
+            $newArray = [];
+            foreach($visitingStudents as $s) {
+              if($s != $curData["name"]) array_push($newArray, $s);
+            }
+            $visitingStudents = implode(";", $newArray);
+          }
+          $query = "UPDATE `$prevTeacher` SET visitingStudents='$visitingStudents',slotsUsed='$slotsUsed' WHERE id='$dayID'";
+          if(!mysqli_query($connect, $query)) {
+            echo "Query failed: " . mysqli_error($connect);
+          }
+        }
+
         $query = "UPDATE `$user` SET teacher='$teacher' WHERE id='$dayID'";
         if(!mysqli_query($connect, $query)) {
           echo "scripts/schedule.php:118::Query failed: " . mysqli_error($connect);
@@ -183,7 +204,7 @@
 		}
 
     if($available == false) {
-      $query = "UPDATE `$user` SET visitingStudents='NONE' WHERE id='$day'";
+      $query = "UPDATE `$user` SET visitingStudents='NONE',slotsUsed='0' WHERE id='$day'";
       if(!mysqli_query($connect, $query)) {
         echo "scripts/schedule.php:181::Query failed: " . mysqli_error($connect);
       }
@@ -214,12 +235,13 @@
           }
         }
         $newVisitingStudentsStr = implode(";", $newVisitingStudents);
-        $query = "UPDATE `$user` SET visitingStudents='$newVisitingStudentsStr' WHERE id='$day'";
+        $slotsUsed = sizeof($newVisitingStudents);
+        $query = "UPDATE `$user` SET visitingStudents='$newVisitingStudentsStr',slotsUsed='$slotsUsed' WHERE id='$day'";
         if(!mysqli_query($connect, $query)) {
           echo "scripts/schedule.php:212::Query failed: " . mysqli_error($connect);
         }
       } else if($parsedData["visitingStudents"] == "") {
-        $query = "UPDATE `$user` SET visitingStudents='NONE' WHERE id='$day'";
+        $query = "UPDATE `$user` SET visitingStudents='NONE',slotsUsed='0' WHERE id='$day'";
         if(!mysqli_query($connect, $query)) {
           echo "scripts/schedule.php:217::Query failed: " . mysqli_error($connect);
         }
