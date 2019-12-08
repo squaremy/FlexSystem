@@ -126,7 +126,7 @@
             }
             $visitingStudents = implode(";", $newArray);
           }
-          $query = "UPDATE `$prevTeacher` SET visitingStudents='$visitingStudents',slotsUsed='$slotsUsed' WHERE id='$dayID'";
+          $query = "UPDATE `$curTeacherTable` SET visitingStudents='$visitingStudents',slotsUsed='$slotsUsed' WHERE id='$dayID'";
           if(!mysqli_query($connect, $query)) {
             echo "Query failed: " . mysqli_error($connect);
           }
