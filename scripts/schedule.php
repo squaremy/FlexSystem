@@ -108,7 +108,7 @@
 
   function updateSignup($going, $teacher, $dayID, $user, $connect) {
     if($going) {
-      $targetTeacher = getTeacherTable($teacher, $connect);
+      $targetTeacher = getTableData($teacher, $dayID, $connect);
       if(teacherIsAvailable($targetTeacher, $dayID, $connect)) {
         $curData = updateCurrentData($user, $connect);
         $curTeacher = $curData["teacher"];
