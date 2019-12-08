@@ -108,12 +108,13 @@
 
   function updateSignup($going, $teacher, $dayID, $user, $connect) {
     if($going) {
-      $targetTeacher = getTableData($teacher, $dayID, $connect);
+      $targetTeacher = getTeacherTable($teacher, $connect);
       if(teacherIsAvailable($targetTeacher, $dayID, $connect)) {
         $curData = updateCurrentData($user, $connect);
         $curTeacher = $curData["teacher"];
         if($curTeacher != $curData["room"]) {
-          $prevTeacher = getTableData($curTeacher, $dayID, $connect);
+          $curTeacherTable = getTeacherTable($curTeacher, $connect);
+          $prevTeacher = getTableData($curTeacherTable, $dayID, $connect);
           $visitingStudents = $prevTeacher["visitingStudents"];
           if(strpos($visitingStudents, $curData["name"]) !== false) {
             $slotsUsed = filter_var($prevTeacher["slotsUsed"], FILTER_VALIDATE_INT) - 1;
