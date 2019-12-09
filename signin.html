@@ -12,10 +12,11 @@
 <body>
 	<div class="topnav">
 		<a href="index.html"><img id="logo" src="faflexlogo.svg"></a>
+		<a id="schedulebutton" class="disable-select">My Schedule</a>
 		<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
-		<a id="schedulebutton" href="schedule.php?user=???&name=???&signedup=0&room=null" class="disable-select">My Schedule</a>
 	</div>
 	<div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="askForLogin" data-theme="dark"></div>
+	<div id="footerSpace"></div>
 	<footer>
 		<div class="foot">
 			&copy; 2019 Jordan Martin and Grant Gupton
@@ -39,14 +40,11 @@
 
 		  var myUserEntity = {};
 		  myUserEntity.Name = profile.getName();
-			myUserEntity.Email = profile.getEmail()
+			myUserEntity.Email = profile.getEmail().toLowerCase();
 		  sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
 
-			if(JSON.parse(sessionStorage.getItem('prevPage')) == null){
-				window.location.href = "index.html";
-			}else{
-				window.location.href = JSON.parse(sessionStorage.getItem('prevPage'));
-			}
+			var extension = "schedule.php?user=" + myUserEntity.Email + "&signedup=0&name=" + myUserEntity.Name + "&room=null";
+			window.location.href = extension;
     }
 
   </script>

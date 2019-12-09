@@ -10,13 +10,18 @@
   <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
+  <div class="topnav">
+		<a href="index.html"><img id="logo" src="faflexlogo.svg"></a>
+		<a id="schedulebutton" class="disable-select">My Schedule</a>
+		<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
+	</div>
   <div id="newUserPopup">
     <select id="teacherSelect">
       <?php
         include "scripts/schedule.php";
 
-        $connect = mysqli_connect("localhost", "techmeds_FlexSystem", "password", "techmeds_FlexSystem") or die("Connection to database failed: " . mysqli_connect_error());
-        $query = "SHOW TABLES FROM techmeds_FlexSystem";
+        $connect = mysqli_connect("localhost", "franklin_flexsys", "PASSWORD", "franklin_flexSystem") or die("Connection to database failed: " . mysqli_connect_error());
+        $query = "SHOW TABLES FROM franklin_flexSystem";
         if(!$result = mysqli_query($connect, $query)) {
           echo "Failed to obtain tables..." . mysqli_error($connect);
         } else {
@@ -35,7 +40,7 @@
     function setHomeroom(){
       var select = document.getElementById("teacherSelect")
       var teachername = select.options[select.selectedIndex].text
-      var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))["Email"] + "&name=" + JSON.parse(sessionStorage.getItem("myUserEntity"))["Name"] + "&signedup=0&room=" + teachername;
+      var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))["Email"] + "&name=" + JSON.parse(sessionStorage.getItem("myUserEntity"))["Name"] + "&signedup=2&room=" + teachername;
       window.location.href = "schedule.php?" + extension;
     }
     </script>

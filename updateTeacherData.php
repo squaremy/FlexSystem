@@ -10,26 +10,31 @@
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
+  <div class="topnav">
+		<a href="index.html"><img id="logo" src="faflexlogo.svg"></a>
+		<a id="schedulebutton" class="disable-select">My Schedule</a>
+		<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
+	</div>
   <div id="newUserPopup">
     <input type="text" id="name" placeholder="Name">
     <input type="text" id="email" placeholder="Email">
     <input type="number" id="roomNum" placeholder="Room Number">
     <input type="number" id="slots" placeholder="# Visiting Students Slots">
-    <p id="flexStudentsDisplay">In this text box, input your flex students and separate each with a semi-colon as shown here: FirstName LastName;FirstName LastName</p>
-    <input type="text" id="flexStudents" placeholder="Your Flex Students">
+    <!-- <p id="flexStudentsDisplay">In this text box, input your flex students and separate each with a semi-colon as shown here: FirstName LastName;FirstName LastName</p> -->
+    <!-- <input type="text" id="flexStudents" placeholder="Your Flex Students"> -->
     <button id="submit" onclick="submit()">Submit</button>
     <script>
     document.getElementById("email").value = JSON.parse(sessionStorage.getItem("myUserEntity"))["Email"];
     document.getElementById("name").value = JSON.parse(sessionStorage.getItem("myUserEntity"))["Name"];
 
     function submit(){
-      var flexStudents = document.getElementById("flexStudents").value;
+      // var flexStudents = document.getElementById("flexStudents").value;
       var roomNum = document.getElementById("roomNum").value;
       var user = document.getElementById("email").value;
       var name = document.getElementById("name").value;
       var slots = document.getElementById("slots").value;
 
-      var extension = "user=" + user + "&name=" + name + "&signedup=3&flexStudents=" + flexStudents + "&roomNum=" + roomNum + "&slots=" + slots;
+      var extension = "user=" + user + "&name=" + name + "&signedup=3&roomNum=" + roomNum + "&slots=" + slots;
       window.location.href = "schedule.php?" + extension;
     }
     </script>

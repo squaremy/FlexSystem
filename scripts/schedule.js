@@ -185,9 +185,6 @@ function confirmsignup() {
   var thu = document.getElementById("thuchk");
   var fri = document.getElementById("frichk");
 	var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'] + "&teacher=" + document.getElementById("searchtxt").innerHTML + "&name=" + JSON.parse(sessionStorage.getItem("myUserEntity"))["Name"] + "&signedup=1";
-
-	if(myDat['type'] == "student") {
-	  extension += "&mon=" + mon.checked + "&tue=" + tue.checked + "&wed=" + wed.checked + "&thu=" + thu.checked + "&fri=" + fri.checked;
-		window.location.href = 'schedule.php?' + extension;
-	}
+  extension += "&mon=" + mon.checked + "&tue=" + tue.checked + "&wed=" + wed.checked + "&thu=" + thu.checked + "&fri=" + fri.checked;
+	window.location.href = 'schedule.php?' + extension;
 }

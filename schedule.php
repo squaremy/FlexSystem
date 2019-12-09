@@ -13,14 +13,14 @@
 	<body>
 		<div class="topnav">
 			<a href="index.html"><img id="logo" src="faflexlogo.svg"></a>
-			<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
 			<a id="schedulebutton" class="disable-select">My Schedule</a>
+			<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
 		</div>
 		<script type="text/javascript" src="scripts/linkSchedulePHP.js"></script>
 		<?php
 			include "scripts/schedule.php";
 
-			$connect = mysqli_connect("localhost", "techmeds_FlexSystem", "password", "techmeds_FlexSystem") or die("Connection to database failed: " . mysqli_connect_error());
+			$connect = mysqli_connect("localhost", "franklin_flexsys", "PASSWORD", "franklin_flexSystem") or die("Connection to database failed: " . mysqli_connect_error());
 			$user = $_GET["user"];
 			$name = $_GET["name"];
 
@@ -56,26 +56,24 @@
 				if($type == 'student') {
 					if($_GET["signedup"] == '1') {
 						$targetTeacher = $_GET["teacher"];
-						$teacherTable = getTeacherTable($targetTeacher, $connect);
-						$teacherData = getTableData($teacherTable, 0, $connect);
-						if($teacherData["slotsUsed"] < $teacherData["slots"]) {
-							$goingMon = filter_var($_GET["mon"], FILTER_VALIDATE_BOOLEAN);
-							$goingTue = filter_var($_GET["tue"], FILTER_VALIDATE_BOOLEAN);
-							$goingWed = filter_var($_GET["wed"], FILTER_VALIDATE_BOOLEAN);
-							$goingThu = filter_var($_GET["thu"], FILTER_VALIDATE_BOOLEAN);
-							$goingFri = filter_var($_GET["fri"], FILTER_VALIDATE_BOOLEAN);
-							updateSignup($goingMon, $targetTeacher, 0, $user, $connect);
-							updateSignup($goingTue, $targetTeacher, 1, $user, $connect);
-							updateSignup($goingWed, $targetTeacher, 2, $user, $connect);
-							updateSignup($goingThu, $targetTeacher, 3, $user, $connect);
-							updateSignup($goingFri, $targetTeacher, 4, $user, $connect);
-						}
-					} else if($_GET["signedup"] == '0' && $_GET["room"] != null && $_GET["room"] != 'null' && $_GET["room"] != '') {
+						$goingMon = filter_var($_GET["mon"], FILTER_VALIDATE_BOOLEAN);
+						$goingTue = filter_var($_GET["tue"], FILTER_VALIDATE_BOOLEAN);
+						$goingWed = filter_var($_GET["wed"], FILTER_VALIDATE_BOOLEAN);
+						$goingThu = filter_var($_GET["thu"], FILTER_VALIDATE_BOOLEAN);
+						$goingFri = filter_var($_GET["fri"], FILTER_VALIDATE_BOOLEAN);
+						updateSignup($goingMon, $targetTeacher, 0, $user, $connect);
+						updateSignup($goingTue, $targetTeacher, 1, $user, $connect);
+						updateSignup($goingWed, $targetTeacher, 2, $user, $connect);
+						updateSignup($goingThu, $targetTeacher, 3, $user, $connect);
+						updateSignup($goingFri, $targetTeacher, 4, $user, $connect);
+					} else if($_GET["signedup"] == '2' && $_GET["room"] != null && $_GET["room"] != 'null' && $_GET["room"] != '') {
 						$tempRoom = $_GET["room"];
 						$query = "UPDATE `$user` SET room='$tempRoom',teacher='$tempRoom'";
 						if(!mysqli_query($connect, $query)) {
 							echo "Query failed: " . mysqli_error($connect);
 						}
+
+						addStudentToHomeroom($name, $tempRoom, $connect);
 					}
 					for($day = 0; $day < 5; $day++) {
 						$data = getRawData($user, $connect);
@@ -83,7 +81,9 @@
 						$parsedData = mysqli_fetch_assoc($data);
 						if($parsedData["teacher"] != $parsedData["room"]) {
 							$teacherTable = getTeacherTable($parsedData["teacher"], $connect);
-							if($teacherTable != null && !teacherIsAvailable($teacherTable, $day, $connect)) {
+							$teacherData = getTableData($teacherTable, $day, $connect);
+							$available = filter_var($teacherData["available"], FILTER_VALIDATE_BOOLEAN);
+							if($teacherTable != null && !teacherIsAvailable($teacherTable, $day, $connect) && !$available) {
 								$room = $parsedData["room"];
 								$query = "UPDATE `$user` SET teacher='$room' WHERE id='$day'";
 								if(!mysqli_query($connect, $query)) {
@@ -120,12 +120,10 @@
 					}
 				}
 			} else if($_GET["signedup"] == '3') {
-				echo "3";
 				$roomNum = filter_var($_GET["roomNum"], FILTER_VALIDATE_INT);
-				$flexStudents = $_GET["flexStudents"];
 				$slots = filter_var($_GET["slots"], FILTER_VALIDATE_INT);
 
-				createTeacherTable($user, $name, $roomNum, $flexStudents, $slots, $connect);
+				createTeacherTable($user, $name, $roomNum, $slots, $connect);
 				$data = getRawData($user, $connect);
 				$parsedData = updateCurrentData($user, $connect);
 
@@ -135,46 +133,52 @@
 				$type = $parsedData["type"];
 			}
 		?>
-		<div id="signupmenu">
-			<p id="searchtxt"><?php echo $name; ?></p>
-			<table id="weektable">
-				<?php
-					echo "<tr>";
+		<p id="searchtxt"><?php echo $name; ?></p>
+		<table id="weektable">
+			<?php
+				echo "<tr>";
+				for($i = 0; $i < mysqli_num_rows($data); $i++) {
+					mysqli_data_seek($data, $i);
+					$parsedData = mysqli_fetch_assoc($data);
+					$day = $parsedData["day"];
+					echo "<th>" . $day . "</th>";
+				}
+				echo "</tr><tr>";
+
+				if($type == 'student') {
 					for($i = 0; $i < mysqli_num_rows($data); $i++) {
 						mysqli_data_seek($data, $i);
 						$parsedData = mysqli_fetch_assoc($data);
-						$day = $parsedData["day"];
-						echo "<th>" . $day . "</th>";
+						$teacher = $parsedData["teacher"];
+						echo "<td>" . $teacher . "</td>";
+					}
+					echo "</tr>";
+				} else {
+					for($i = 0; $i < mysqli_num_rows($data); $i++) {
+						mysqli_data_seek($data, $i);
+						$parsedData = mysqli_fetch_assoc($data);
+						$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
+						if($available == true) echo "<td onclick=\"swapAvailability($i)\"><a id=\"available\">AVAILABLE</a></td>";
+						else echo "<td onclick=\"swapAvailability($i)\"><a id=\"available\">BLOCKED</a></td>";
 					}
 					echo "</tr><tr>";
-
-					if($type == 'student') {
-						for($i = 0; $i < mysqli_num_rows($data); $i++) {
-							mysqli_data_seek($data, $i);
-							$parsedData = mysqli_fetch_assoc($data);
-							$teacher = $parsedData["teacher"];
-							echo "<td>" . $teacher . "</td>";
-						}
-						echo "</tr>";
-					} else {
-						for($i = 0; $i < mysqli_num_rows($data); $i++) {
-							mysqli_data_seek($data, $i);
-							$parsedData = mysqli_fetch_assoc($data);
-							$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
-							if($available == true) echo "<td onclick=\"swapAvailability($i)\"><a id=\"available\">AVAILABLE</a></td>";
-							else echo "<td onclick=\"swapAvailability($i)\"><a id=\"available\">BLOCKED</a></td>";
-						}
-						echo "</tr><tr>";
-						for($i = 0; $i < mysqli_num_rows($data); $i++) {
-							mysqli_data_seek($data, $i);
-							$parsedData = mysqli_fetch_assoc($data);
-							$slots = filter_var($parsedData["slots"], FILTER_VALIDATE_INT);
-							echo "<td><input type=\"number\" class=\"slotsInput\" id=\"numbox$i\"placeholder=\"Number Of Possible Visiting Students\" value=\"$slots\"></td>";
-						}
-						echo "</tr>";
+					for($i = 0; $i < mysqli_num_rows($data); $i++) {
+						mysqli_data_seek($data, $i);
+						$parsedData = mysqli_fetch_assoc($data);
+						$slots = filter_var($parsedData["slots"], FILTER_VALIDATE_INT);
+						echo "<td><input type=\"number\" class=\"slotsInput\" id=\"numbox$i\"placeholder=\"Number Of Possible Visiting Students\" value=\"$slots\"></td>";
 					}
-				 ?>
-			</table>
+					echo "</tr>";
+				}
+			 ?>
+		</table>
+		<?php
+			if($type == 'teacher') {
+				echo "<button id=\"kickbutton\" onclick=\"kickSelected()\">Kick Selected Students</button>";
+				echo "<button id=\"updateSlots\" onclick=\"updateSlots()\">Update Slots Available</button>";
+			}
+		?>
+		<div id="tableContainer">
 			<table id="flexstudents">
 				<?php
 					if($type == 'teacher') {
@@ -219,15 +223,10 @@
 					}
 				 ?>
 			</table>
-			<?php
-				if($type == 'teacher') {
-					echo "<button id=\"kickbutton\" onclick=\"kickSelected()\">Kick Selected Students</button>";
-					echo "<button id=\"updateSlots\" onclick=\"updateSlots()\">Update Slots Available</button>";
-				}
-			?>
 		</div>
 		<div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="askForLogin" data-theme="dark" style="visibility: hidden;"></div>
 		<a href="#" style="position: absolute; top:80px; right: 10px;" onclick="logout()">Sign out</a>
+		<div id="footerSpace"></div>
 		<footer>
 			<div class="foot">
 				&copy; 2019 Jordan Martin and Grant Gupton
