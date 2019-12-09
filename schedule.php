@@ -56,8 +56,6 @@
 				if($type == 'student') {
 					if($_GET["signedup"] == '1') {
 						$targetTeacher = $_GET["teacher"];
-						$teacherTable = getTeacherTable($targetTeacher, $connect);
-						$teacherData = getTableData($teacherTable, 0, $connect);
 						$goingMon = filter_var($_GET["mon"], FILTER_VALIDATE_BOOLEAN);
 						$goingTue = filter_var($_GET["tue"], FILTER_VALIDATE_BOOLEAN);
 						$goingWed = filter_var($_GET["wed"], FILTER_VALIDATE_BOOLEAN);
@@ -68,12 +66,14 @@
 						updateSignup($goingWed, $targetTeacher, 2, $user, $connect);
 						updateSignup($goingThu, $targetTeacher, 3, $user, $connect);
 						updateSignup($goingFri, $targetTeacher, 4, $user, $connect);
-					} else if($_GET["signedup"] == '0' && $_GET["room"] != null && $_GET["room"] != 'null' && $_GET["room"] != '') {
+					} else if($_GET["signedup"] == '2' && $_GET["room"] != null && $_GET["room"] != 'null' && $_GET["room"] != '') {
 						$tempRoom = $_GET["room"];
 						$query = "UPDATE `$user` SET room='$tempRoom',teacher='$tempRoom'";
 						if(!mysqli_query($connect, $query)) {
 							echo "Query failed: " . mysqli_error($connect);
 						}
+
+						addStudentToHomeroom($name, $tempRoom, $connect);
 					}
 					for($day = 0; $day < 5; $day++) {
 						$data = getRawData($user, $connect);
@@ -81,7 +81,8 @@
 						$parsedData = mysqli_fetch_assoc($data);
 						if($parsedData["teacher"] != $parsedData["room"]) {
 							$teacherTable = getTeacherTable($parsedData["teacher"], $connect);
-							$available = filter_var($teacherTable["available"], FILTER_VALIDATE_BOOLEAN);
+							$teacherData = getTableData($teacherTable, $day, $connect);
+							$available = filter_var($teacherData["available"], FILTER_VALIDATE_BOOLEAN);
 							if($teacherTable != null && !teacherIsAvailable($teacherTable, $day, $connect) && !$available) {
 								$room = $parsedData["room"];
 								$query = "UPDATE `$user` SET teacher='$room' WHERE id='$day'";
@@ -120,10 +121,9 @@
 				}
 			} else if($_GET["signedup"] == '3') {
 				$roomNum = filter_var($_GET["roomNum"], FILTER_VALIDATE_INT);
-				$flexStudents = $_GET["flexStudents"];
 				$slots = filter_var($_GET["slots"], FILTER_VALIDATE_INT);
 
-				createTeacherTable($user, $name, $roomNum, $flexStudents, $slots, $connect);
+				createTeacherTable($user, $name, $roomNum, $slots, $connect);
 				$data = getRawData($user, $connect);
 				$parsedData = updateCurrentData($user, $connect);
 

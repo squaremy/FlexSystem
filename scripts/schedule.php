@@ -106,10 +106,31 @@
     return $data;
   }
 
+  function addStudentToHomeroom($name, $teacherName, $connect) {
+    $teacherTable = getTeacherTable($teacherName, $connect);
+    $teacherData = getTableData($teacherTable, 0, $connect);
+    $flexStudents = $teacherData["flexStudents"];
+    if(strpos($flexStudents, $name) !== false) {
+      // do nothing, user already added
+    } else {
+      if($flexStudents != null) {
+        $flexStudentsArr = explode(";", $flexStudents);
+        array_push($flexStudentsArr, $name);
+        $flexStudents = implode(";", $flexStudentsArr);
+      } else {
+        $flexStudents = $name;
+      }
+      $query = "UPDATE `$teacherTable` SET flexStudents='$flexStudents'";
+      if(!mysqli_query($connect, $query)) {
+        echo "Query failed: " . mysqli_error($connect);
+      }
+    }
+  }
+
   function updateSignup($going, $teacher, $dayID, $user, $connect) {
     if($going) {
       $targetTeacher = getTeacherTable($teacher, $connect);
-      $curData = updateCurrentData($user, $connect);
+      $curData = getTableData($user, $dayID, $connect);
       if(teacherIsAvailable($targetTeacher, $dayID, $connect) || $teacher == $curData["room"]) {
         $curTeacher = $curData["teacher"];
         if($curTeacher != $curData["room"] && $curTeacher != $teacher) {
@@ -353,7 +374,7 @@
     return false;
   }
 
-  function createTeacherTable($user, $name, $roomNum, $flexStudents, $slots, $connect) {
+  function createTeacherTable($user, $name, $roomNum, $slots, $connect) {
     strtolower($user);
     $query = "CREATE TABLE `$user` (
       id INT(10),
@@ -378,8 +399,8 @@
         else if($id == 2) $day = "Wednesday";
         else if($id == 3) $day = "Thursday";
         else if($id == 4) $day = "Friday";
-        $query = "INSERT INTO `$user` (id, day, name, email, type, room, slots, slotsUsed, available, flexStudents, visitingStudents)
-        VALUES ('$id', '$day', '$name', '$user', 'teacher', '$roomNum', '$slots', '0', 1, '$flexStudents', 'NONE')";
+        $query = "INSERT INTO `$user` (id, day, name, email, type, room, slots, slotsUsed, available, visitingStudents)
+        VALUES ('$id', '$day', '$name', '$user', 'teacher', '$roomNum', '$slots', '0', 1, 'NONE')";
         if(!mysqli_query($connect, $query)) {
           echo "scripts/schedule.php:346::Query failed: " . mysqli_error($connect);
         }

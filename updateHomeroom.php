@@ -40,7 +40,7 @@
     function setHomeroom(){
       var select = document.getElementById("teacherSelect")
       var teachername = select.options[select.selectedIndex].text
-      var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))["Email"] + "&name=" + JSON.parse(sessionStorage.getItem("myUserEntity"))["Name"] + "&signedup=0&room=" + teachername;
+      var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))["Email"] + "&name=" + JSON.parse(sessionStorage.getItem("myUserEntity"))["Name"] + "&signedup=2&room=" + teachername;
       window.location.href = "schedule.php?" + extension;
     }
     </script>
