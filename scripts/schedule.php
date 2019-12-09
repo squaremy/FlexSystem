@@ -120,11 +120,11 @@
             if($slotsUsed < 0) $slotsUsed = 0;
             $visitingStudentsArray = explode(";", $visitingStudents);
             $newArray = [];
-            foreach($visitingStudents as $s) {
+            foreach($visitingStudentsArray as $s) {
               if($s != $curData["name"]) array_push($newArray, $s);
             }
             $visitingStudents = implode(";", $newArray);
-            $slotsUsed = sizeof($visitingStudents);
+            $slotsUsed = sizeof($newArray);
             if($slotsUsed <= 0) {
               $slotsUsed = 0;
               $visitingStudents = "NONE";
@@ -140,7 +140,7 @@
         if(!mysqli_query($connect, $query)) {
           echo "scripts/schedule.php:118::Query failed: " . mysqli_error($connect);
         }
-        $teacherData = getTableData($targetTeacher, 0, $connect);
+        $teacherData = getTableData($targetTeacher, $dayID, $connect);
         $curData = updateCurrentData($user, $connect);
         $name = $curData["name"];
         $room = $curData["room"];
