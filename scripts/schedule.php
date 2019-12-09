@@ -112,12 +112,11 @@
       $curData = updateCurrentData($user, $connect);
       if(teacherIsAvailable($targetTeacher, $dayID, $connect) || $teacher == $curData["room"]) {
         $curTeacher = $curData["teacher"];
-        if($curTeacher != $curData["room"]) {
+        if($curTeacher != $curData["room"] && $curTeacher != $teacher) {
           $curTeacherTable = getTeacherTable($curTeacher, $connect);
           $prevTeacher = getTableData($curTeacherTable, $dayID, $connect);
           $visitingStudents = $prevTeacher["visitingStudents"];
           if(strpos($visitingStudents, $curData["name"]) !== false) {
-            $slotsUsed = filter_var($prevTeacher["slotsUsed"], FILTER_VALIDATE_INT) - 1;
             if($slotsUsed < 0) $slotsUsed = 0;
             $visitingStudentsArray = explode(";", $visitingStudents);
             $newArray = [];
@@ -125,6 +124,11 @@
               if($s != $curData["name"]) array_push($newArray, $s);
             }
             $visitingStudents = implode(";", $newArray);
+            $slotsUsed = sizeof($visitingStudents);
+            if($slotsUsed <= 0) {
+              $slotsUsed = 0;
+              $visitingStudents = "NONE";
+            }
             $query = "UPDATE `$curTeacherTable` SET visitingStudents='$visitingStudents',slotsUsed='$slotsUsed' WHERE id='$dayID'";
             if(!mysqli_query($connect, $query)) {
               echo "Query failed: " . mysqli_error($connect);
