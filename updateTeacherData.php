@@ -16,12 +16,16 @@
 		<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
 	</div>
   <div id="newUserPopup">
+    <h3 id="nametxt">Name</h3>
     <input type="text" id="name" placeholder="Name">
+    <h3 id="emailtxt">Email</h3>
     <input type="text" id="email" placeholder="Email">
+    <h3 id="roomNumtxt">Room Number</h3>
     <input type="number" id="roomNum" placeholder="Room Number">
-    <input type="number" id="slots" placeholder="# Visiting Students Slots">
-    <!-- <p id="flexStudentsDisplay">In this text box, input your flex students and separate each with a semi-colon as shown here: FirstName LastName;FirstName LastName</p> -->
-    <!-- <input type="text" id="flexStudents" placeholder="Your Flex Students"> -->
+    <h3 id="slotstxt">Slots Available To Visiting Students</h3>
+    <input type="number" id="slots" placeholder="Slots">
+    <br/>
+
     <button id="submit" onclick="submit()">Submit</button>
     <script>
     document.getElementById("email").value = JSON.parse(sessionStorage.getItem("myUserEntity"))["Email"];

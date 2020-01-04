@@ -143,6 +143,28 @@
 	width: 100%;
 }
 
+#teacherSelect {
+	font-size: 16px;
+}
+
+h3#nametxt, h3#emailtxt, h3#roomNumtxt, h3#slotstxt {
+	font-size: 16px;
+	font-family: "Arial";
+	text-align: left;
+	margin-left: 35%;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+input#name, input#email, input#roomNum, input#slots {
+	width: 30%;
+	margin-left: 35%;
+	margin-right: 35%;
+	margin-bottom: 3%;
+	font-size: 16px;
+	font-family: "Arial";
+}
+
 input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     /* margin: 0; */
