@@ -42,5 +42,13 @@
   <script type="text/javascript" src="scripts/signin.js"></script>
   <div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="askForLogin" data-theme="dark" style="visibility: hidden;"></div>
   <a href="#" style="position: absolute; top:80px; right: 10px;" onclick="logout();">Sign out</a>
+  <div id="footerSpace"></div>
+	<footer>
+		<div class="foot">
+			&copy; 2019 Jordan Martin and Grant Gupton
+			<br/>
+			Class of 2020
+		</div>
+	</footer>
 </body>
 </html>

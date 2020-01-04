@@ -49,4 +49,12 @@
   <a href="#" style="position: absolute; top:80px; right: 10px;" onclick="logout();">Sign out</a>
   <script type="text/javascript" src="scripts/signin.js"></script>
 </body>
+<div id="footerSpace"></div>
+<footer>
+  <div class="foot">
+    &copy; 2019 Jordan Martin and Grant Gupton
+    <br/>
+    Class of 2020
+  </div>
+</footer>
 </html>
