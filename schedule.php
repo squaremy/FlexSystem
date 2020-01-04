@@ -24,6 +24,8 @@
 			$user = $_GET["user"];
 			$name = $_GET["name"];
 
+			if(getdate()['wday'] < lastAccessedDay($connect)) resetTables($connect, getdate()['wday']);
+
 			if($name != '???' && $user != '???' && $_GET["signedup"] != '3') {
 				$newUser = createNewUserIfNonexistent($user, $connect);
 				if($newUser == true){

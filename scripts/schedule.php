@@ -407,4 +407,40 @@
       }
     }
   }
+
+  function lastAccessedDay($connect) {
+    $query = "SELECT Day FROM `Previous Access Date` WHERE id=0";
+    if(!$result = mysqli_query($connect, $query)) {
+      echo "scripts/schedule.php:414::Query failed: " . mysqli_error($connect);
+    } else {
+      $array = mysqli_fetch_assoc($result);
+      return filter_var($array["Day"], FILTER_VALIDATE_INT);
+    }
+  }
+
+  function resetTables($connect, $day) {
+    $query = "SHOW TABLES FROM franklin_flexSystem";
+    if(!$result = mysqli_query($connect, $query)) {
+      echo "scripts/schedule.php:424::Query failed: " . mysqli_error($connect);
+    }
+    while($tables = mysqli_fetch_array($result)) {
+      foreach($tables as $t) {
+        $data = getTableData($t, 0, $connect);
+        if($data != null) {
+          if($data["type"] == 'teacher') {
+            $query = "UPDATE `$t` SET visitingStudents='NONE',slotsUsed=0,available=1";
+          } else if($data["type"] == 'student') {
+            $query = "UPDATE `$t` SET teacher=room";
+          }
+          if(!mysqli_query($connect, $query)) {
+            echo "scripts/schedule.php:436::Query failed: " . mysqli_error($connect);
+          }
+        }
+      }
+    }
+    $query = "UPDATE `Previous Access Date` SET Day=$day";
+    if(!mysqli_query($connect, $query)) {
+      echo "scripts/schedule.php:443::Query failed: " . mysqli_error($connect);
+    }
+  }
 ?>

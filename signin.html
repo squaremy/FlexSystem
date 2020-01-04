@@ -44,7 +44,8 @@
 		  sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
 
 			var extension = "schedule.php?user=" + myUserEntity.Email + "&signedup=0&name=" + myUserEntity.Name + "&room=null";
-			window.location.href = extension;
+			if(JSON.parse(sessionStorage.getItem('prevPage')) != "http://franklinacademy.org/flex/updateTeacherData.php" && JSON.parse(sessionStorage.getItem('prevPage')) != "https://franklinacademy.org/flex/updateTeacherData.php") window.location.href = extension;
+			else window.location.href = JSON.parse(sessionStorage.getItem('prevPage'));
     }
 
   </script>
