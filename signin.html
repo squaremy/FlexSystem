@@ -44,7 +44,9 @@
 		  sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
 
 			var extension = "schedule.php?user=" + myUserEntity.Email + "&signedup=0&name=" + myUserEntity.Name + "&room=null";
-			if(JSON.parse(sessionStorage.getItem('prevPage')) != "http://franklinacademy.org/flex/updateTeacherData.php" && JSON.parse(sessionStorage.getItem('prevPage')) != "https://franklinacademy.org/flex/updateTeacherData.php") window.location.href = extension;
+			if(JSON.parse(sessionStorage.getItem('prevPage')) != "http://franklinacademy.org/flex/updateTeacherData.php" && JSON.parse(sessionStorage.getItem('prevPage')) != "https://franklinacademy.org/flex/updateTeacherData.php"
+				&& JSON.parse(sessionStorage.getItem('prevPage')) != "franklinacademy.org/flex/updateTeacherData.php" && JSON.parse(sessionStorage.getItem('prevPage')) != "updateTeacherData.php" && JSON.parse(sessionStorage.getItem('prevPage')) != "http://www.franklinacademy.org/flex/updateTeacherData.php"
+				&& JSON.parse(sessionStorage.getItem('prevPage')) != "https://www.franklinacademy.org/flex/updateTeacherData.php" && JSON.parse(sessionStorage.getItem('prevPage')) != "www.franklinacademy.org/flex/updateTeacherData.php") window.location.href = extension;
 			else window.location.href = JSON.parse(sessionStorage.getItem('prevPage'));
     }
 

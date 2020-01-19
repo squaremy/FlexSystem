@@ -29,7 +29,7 @@
 			if($name != '???' && $user != '???' && $_GET["signedup"] != '3') {
 				$newUser = createNewUserIfNonexistent($user, $connect);
 				if($newUser == true){
-					echo "<script type=\"text/javascript\">window.location.href=\"updateHomeroom.php\"</script>";
+					echo "<script type=\"text/javascript\">window.location.href=\"updateFlexroom.php\"</script>";
 				} else {
 					if(studentTableIsEmpty($user, $connect) == true) {
 						addDefaultStudentData($user, $name, $connect);
@@ -42,7 +42,7 @@
 								echo "Query failed: " . mysqli_error($connect);
 							}
 						} else {
-							echo "<script type=\"text/javascript\">window.location.href=\"updateHomeroom.php\"</script>";
+							echo "<script type=\"text/javascript\">window.location.href=\"updateFlexroom.php\"</script>";
 						}
 					}
 				}
@@ -161,7 +161,7 @@
 						$parsedData = mysqli_fetch_assoc($data);
 						$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
 						if($available == true) echo "<td onclick=\"swapAvailability($i)\"><a id=\"available\">AVAILABLE</a></td>";
-						else echo "<td onclick=\"swapAvailability($i)\"><a id=\"available\">BLOCKED</a></td>";
+						else echo "<td onclick=\"swapAvailability($i)\"><a id=\"available\">UNAVAILABLE</a></td>";
 					}
 					echo "</tr><tr>";
 					for($i = 0; $i < mysqli_num_rows($data); $i++) {
