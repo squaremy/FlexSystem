@@ -2,47 +2,54 @@
 var teacherlist = [];
 var table;
 
-function readteacherJSON(path){
-	fetch(path).then(response => response.json()).then(json => {
-			let data = json['teachers'];
-			displayTeachers(data);
-			if (typeof(data) === 'undefined'){
-				return;
-			}
-			teacherlist = data;
-		  })
-}
-
-function readJSON(path){
-	fetch(path).then(response => response.json()).then(json => {
-			let data = json['teachers'];
-			if (typeof(data) === 'undefined'){
-				return;
-			}
-			return data;
-		  })
-}
-
-readteacherJSON('./configs/data.json');
-
-function displayTeachers(teachers) {
-	var table = document.getElementById("teachertable");
-	for(var i = 0; i < teachers.length; i=i+4){
-		var row = table.insertRow(-1);
-		for(var j = 0; j < 4; j++) {
-			var cell = row.insertCell(-1);
-			cell.style.padding = "10px 10px 10px 10px";
-			cell.id = teachers[i+j];
-			cell.onclick = function(){teacherclick(this);};
-			if(teachers[i+j] == null){
-				cell.style.width = "20%";
-				cell.style.display = "none";
-			}else{
-				cell.innerHTML = teachers[i+j];
-		}
-		}
+function addTeachersToList() {
+	table = document.getElementById("teachertable");
+	for(var i = 0, cell; cell = table.cells[i]; i++) {
+		teacherlist[i] = cell.id;
 	}
 }
+
+// function readteacherJSON(path){
+// 	fetch(path).then(response => response.json()).then(json => {
+// 			let data = json['teachers'];
+// 			displayTeachers(data);
+// 			if (typeof(data) === 'undefined'){
+// 				return;
+// 			}
+// 			teacherlist = data;
+// 		  })
+// }
+//
+// function readJSON(path){
+// 	fetch(path).then(response => response.json()).then(json => {
+// 			let data = json['teachers'];
+// 			if (typeof(data) === 'undefined'){
+// 				return;
+// 			}
+// 			return data;
+// 		  })
+// }
+
+// readteacherJSON('./configs/data.json');
+//
+// function displayTeachers(teachers) {
+// 	var table = document.getElementById("teachertable");
+// 	for(var i = 0; i < teachers.length; i=i+4){
+// 		var row = table.insertRow(-1);
+// 		for(var j = 0; j < 4; j++) {
+// 			var cell = row.insertCell(-1);
+// 			cell.style.padding = "10px 10px 10px 10px";
+// 			cell.id = teachers[i+j];
+// 			cell.onclick = function(){teacherclick(this);};
+// 			if(teachers[i+j] == null){
+// 				cell.style.width = "20%";
+// 				cell.style.display = "none";
+// 			}else{
+// 				cell.innerHTML = teachers[i+j];
+// 		}
+// 		}
+// 	}
+// }
 
 function recreateTeachers(teachers) {
 	table = document.getElementById("teachertable");
@@ -126,12 +133,12 @@ function teacherclick(teachername){
 	window.location.href="signup.php?name=" + teachername.id + "&user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'];
 }
 
-function readJSON2(path){
-	fetch(path).then(response => response.json()).then(json => {
-			let data = json['datapoint'];
-			if (typeof(data) === 'undefined'){
-				return;
-			}
-			tempvar = data;
-		  })
-}
+// function readJSON2(path){
+// 	fetch(path).then(response => response.json()).then(json => {
+// 			let data = json['datapoint'];
+// 			if (typeof(data) === 'undefined'){
+// 				return;
+// 			}
+// 			tempvar = data;
+// 		  })
+// }

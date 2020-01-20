@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head>
 	<title>FAHS Flex</title>
@@ -19,9 +18,31 @@
 	<p id="searchtxt">Type in a teacher below to sign up for flex.</p>
 	<input id="searchbar" type="text" onkeyup="searchFilter1()" placeholder="Search for a teacher...">
 	<table id="teachertable" border=1>
+		<?php
+		include "scripts/schedule.php";
+
+		$connect = mysqli_connect("localhost", "franklin_flexsys", "PASSWORD", "franklin_flexSystem") or die("Connection to database failed: " . mysqli_connect_error());
+		$query = "SHOW TABLES FROM franklin_flexSystem";
+		if(!$result = mysqli_query($connect, $query)) {
+			echo "Failed to obtain tables..." . mysqli_error($connect);
+		} else {
+			$counter = 0;
+			while($tables = mysqli_fetch_array($result)) {
+				$data = getTableData($tables[0], 0, $connect);
+				if($data["type"] != null && $data["type"] == "teacher") {
+					$name = $data["name"];
+					if($counter == 0) echo "<tr>";
+					else if($counter%4 == 0) echo "</tr><tr>";
+					echo "<td style='padding: 10px;' id='$name' onclick='teacherclick(this);'>$name</td>";
+					$counter++;
+				}
+			}
+			echo "</tr><script>addTeachersToList()</script>";
+		}
+		?>
 	</table>
 	<script type="text/javascript" src="scripts/script.js"></script>
-	<script type="text/javascript" src="scripts/signin.js"></script>
+	<!-- <script type="text/javascript" src="scripts/signin.js"></script> -->
 	<script type="text/javascript" src="scripts/schedule.js"></script>
 	<script type="text/javascript" src="scripts/linkSchedulePHP.js"></script>
 	<div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="askForLogin" data-theme="dark" style="visibility: hidden;"></div>
