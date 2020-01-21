@@ -45,8 +45,8 @@
 		  </tr>
 		</table>
 	<?php
-		if($type == "student" && $signUpTimeout > time() + (19 * 60 * 60)) echo "<button id=\"confirmsignup\" type=\"button\" onclick=\"confirmsignup()\">Sign Up</button>";
-		else if($signUpTimeout < time() + (19 * 60 * 60)) echo "<button id=\"confirmsignup\" type=\"button\" onclick=\"confirmsignup()\" disabled>Past Sign Up Time...</button>";
+		if($type == "student" && $signUpTimeout > (time() + (19 * 60 * 60)) %(24*60*60)) echo "<button id=\"confirmsignup\" type=\"button\" onclick=\"confirmsignup()\">Sign Up</button>";
+		else if($signUpTimeout < (time() + (19 * 60 * 60)) % (24*60*60)) echo "<button id=\"confirmsignup\" type=\"button\" onclick=\"confirmsignup()\" disabled>Past Sign Up Time...</button>";
 	?>
 	<div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="askForLogin" data-theme="dark" style="visibility: hidden;"></div>
 	<a href="#" style="position: absolute; top:80px; right: 10px;" onclick="logout();">Sign out</a>
