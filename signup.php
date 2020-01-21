@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>FAHS Flex System</title>
+	<title>Sign Up</title>
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="apple-touch-icon" href="/faflexappicon.png">
 	<!-- <meta name="apple-mobile-web-app-capable" content="yes"> -->
@@ -13,14 +13,13 @@
 	<div class="topnav">
 		<a href="index.html"><img id="logo" src="faflexlogo.svg"></a>
 		<a id="schedulebutton" class="disable-select">My Schedule</a>
-		<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
+		<a id="signupbutton" href="index.php" class="disable-select">Sign Up</a>
 	</div>
 	<script type="text/javascript" src="scripts/linkSchedulePHP.js"></script>
 	<p id="searchtxt"><?php echo $_GET["name"]; ?></p>
 	<p id="underSearchtxt"><?php
 		include "scripts/schedule.php";
-
-		$connect = mysqli_connect("localhost", "franklin_flexsys", "PASSWORD", "franklin_flexSystem") or die("Connection to database failed: " . mysqli_connect_error());
+		include "scripts/adminConstants.php";
 
 		$teacherTable = getTeacherTable($_GET["name"], $connect);
 		$teacherData = null;
@@ -46,7 +45,8 @@
 		  </tr>
 		</table>
 	<?php
-		if($type == "student") echo "<button id=\"confirmsignup\" type=\"button\" onclick=\"confirmsignup()\">Sign Up</button>";
+		if($type == "student" && $signUpTimeout > time() + (19 * 60 * 60)) echo "<button id=\"confirmsignup\" type=\"button\" onclick=\"confirmsignup()\">Sign Up</button>";
+		else if($signUpTimeout < time() + (19 * 60 * 60)) echo "<button id=\"confirmsignup\" type=\"button\" onclick=\"confirmsignup()\" disabled>Past Sign Up Time...</button>";
 	?>
 	<div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="askForLogin" data-theme="dark" style="visibility: hidden;"></div>
 	<a href="#" style="position: absolute; top:80px; right: 10px;" onclick="logout();">Sign out</a>
@@ -62,5 +62,4 @@
 <script type="text/javascript" src="scripts/schedule.js"></script>
 <script type="text/javascript" src="scripts/signin.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script>loadData('./configs/GOAL_CONFIG.json', JSON.parse(sessionStorage.getItem('myUserEntity'))["Email"]);</script>
 </html>

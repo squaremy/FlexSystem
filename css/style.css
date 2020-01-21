@@ -147,7 +147,7 @@
 	font-size: 16px;
 }
 
-h3#nametxt, h3#emailtxt, h3#roomNumtxt, h3#slotstxt {
+div#newUserPopup h3 {
 	font-size: 16px;
 	font-family: "Arial";
 	text-align: left;
@@ -156,13 +156,20 @@ h3#nametxt, h3#emailtxt, h3#roomNumtxt, h3#slotstxt {
 	margin-bottom: 0px;
 }
 
-input#name, input#email, input#roomNum, input#slots {
+div#newUserPopup input {
 	width: 30%;
 	margin-left: 35%;
 	margin-right: 35%;
 	margin-bottom: 3%;
 	font-size: 16px;
 	font-family: "Arial";
+}
+
+div#newUserPopup table {
+	border:5px;
+	width: 90%;
+	border-color: black;
+	margin: 5% 5% 0% 5%;
 }
 
 input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {

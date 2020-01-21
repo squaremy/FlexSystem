@@ -3,7 +3,7 @@
     if($name != 'NONE') {
       $names = explode(" ", $name);
       $lastName = strtolower($names[1]);
-      $nameToSearch = $lastName;
+      $nameToSearch = str_replace(array(" ", "-", "_"), "", $lastName);
       $query = "SHOW TABLES FROM franklin_flexSystem LIKE '$nameToSearch%'";
       if(!$result = mysqli_query($connect, $query)) {
         echo "scripts/schedule.php:9::Query failed: " . mysqli_error($connect);
@@ -38,7 +38,7 @@
   function getTeacherTable($teacherName, $connect) {
     $names = explode(" ", $teacherName);
     $teacherLastName = strtolower($names[1]);
-    $toLookFor = $teacherLastName;
+    $toLookFor = str_replace(array(" ", "-", "_"), "", $teacherLastName);
     $query = "SHOW TABLES FROM franklin_flexSystem LIKE '$toLookFor%'";
     if(!$result = mysqli_query($connect, $query)) {
       echo "scripts/schedule.php:46::Query failed: " . mysqli_error($connect);
@@ -53,7 +53,7 @@
   }
 
   function getTeacherTableLessEffective($teacherLastName, $connect) {
-    $teacherLastName = strtolower($teacherLastName);
+    $teacherLastName = strtolower(str_replace(array(" ", "-", "_"), "", $teacherLastName));
     $query = "SHOW TABLES FROM franklin_flexSystem LIKE '$teacherLastName%'";
     if(!$result = mysqli_query($connect, $query)) {
       echo "scripts/schedule.php:61::Query failed: " . mysqli_error($connect);

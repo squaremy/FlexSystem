@@ -13,15 +13,15 @@
 	<div class="topnav">
 		<a href="index.html"><img id="logo" src="faflexlogo.svg"></a>
 		<a id="schedulebutton" class="disable-select">My Schedule</a>
-		<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
+		<a id="signupbutton" href="index.php" class="disable-select">Sign Up</a>
 	</div>
 	<p id="searchtxt">Type in a teacher below to sign up for flex.</p>
 	<input id="searchbar" type="text" onkeyup="searchFilter1()" placeholder="Search for a teacher...">
 	<table id="teachertable" border=1>
 		<?php
 		include "scripts/schedule.php";
+		include "scripts/adminConstants.php";
 
-		$connect = mysqli_connect("localhost", "franklin_flexsys", "PASSWORD", "franklin_flexSystem") or die("Connection to database failed: " . mysqli_connect_error());
 		$query = "SHOW TABLES FROM franklin_flexSystem";
 		if(!$result = mysqli_query($connect, $query)) {
 			echo "Failed to obtain tables..." . mysqli_error($connect);
@@ -42,7 +42,7 @@
 		?>
 	</table>
 	<script type="text/javascript" src="scripts/script.js"></script>
-	<!-- <script type="text/javascript" src="scripts/signin.js"></script> -->
+	<script type="text/javascript" src="scripts/signin.js"></script>
 	<script type="text/javascript" src="scripts/schedule.js"></script>
 	<script type="text/javascript" src="scripts/linkSchedulePHP.js"></script>
 	<div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="askForLogin" data-theme="dark" style="visibility: hidden;"></div>
