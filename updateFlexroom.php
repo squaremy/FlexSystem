@@ -14,7 +14,7 @@
 		<a id="schedulebutton" class="disable-select">My Schedule</a>
 		<a id="signupbutton" href="index.php" class="disable-select">Sign Up</a>
 	</div>
-  <p id="searchtxt">Select Your Homeroom Teacher</p>
+  <p id="searchtxt">Select Your Flex Teacher</p>
   <div id="newUserPopup">
     <select id="teacherSelect">
       <?php
