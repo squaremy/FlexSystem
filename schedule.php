@@ -11,17 +11,74 @@
 
 	<body>
 		<div class="topnav">
-			<a href="index.html"><img id="logo" src="faflexlogo.svg"></a>
+			<a href="index.php"><img id="logo" src="faflexlogo.svg"></a>
 			<a id="schedulebutton" class="disable-select">My Schedule</a>
 			<a id="signupbutton" href="index.php" class="disable-select">Sign Up</a>
 		</div>
 		<script type="text/javascript" src="scripts/linkSchedulePHP.js"></script>
+		<script type="text/javascript" src="scripts/script.js"></script>
 		<?php
 			include "scripts/schedule.php";
 			include "scripts/adminConstants.php";
-			
+
 			$user = $_GET["user"];
 			$name = $_GET["name"];
+			$authCookie = $_COOKIE["auth"];
+
+			$query = "SELECT * FROM `Login Cookies` WHERE cookie='$authCookie'";
+			if(!$values = mysqli_query($connect, $query)) {
+				echo "Query failed: " . mysqli_error($connect);
+			} else {
+				$data = mysqli_fetch_assoc($values);
+				if($data == null) {
+					// add login cookie to correct user
+					$query = "SELECT * FROM `Login Cookies` WHERE email='$user'";
+					if(!$values = mysqli_query($connect, $query)) {
+						echo "Query failed: " . mysqli_error($connect);
+					} else {
+						$data = mysqli_fetch_assoc($values);
+						if($data != null) {
+							$query = "UPDATE `Login Cookies` SET cookie='$authCookie' WHERE email='$user'";
+							if(!mysqli_query($connect, $query)) {
+								echo "Query failed: " . mysqli_error($connect);
+							}
+						} else {
+							$query = "INSERT INTO `Login Cookies` (email, cookie) VALUES ('$user', '$authCookie')";
+							if(!mysqli_query($connect, $query)) {
+								echo "Query failed: " . mysqli_error($connect);
+							}
+						}
+					}
+				} else {
+					if($user != $data['email']) {
+						// reset login cookie and add to database
+						echo '<script>
+						var d = new Date();
+			      d.setTime(d.getTime() + (60 * 24 * 60 * 60 * 1000));
+						document.cookie = "auth=" + randomHexCode() + ";expires=" + d.toUTCString() + ";path=/"
+						</script>';
+						$query = "SELECT * FROM `Login Cookies` WHERE email='$user'";
+						if(!$results = mysqli_query($connect, $query)) {
+							echo "Query failed: " . mysqli_error($connect);
+						} else {
+							$data = mysqli_fetch_assoc($results);
+							if($data != null) {
+								$query = "UPDATE `Login Cookies` SET cookie='$authCookie' WHERE email='$user'";
+								if(!mysqli_query($connect, $query)) {
+									echo "Query failed: " . mysqli_error($connect);
+								}
+							} else {
+								$query = "INSERT INTO `Login Cookies` (email, cookie) VALUES ('$user', '$authCookie')";
+								if(!mysqli_query($connect, $query)) {
+									echo "Query failed: " . mysqli_error($connect);
+								}
+							}
+						}
+					} else {
+						// do nothing, user is authorized
+					}
+				}
+			}
 
 			if(getdate()['wday'] < lastAccessedDay($connect)) resetTables($connect, getdate()['wday']);
 
@@ -55,13 +112,18 @@
 				$type = $parsedData["type"];
 
 				if($type == 'student') {
-					if($_GET["signedup"] == '1') {
+					if($_GET["signedup"] == '1' && $signUpTimeout > (time() + (19 * 60 * 60)) %(24*60*60)) {
 						$targetTeacher = $_GET["teacher"];
-						$goingMon = filter_var($_GET["mon"], FILTER_VALIDATE_BOOLEAN);
-						$goingTue = filter_var($_GET["tue"], FILTER_VALIDATE_BOOLEAN);
-						$goingWed = filter_var($_GET["wed"], FILTER_VALIDATE_BOOLEAN);
-						$goingThu = filter_var($_GET["thu"], FILTER_VALIDATE_BOOLEAN);
-						$goingFri = filter_var($_GET["fri"], FILTER_VALIDATE_BOOLEAN);
+						if(getdate()['wday']-1 <= 0) $goingMon = filter_var($_GET["mon"], FILTER_VALIDATE_BOOLEAN);
+						else $goingMon = false;
+						if(getdate()['wday']-1 <= 1) $goingTue = filter_var($_GET["tue"], FILTER_VALIDATE_BOOLEAN);
+						else $goingTue = false;
+						if(getdate()['wday']-1 <= 2) $goingWed = filter_var($_GET["wed"], FILTER_VALIDATE_BOOLEAN);
+						else $goingWed = false;
+						if(getdate()['wday']-1 <= 3) $goingThu = filter_var($_GET["thu"], FILTER_VALIDATE_BOOLEAN);
+						else $goingThu = false;
+						if(getdate()['wday']-1 <= 4) $goingFri = filter_var($_GET["fri"], FILTER_VALIDATE_BOOLEAN);
+						else $goingFri = false;
 						updateSignup($goingMon, $targetTeacher, 0, $user, $connect);
 						updateSignup($goingTue, $targetTeacher, 1, $user, $connect);
 						updateSignup($goingWed, $targetTeacher, 2, $user, $connect);
@@ -93,7 +155,12 @@
 							}
 						}
 					}
-				} else if($type == 'teacher'){
+				} else {
+					if($type == 'floater') {
+						$data = getRawData(getTeacherTable($parsedData['teacherCovering'], $connect), $connect);
+						$parsedData = mysqli_fetch_assoc($data);
+					}
+
 					if($_GET["signedup"] == '1') {
 						$swapMon = filter_var($_GET["mon"], FILTER_VALIDATE_BOOLEAN);
 						$swapTue = filter_var($_GET["tue"], FILTER_VALIDATE_BOOLEAN);
@@ -110,28 +177,50 @@
 						updateKickedStudents(explode(";", $_GET["tokick"]), $parsedData, $connect);
 					} else if($_GET["signedup"] == '4') {
 						$slots = explode(";", $_GET["slots"]);
-						$data = getRawData($user, $connect);
+						if($type == 'floater') $data = getRawData(getTeacherTable($parsedData['teacherCovering'], $connect), $connect);
+						else $data = getRawData($user, $connect);
 						updateSlots($slots, $data, $connect);
 					}
 					for($day = 0; $day < 5; $day++) {
-						$data = getRawData($user, $connect);
+						if($type == 'floater') {
+							$parsedData = updateCurrentData($user, $connect);
+							$data = getRawData(getTeacherTable($parsedData['teacherCovering'], $connect), $connect);
+						}
+						else $data = getRawData($user, $connect);
 						mysqli_data_seek($data, $day);
 						$parsedData = mysqli_fetch_assoc($data);
-						availabilityUpdates($day, $parsedData, $user, $connect);
+						availabilityUpdates($day, $parsedData, $connect);
 					}
 				}
-			} else if($_GET["signedup"] == '3') {
-				$roomNum = filter_var($_GET["roomNum"], FILTER_VALIDATE_INT);
-				$slots = filter_var($_GET["slots"], FILTER_VALIDATE_INT);
 
-				createTeacherTable($user, $name, $roomNum, $slots, $connect);
 				$data = getRawData($user, $connect);
 				$parsedData = updateCurrentData($user, $connect);
 
-				$email = $parsedData["email"];
-				$room = $parsedData["room"];
-				$day = $parsedData["day"];
-				$type = $parsedData["type"];
+				if($type == 'floater') $data = getRawData(getTeacherTable($parsedData['teacherCovering'], $connect), $connect);
+
+			} else if($_GET["signedup"] == '3') {
+				if(!filter_var($_GET["floater"], FILTER_VALIDATE_BOOLEAN)) {
+					$roomNum = filter_var($_GET["roomNum"], FILTER_VALIDATE_INT);
+					$slots = filter_var($_GET["slots"], FILTER_VALIDATE_INT);
+
+					createTeacherTable($user, $name, $roomNum, $slots, $connect);
+					$data = getRawData($user, $connect);
+					$parsedData = updateCurrentData($user, $connect);
+
+					$email = $parsedData["email"];
+					$room = $parsedData["room"];
+					$day = $parsedData["day"];
+					$type = $parsedData["type"];
+				} else {
+					$floaterSchedule = array("", "", "", "", "");
+					$floaterSchedule[0] = $_GET["mon"];
+					$floaterSchedule[1] = $_GET["tue"];
+					$floaterSchedule[2] = $_GET["wed"];
+					$floaterSchedule[3] = $_GET["thu"];
+					$floaterSchedule[4] = $_GET["fri"];
+
+					createFloaterTable($user, $name, $floaterSchedule, $connect);
+				}
 			}
 
 
@@ -176,7 +265,7 @@
 			 ?>
 		</table>
 		<?php
-			if($type == 'teacher') {
+			if($type == 'teacher' || $type == 'floater') {
 				echo "<button id=\"kickbutton\" onclick=\"kickSelected()\">Kick Selected Students</button>";
 				echo "<button id=\"updateSlots\" onclick=\"updateSlots()\">Update Slots Available</button>";
 			}
@@ -184,7 +273,7 @@
 		<div id="tableContainer">
 			<table id="flexstudents">
 				<?php
-					if($type == 'teacher') {
+					if($type == 'teacher' || $type == 'floater') {
 						$dayOfWeek = getdate()['wday']-1;
 						if($dayOfWeek < 5 && $dayOfWeek >= 0) {
 							mysqli_data_seek($data, $dayOfWeek);
@@ -206,7 +295,7 @@
 			</table>
 			<table id="visitingstudents">
 				<?php
-					if($type == 'teacher') {
+					if($type == 'teacher' || $type == 'floater') {
 						$dayOfWeek = getdate()['wday']-1;
 						if($dayOfWeek < 6 && $dayOfWeek >= 0) {
 							mysqli_data_seek($data, $dayOfWeek);
@@ -251,16 +340,9 @@
 			}
 
 			function kickSelected() {
-				var table1 = document.getElementById("flexstudents");
 				var table2 = document.getElementById("visitingstudents");
 				var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'] + "&signedup=2&name=" + JSON.parse(sessionStorage.getItem("myUserEntity"))["Name"] + "&tokick=";
-				var checkboxes1 = table1.getElementsByTagName("INPUT");
 				var checkboxes2 = table2.getElementsByTagName("INPUT");
-				for(var i = 0; i < checkboxes1.length; i++) {
-					if(checkboxes1[i].checked) {
-						extension += checkboxes1[i].name + ";";
-					}
-				}
 				for(var i = 0; i < checkboxes2.length; i++) {
 					if(checkboxes2[i].checked) {
 						extension += checkboxes2[i].name + ";";

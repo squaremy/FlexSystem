@@ -10,7 +10,7 @@
 </head>
 <body>
   <div class="topnav">
-		<a href="index.html"><img id="logo" src="faflexlogo.svg"></a>
+		<a href="index.php"><img id="logo" src="faflexlogo.svg"></a>
 		<a id="schedulebutton" class="disable-select">My Schedule</a>
 		<a id="signupbutton" href="index.php" class="disable-select">Sign Up</a>
 	</div>
@@ -41,6 +41,9 @@
       var select = document.getElementById("teacherSelect")
       var teachername = select.options[select.selectedIndex].text
       var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))["Email"] + "&name=" + JSON.parse(sessionStorage.getItem("myUserEntity"))["Name"] + "&signedup=2&room=" + teachername;
+      var d = new Date();
+      d.setTime(d.getTime() + (60 * 24 * 60 * 60 * 1000));
+      document.cookie = "updated=false;expires=" + d.toUTCString() + ";path=/";
       window.location.href = "schedule.php?" + extension;
     }
     </script>

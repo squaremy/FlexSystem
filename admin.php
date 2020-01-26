@@ -10,7 +10,7 @@
 </head>
 <body>
   <div class="topnav">
-		<a href="index.html"><img id="logo" src="faflexlogo.svg"></a>
+		<a href="index.php"><img id="logo" src="faflexlogo.svg"></a>
 		<a id="schedulebutton" class="disable-select">My Schedule</a>
 		<a id="signupbutton" href="index.php" class="disable-select">Sign Up</a>
 	</div>

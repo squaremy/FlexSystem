@@ -10,7 +10,7 @@
 </head>
 <body>
   <div class="topnav">
-		<a href="index.html"><img id="logo" src="faflexlogo.svg"></a>
+		<a href="index.php"><img id="logo" src="faflexlogo.svg"></a>
 		<a id="schedulebutton" class="disable-select">My Schedule</a>
 		<a id="signupbutton" href="index.php" class="disable-select">Sign Up</a>
 	</div>
@@ -33,7 +33,7 @@
         include "scripts/adminConstants.php";
 
         for($i = 0; $i < 5; $i++) {
-          echo "<td><select id=$i>";
+          echo "<td><select id=$i><option id='NONE'>N/A</option>";
           $query = "SHOW TABLES FROM franklin_flexSystem";
           if(!$result = mysqli_query($connect, $query)) {
             echo "Failed to obtain tables..." . mysqli_error($connect);
@@ -65,9 +65,23 @@
       var name = document.getElementById("name").value;
       var slots = document.getElementById("slots").value;
       var floater = document.getElementById("floater").checked;
+      var monSelect = document.getElementById("0");
+      var tueSelect = document.getElementById("1");
+      var wedSelect = document.getElementById("2");
+      var thuSelect = document.getElementById("3");
+      var friSelect = document.getElementById("4");
 
-
-      var extension = "user=" + user + "&name=" + name + "&signedup=3&roomNum=" + roomNum + "&slots=" + slots;
+      var extension = "user=" + user + "&name=" + name + "&signedup=3" + "&floater=" + floater;
+      if(floater) {
+        extension += "&mon=" + monSelect.options[monSelect.selectedIndex].id + "&tue="
+                      + tueSelect.options[tueSelect.selectedIndex].id + "&wed=" + wedSelect.options[wedSelect.selectedIndex].id
+                      + "&thu=" + thuSelect.options[thuSelect.selectedIndex].id + "&fri=" + friSelect.options[friSelect.selectedIndex].id;
+      } else {
+        extension += "&roomNum=" + roomNum + "&slots=" + slots;
+      }
+      var d = new Date();
+      d.setTime(d.getTime() + (60 * 24 * 60 * 60 * 1000));
+      document.cookie = "updated=false;expires=" + d.toUTCString() + ";path=/";
       window.location.href = "schedule.php?" + extension;
     }
 

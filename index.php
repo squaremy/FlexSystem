@@ -11,10 +11,11 @@
 
 <body>
 	<div class="topnav">
-		<a href="index.html"><img id="logo" src="faflexlogo.svg"></a>
+		<a href="index.php"><img id="logo" src="faflexlogo.svg"></a>
 		<a id="schedulebutton" class="disable-select">My Schedule</a>
 		<a id="signupbutton" href="index.php" class="disable-select">Sign Up</a>
 	</div>
+	<script type="text/javascript" src="scripts/script.js"></script>
 	<p id="searchtxt">Type in a teacher below to sign up for flex.</p>
 	<input id="searchbar" type="text" onkeyup="searchFilter1()" placeholder="Search for a teacher...">
 	<table id="teachertable" border=1>
@@ -37,11 +38,11 @@
 					$counter++;
 				}
 			}
-			echo "</tr><script>addTeachersToList()</script>";
+			echo "</tr>";
 		}
 		?>
 	</table>
-	<script type="text/javascript" src="scripts/script.js"></script>
+	<?php echo "<script>addTeachersToList()</script>"; ?>
 	<script type="text/javascript" src="scripts/signin.js"></script>
 	<script type="text/javascript" src="scripts/schedule.js"></script>
 	<script type="text/javascript" src="scripts/linkSchedulePHP.js"></script>

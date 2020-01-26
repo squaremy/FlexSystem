@@ -147,5 +147,8 @@ function confirmsignup() {
   var fri = document.getElementById("frichk");
 	var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'] + "&teacher=" + document.getElementById("searchtxt").innerHTML + "&name=" + JSON.parse(sessionStorage.getItem("myUserEntity"))["Name"] + "&signedup=1";
   extension += "&mon=" + mon.checked + "&tue=" + tue.checked + "&wed=" + wed.checked + "&thu=" + thu.checked + "&fri=" + fri.checked;
+  var d = new Date();
+  d.setTime(d.getTime() + (60 * 24 * 60 * 60 * 1000));
+  document.cookie = "updated=false;expires=" + d.toUTCString() + ";path=/";;
 	window.location.href = 'schedule.php?' + extension;
 }

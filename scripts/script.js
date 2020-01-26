@@ -4,8 +4,10 @@ var table;
 
 function addTeachersToList() {
 	table = document.getElementById("teachertable");
-	for(var i = 0, cell; cell = table.cells[i]; i++) {
-		teacherlist[i] = cell.id;
+	for(var i = 0, row; row = table.rows[i]; i++) {
+		for(var j = 0, cell; cell = row.cells[j]; j++) {
+			teacherlist[i] = cell.id;
+		}
 	}
 }
 
@@ -131,6 +133,10 @@ function searchFilter1() {
 
 function teacherclick(teachername){
 	window.location.href="signup.php?name=" + teachername.id + "&user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'];
+}
+
+function randomHexCode() {
+	return Math.round(Math.random() * Math.pow(2,32)).toString(16) + Math.round(Math.random() * Math.pow(2,32)).toString(16);
 }
 
 // function readJSON2(path){

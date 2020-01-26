@@ -172,6 +172,7 @@
 
   function updateKickedStudents($tokick, $parsedData, $connect) {
     foreach($tokick as $studentName) {
+      $studentName = trim($studentName);
       if($studentName != '' && $studentName != 'NONE') {
         $studentTable = getStudentTable($studentName, $connect);
         if($studentTable != null) {
@@ -179,7 +180,7 @@
           $studentData = getTableData($studentTable, $dayOfWeek, $connect);
           if($studentData["teacher"] == $parsedData["name"]) {
             $room = $studentData["room"];
-            $query = "UPDATE `$studentTable` SET teacher='$room' WHERE day='$dayOfWeek'";
+            $query = "UPDATE `$studentTable` SET teacher='$room' WHERE id='$dayOfWeek'";
             if(!mysqli_query($connect, $query)) {
               echo "scripts/schedule.php:140::Query failed: " . mysqli_error($connect);
             }
@@ -218,7 +219,8 @@
     }
   }
 
-  function availabilityUpdates($day, $parsedData, $user, $connect) {
+  function availabilityUpdates($day, $parsedData, $connect) {
+    $user = $parsedData['email'];
     $available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
 		$slots = filter_var($parsedData["slots"], FILTER_VALIDATE_INT);
 		if(!$available && $slots > 0) {
@@ -401,6 +403,44 @@
         else if($id == 4) $day = "Friday";
         $query = "INSERT INTO `$user` (id, day, name, email, type, room, slots, slotsUsed, available, visitingStudents)
         VALUES ('$id', '$day', '$name', '$user', 'teacher', '$roomNum', '$slots', '0', 1, 'NONE')";
+        if(!mysqli_query($connect, $query)) {
+          echo "scripts/schedule.php:346::Query failed: " . mysqli_error($connect);
+        }
+      }
+    }
+  }
+
+  function createFloaterTable($user, $name, $schedule, $connect) {
+    strtolower($user);
+    $query = "CREATE TABLE `$user` (
+      id INT(10),
+      day VARCHAR(30),
+      name VARCHAR(60),
+      email VARCHAR(50),
+      type VARCHAR(30),
+      room INT(10),
+      teacherCovering VARCHAR(60)
+    )";
+    if(!mysqli_query($connect, $query)) {
+      echo "scripts/schedule.php:334::Query failed: " . mysqli_error($connect);
+    } else {
+      for($id = 0; $id < 5; $id++) {
+        $day = "";
+        $roomNum = 0;
+        $teacherCovering = $schedule[$id];
+        if($schedule[$id] != 'NONE') {
+          $teacherTable = getTeacherTable($schedule[$id], $connect);
+          $teacherData = getTableData($teacherTable, 0, $connect);
+          $roomNum = $teacherData['room'];
+        }
+
+        if($id == 0) $day = "Monday";
+        else if($id == 1) $day = "Tuesday";
+        else if($id == 2) $day = "Wednesday";
+        else if($id == 3) $day = "Thursday";
+        else if($id == 4) $day = "Friday";
+        $query = "INSERT INTO `$user` (id, day, name, email, type, room, teacherCovering)
+        VALUES ('$id', '$day', '$name', '$user', 'floater', '$roomNum', '$teacherCovering')";
         if(!mysqli_query($connect, $query)) {
           echo "scripts/schedule.php:346::Query failed: " . mysqli_error($connect);
         }
