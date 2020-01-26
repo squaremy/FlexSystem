@@ -46,7 +46,7 @@
               }
             }
           }
-          echo "</select>";
+          echo "</select></td>";
         }
       ?>
       </tr>
