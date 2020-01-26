@@ -22,7 +22,6 @@
       include "scripts/schedule.php";
       include "scripts/adminConstants.php";
 
-      for($i = 0; $i < 5; $i++) {
         echo "<td><select id=$i>";
         $query = "SHOW TABLES FROM franklin_flexSystem";
         if(!$result = mysqli_query($connect, $query)) {
@@ -37,17 +36,12 @@
           }
         }
         echo "</select>";
-      }
     ?>
   <br><br><button>Remove</button><br><br>
     <table>
       <tr>
       <?php
-        include "scripts/schedule.php";
-        include "scripts/adminConstants.php";
-
-        for($i = 0; $i < 5; $i++) {
-          echo "<td><select id=$i>";
+      echo "<td><select id=$i>";
           $query = "SHOW TABLES FROM franklin_flexSystem";
           if(!$result = mysqli_query($connect, $query)) {
             echo "Failed to obtain tables..." . mysqli_error($connect);
@@ -59,7 +53,6 @@
                 echo "<option id='$name'>$name</option>";
               }
             }
-          }
           echo "</select>";
         }
       ?>
