@@ -15,18 +15,32 @@
 		<a id="signupbutton" href="index.php" class="disable-select">Sign Up</a>
 	</div>
   <div id="newUserPopup">
-    <h3 id="nametxt">Name</h3>
-    <input type="text" id="name" placeholder="Name">
-    <h3 id="emailtxt">Email</h3>
-    <input type="text" id="email" placeholder="Email">
-    <h3 id="floatertxt">Floater?</h3>
-    <input type="checkbox" id="floater" onclick="showExtraFields()">
-    <h3 id="roomNumtxt">Room Number</h3>
-    <input type="number" id="roomNum" placeholder="Room Number">
-    <h3 id="slotstxt">Slots Available To Visiting Students</h3>
-    <input type="number" id="slots" placeholder="Slots">
-    <h3 id="floaterSchedule" style="display: none;">Floater Schedule</h3>
-    <table id="floaterScheduleTable" style="display: none;">
+    <button id="resetTables" onclick="resetTables()">Reset All Tables</button>
+    <h3 id="nametxt"><br>Change User Details</h3><br>
+
+    <?php
+      include "scripts/schedule.php";
+      include "scripts/adminConstants.php";
+
+      for($i = 0; $i < 5; $i++) {
+        echo "<td><select id=$i>";
+        $query = "SHOW TABLES FROM franklin_flexSystem";
+        if(!$result = mysqli_query($connect, $query)) {
+          echo "Failed to obtain tables..." . mysqli_error($connect);
+        } else {
+          while($tables = mysqli_fetch_array($result)) {
+            $data = getTableData($tables[0], 0, $connect);
+            if($data["type"] != null && $data["type"] == "teacher") {
+              $name = $data["name"];
+              echo "<option id='$name'>$name</option>";
+            }
+          }
+        }
+        echo "</select>";
+      }
+    ?>
+  <br><br><button>Remove</button><br><br>
+    <table>
       <tr>
       <?php
         include "scripts/schedule.php";
@@ -50,10 +64,17 @@
         }
       ?>
       </tr>
-    </table>
-    <br/>
-
-    <button id="submit" onclick="submit()">Submit</button>
+      <tr>
+      <button>Set Homeroom</button>
+    </tr>
+  </table>
+  <h3 id="nametxt">Admin Constants</h3>
+  <br>
+<table>
+  <tr><input type="time"></input></tr>
+  <tr><button onclick="#">Set Signup Timeout</button></tr>
+</table>
+    <!-- <button id="submit" onclick="submit()">Submit</button> -->
     <script>
     document.getElementById("email").value = JSON.parse(sessionStorage.getItem("myUserEntity"))["Email"];
     document.getElementById("name").value = JSON.parse(sessionStorage.getItem("myUserEntity"))["Name"];
@@ -70,32 +91,13 @@
       var extension = "user=" + user + "&name=" + name + "&signedup=3&roomNum=" + roomNum + "&slots=" + slots;
       window.location.href = "schedule.php?" + extension;
     }
-
-    function showExtraFields() {
-      var checkbox = document.getElementById("floater");
-      if(checkbox.checked) {
-        document.getElementById("floaterSchedule").style.display = "";
-        document.getElementById("floaterScheduleTable").style.display = "";
-        document.getElementById("roomNum").style.display = "none";
-        document.getElementById("roomNumtxt").style.display = "none";
-        document.getElementById("slotstxt").style.display = "none";
-        document.getElementById("slots").style.display = "none";
-      } else {
-        document.getElementById("floaterSchedule").style.display = "none";
-        document.getElementById("floaterScheduleTable").style.display = "none";
-        document.getElementById("roomNum").style.display = "";
-        document.getElementById("roomNumtxt").style.display = "";
-        document.getElementById("slotstxt").style.display = "";
-        document.getElementById("slots").style.display = "";
-      }
-    }
     </script>
   </div>
   <div id="footerSpace"></div>
 	<footer>
 		<div class="foot">
 			&copy; 2019 Jordan Martin and Grant Gupton
-			<br/>
+			<br>
 			Class of 2020
 		</div>
 	</footer>
