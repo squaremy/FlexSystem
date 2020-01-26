@@ -177,14 +177,18 @@
 						updateKickedStudents(explode(";", $_GET["tokick"]), $parsedData, $connect);
 					} else if($_GET["signedup"] == '4') {
 						$slots = explode(";", $_GET["slots"]);
-						if($type == 'floater') $data = getRawData(getTeacherTable($parsedData['teacherCovering'], $connect), $connect);
+						if($type == 'floater') {
+							$teacherEmail = getTeacherTable($parsedData['teacherCovering'], $connect);
+							$data = getRawData($teacherEmail, $connect);
+						}
 						else $data = getRawData($user, $connect);
 						updateSlots($slots, $data, $connect);
 					}
 					for($day = 0; $day < 5; $day++) {
 						if($type == 'floater') {
 							$parsedData = updateCurrentData($user, $connect);
-							$data = getRawData(getTeacherTable($parsedData['teacherCovering'], $connect), $connect);
+							$teacherEmail = getTeacherTable($parsedData['teacherCovering'], $connect);
+							$data = getRawData($teacherEmail, $connect);
 						}
 						else $data = getRawData($user, $connect);
 						mysqli_data_seek($data, $day);
@@ -196,7 +200,10 @@
 				$data = getRawData($user, $connect);
 				$parsedData = updateCurrentData($user, $connect);
 
-				if($type == 'floater') $data = getRawData(getTeacherTable($parsedData['teacherCovering'], $connect), $connect);
+				if($type == 'floater') {
+					$teacherEmail = getTeacherTable($parsedData['teacherCovering'], $connect);
+					$data = getRawData($teacherEmail, $connect);
+				}
 
 			} else if($_GET["signedup"] == '3') {
 				if(!filter_var($_GET["floater"], FILTER_VALIDATE_BOOLEAN)) {
@@ -226,6 +233,12 @@
 
 		?>
 		<p id="searchtxt"><?php echo $name; ?></p>
+		<?php
+			if($type == 'floater') {
+				$covering = $parsedData["teacherCovering"];
+				echo "<p id='underSearchtxt'>$covering</p>";
+			}
+		?>
 		<table id="weektable">
 			<?php
 				echo "<tr>";
@@ -265,7 +278,7 @@
 			 ?>
 		</table>
 		<?php
-			if($type == 'teacher' || $type == 'floater') {
+			if($type != 'student') {
 				echo "<button id=\"kickbutton\" onclick=\"kickSelected()\">Kick Selected Students</button>";
 				echo "<button id=\"updateSlots\" onclick=\"updateSlots()\">Update Slots Available</button>";
 			}
@@ -273,7 +286,7 @@
 		<div id="tableContainer">
 			<table id="flexstudents">
 				<?php
-					if($type == 'teacher' || $type == 'floater') {
+					if($type != 'student') {
 						$dayOfWeek = getdate()['wday']-1;
 						if($dayOfWeek < 5 && $dayOfWeek >= 0) {
 							mysqli_data_seek($data, $dayOfWeek);
@@ -295,8 +308,8 @@
 			</table>
 			<table id="visitingstudents">
 				<?php
-					if($type == 'teacher' || $type == 'floater') {
-						$dayOfWeek = getdate()['wday']-1;
+					if($type != 'student') {
+						$dayOfWeek = getdate()['wday']-1; 
 						if($dayOfWeek < 6 && $dayOfWeek >= 0) {
 							mysqli_data_seek($data, $dayOfWeek);
 							$parsedData = mysqli_fetch_assoc($data);
