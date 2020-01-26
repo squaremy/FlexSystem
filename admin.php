@@ -29,7 +29,7 @@
         } else {
           while($tables = mysqli_fetch_array($result)) {
             $data = getTableData($tables[0], 0, $connect);
-            if($data["type"] != null && $data["type"] == "teacher") {
+            if($data["type"] != null) {
               $name = $data["name"];
               echo "<option id='$name'>$name</option>";
             }
@@ -38,8 +38,6 @@
         echo "</select>";
     ?>
   <br><br><button>Remove</button><br><br>
-    <table>
-      <tr>
       <?php
       echo "<td><select id=$i>";
           $query = "SHOW TABLES FROM franklin_flexSystem";
@@ -56,11 +54,7 @@
           echo "</select>";
         }
       ?>
-      </tr>
-      <tr>
-      <button>Set Homeroom</button>
-    </tr>
-  </table>
+      <button>Set Homeroom</button><br><br>
   <h3 id="nametxt">Admin Constants</h3>
   <br>
 <table>

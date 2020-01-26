@@ -3,7 +3,7 @@
 		<title>My Schedule</title>
 		<link rel="stylesheet" href="css/style.css"/>
 		<link rel="apple-touch-icon" href="/faflexappicon.png"/>
-		<!-- <meta name="apple-mobile-web-app-capable" content="yes"/> -->
+		<meta name="apple-mobile-web-app-capable" content="yes"/>
 		<link rel="icon" href="favicon.ico"/>
 		<meta name="google-signin-client_id" content="483422839968-llldr1bas7hurg44av8h9bh8dpqgtq98.apps.googleusercontent.com">
 		<script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -309,7 +309,7 @@
 			<table id="visitingstudents">
 				<?php
 					if($type != 'student') {
-						$dayOfWeek = getdate()['wday']-1; 
+						$dayOfWeek = getdate()['wday']-1;
 						if($dayOfWeek < 6 && $dayOfWeek >= 0) {
 							mysqli_data_seek($data, $dayOfWeek);
 							$parsedData = mysqli_fetch_assoc($data);
