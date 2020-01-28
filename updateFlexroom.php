@@ -38,8 +38,8 @@
     <button id="submit" onclick="setHomeroom()">Submit</button>
     <script>
     function setHomeroom(){
-      var select = document.getElementById("teacherSelect")
-      var teachername = select.options[select.selectedIndex].text
+      var select = document.getElementById("teacherSelect");
+      var teachername = select.options[select.selectedIndex].text;
       var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))["Email"] + "&name=" + JSON.parse(sessionStorage.getItem("myUserEntity"))["Name"] + "&signedup=2&room=" + teachername;
       var d = new Date();
       d.setTime(d.getTime() + (60 * 24 * 60 * 60 * 1000));

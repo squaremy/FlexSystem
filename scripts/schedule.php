@@ -483,4 +483,55 @@
       echo "scripts/schedule.php:443::Query failed: " . mysqli_error($connect);
     }
   }
+
+  function setFlexroom($userName, $roomName, $connect) {
+    $userTable = getStudentTable($userName, $connect);
+    $teacherTable = getTeacherTable($roomName, $connect);
+    $query = "UPDATE `$userTable` SET room='$roomName',teacher='$roomName'";
+    if(!mysqli_query($connect, $query)) {
+      echo "scripts/schedule.php:492::Query failed: " . mysqli_error($connect);
+    } else {
+      addStudentToHomeroom($userName, $roomName, $connect);
+    }
+  }
+
+  function removeTable($userTable, $connect) {
+    $query = "DROP TABLE `$userTable`";
+    if(!mysqli_query($connect, $query)) {
+      echo "scripts/schedule.php:501::Query failed: " . mysqli_error($connect);
+    }
+  }
+
+  function removeWrongStudentsFromHomeroom($userTable, $connect) {
+    $newStudentList = array();
+    for($i = 0; $i < 5; $i++) {
+      $data = getTableData($userTable, $i, $connect);
+      $homeroomList = explode(";", $data["flexStudents"]);
+      foreach($homeroomList as $studentName) {
+        $studentExists = studentAlreadyInList($studentName, $newStudentList);
+        if($studentExists) continue;
+        else {
+          array_push($newStudentList, $studentName);
+          $studentTable = getStudentTable($studentName, $connect);
+          $studentData = getTableData($studentTable, $i, $connect);
+          if($studentTable == null || $studentData == null || $studentData["room"] != $data["name"]) {
+            array_pop($newStudentList);
+            continue;
+          }
+        }
+      }
+    }
+    $flexStudentsStr = implode(";", $newStudentList);
+    $query = "UPDATE `$userTable` SET flexStudents='$flexStudentsStr'";
+    if(!mysqli_query($connect, $query)) {
+      echo "scripts/schedule.php:523::Query failed: " . mysqli_error($connect);
+    }
+  }
+
+  function studentAlreadyInList($name, $list) {
+    foreach($list as $studentName) {
+      if($name == $studentName) return true;
+    }
+    return false;
+  }
 ?>

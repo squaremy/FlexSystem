@@ -195,6 +195,11 @@
 						$parsedData = mysqli_fetch_assoc($data);
 						availabilityUpdates($day, $parsedData, $connect);
 					}
+					if($type == 'floater') {
+						$parsedData = updateCurrentData($user, $connect);
+						$targetTeacher = getTeacherTable($parsedData['teacherCovering'], $connect);
+						removeWrongStudentsFromHomeroom($targetTeacher, $connect);
+					} else removeWrongStudentsFromHomeroom($user, $connect);
 				}
 
 				$data = getRawData($user, $connect);
