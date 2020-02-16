@@ -106,6 +106,15 @@
 	font-family: "Arial";
 }
 
+#underSearchtxtTable {
+	border: 5px;
+	margin: 0 auto 0 auto;
+	text-align: center;
+	font-size: 18px;
+	font-family: "Arial";
+	border-color: black;
+}
+
 #updateSlots {
 	text-align: center;
 	margin-top: 2%;
@@ -238,6 +247,10 @@ footer {
 	right: 10px;
 	color: white;
 	text-align: right;
+}
+
+.current {
+	color: blue;
 }
 
 a:link#available, a:visited#available {

@@ -157,57 +157,64 @@
 					}
 				} else {
 					if($type == 'floater') {
-						$data = getRawData(getTeacherTable($parsedData['teacherCovering'], $connect), $connect);
-						$parsedData = mysqli_fetch_assoc($data);
-					}
-
-					if($_GET["signedup"] == '1') {
-						$swapMon = filter_var($_GET["mon"], FILTER_VALIDATE_BOOLEAN);
-						$swapTue = filter_var($_GET["tue"], FILTER_VALIDATE_BOOLEAN);
-						$swapWed = filter_var($_GET["wed"], FILTER_VALIDATE_BOOLEAN);
-						$swapThu = filter_var($_GET["thu"], FILTER_VALIDATE_BOOLEAN);
-						$swapFri = filter_var($_GET["fri"], FILTER_VALIDATE_BOOLEAN);
-
-						flipAvailability($swapMon, $data, 0, $user, $connect);
-						flipAvailability($swapTue, $data, 1, $user, $connect);
-						flipAvailability($swapWed, $data, 2, $user, $connect);
-						flipAvailability($swapThu, $data, 3, $user, $connect);
-						flipAvailability($swapFri, $data, 4, $user, $connect);
-					} else if($_GET["signedup"] == '2') {
-						updateKickedStudents(explode(";", $_GET["tokick"]), $parsedData, $connect);
-					} else if($_GET["signedup"] == '4') {
-						$slots = explode(";", $_GET["slots"]);
-						if($type == 'floater') {
-							$teacherEmail = getTeacherTable($parsedData['teacherCovering'], $connect);
-							$data = getRawData($teacherEmail, $connect);
+						if($parsedData['teacherCovering'] != 'NONE') {
+							$data = getRawData(getTeacherTable($parsedData['teacherCovering'], $connect), $connect);
+							$parsedData = mysqli_fetch_assoc($data);
 						}
-						else $data = getRawData($user, $connect);
-						updateSlots($slots, $data, $connect);
+						else $data = null;
 					}
-					for($day = 0; $day < 5; $day++) {
+
+					if($data != null) {
+						if($_GET["signedup"] == '1') {
+							$swapMon = filter_var($_GET["mon"], FILTER_VALIDATE_BOOLEAN);
+							$swapTue = filter_var($_GET["tue"], FILTER_VALIDATE_BOOLEAN);
+							$swapWed = filter_var($_GET["wed"], FILTER_VALIDATE_BOOLEAN);
+							$swapThu = filter_var($_GET["thu"], FILTER_VALIDATE_BOOLEAN);
+							$swapFri = filter_var($_GET["fri"], FILTER_VALIDATE_BOOLEAN);
+
+							flipAvailability($swapMon, $data, 0, $user, $connect);
+							flipAvailability($swapTue, $data, 1, $user, $connect);
+							flipAvailability($swapWed, $data, 2, $user, $connect);
+							flipAvailability($swapThu, $data, 3, $user, $connect);
+							flipAvailability($swapFri, $data, 4, $user, $connect);
+						} else if($_GET["signedup"] == '2') {
+							updateKickedStudents(explode(";", $_GET["tokick"]), $parsedData, $connect);
+						} else if($_GET["signedup"] == '4') {
+							$slots = explode(";", $_GET["slots"]);
+							if($type == 'floater') {
+								$teacherEmail = getTeacherTable($parsedData['teacherCovering'], $connect);
+								$data = getRawData($teacherEmail, $connect);
+							}
+							else $data = getRawData($user, $connect);
+							updateSlots($slots, $data, $connect);
+						}
+						for($day = 0; $day < 5; $day++) {
+							if($type == 'floater') {
+								$parsedData = updateCurrentData($user, $connect);
+								$teacherEmail = getTeacherTable($parsedData['teacherCovering'], $connect);
+								$data = getRawData($teacherEmail, $connect);
+							}
+							else $data = getRawData($user, $connect);
+							mysqli_data_seek($data, $day);
+							$parsedData = mysqli_fetch_assoc($data);
+							availabilityUpdates($day, $parsedData, $connect);
+						}
 						if($type == 'floater') {
 							$parsedData = updateCurrentData($user, $connect);
-							$teacherEmail = getTeacherTable($parsedData['teacherCovering'], $connect);
-							$data = getRawData($teacherEmail, $connect);
-						}
-						else $data = getRawData($user, $connect);
-						mysqli_data_seek($data, $day);
-						$parsedData = mysqli_fetch_assoc($data);
-						availabilityUpdates($day, $parsedData, $connect);
+							$targetTeacher = getTeacherTable($parsedData['teacherCovering'], $connect);
+							removeWrongStudentsFromHomeroom($targetTeacher, $connect);
+						} else removeWrongStudentsFromHomeroom($user, $connect);
 					}
-					if($type == 'floater') {
-						$parsedData = updateCurrentData($user, $connect);
-						$targetTeacher = getTeacherTable($parsedData['teacherCovering'], $connect);
-						removeWrongStudentsFromHomeroom($targetTeacher, $connect);
-					} else removeWrongStudentsFromHomeroom($user, $connect);
 				}
 
 				$data = getRawData($user, $connect);
 				$parsedData = updateCurrentData($user, $connect);
 
 				if($type == 'floater') {
-					$teacherEmail = getTeacherTable($parsedData['teacherCovering'], $connect);
-					$data = getRawData($teacherEmail, $connect);
+					if($parsedData['teacherCovering'] != 'NONE') {
+						$teacherEmail = getTeacherTable($parsedData['teacherCovering'], $connect);
+						$data = getRawData($teacherEmail, $connect);
+					} else $data = null;
 				}
 
 			} else if($_GET["signedup"] == '3') {
@@ -240,45 +247,68 @@
 		<p id="searchtxt"><?php echo $name; ?></p>
 		<?php
 			if($type == 'floater') {
-				$covering = $parsedData["teacherCovering"];
-				echo "<p id='underSearchtxt'>$covering</p>";
+				$data = getRawData($user, $connect);
+				$list = array();
+				$currentCovered = updateCurrentData($user, $connect)["teacherCovering"];
+				if($_GET["selected"] != null) $currentCovered = $_GET["selected"];
+				echo "<table id='underSearchtxtTable' border='1'><tr>";
+				for($i = 0; $i < 5; $i++) {
+					mysqli_data_seek($data, $i);
+					$parsedData = mysqli_fetch_assoc($data);
+					$teacherCovering = $parsedData["teacherCovering"];
+					if(!studentAlreadyInList($teacherCovering, $list) && $teacherCovering != 'NONE') {
+						array_push($list, $teacherCovering);
+						if($teacherCovering == $currentCovered) echo "<td class=current>" . $teacherCovering . "</td>";
+						else echo "<td onclick=\"selectUser('$teacherCovering')\"><a id='available'>" . $teacherCovering . "</a></td>";
+					}
+				}
+				echo "</tr></table>";
+				$data = getRawData($user, $connect);
+				$parsedData = updateCurrentData($user, $connect);
+
+				if($currentCovered != "NONE") {
+					$teacherEmail = getTeacherTable($currentCovered, $connect);
+					$data = getRawData($teacherEmail, $connect);
+				} else $data = null;
 			}
 		?>
 		<table id="weektable">
 			<?php
-				echo "<tr>";
-				for($i = 0; $i < mysqli_num_rows($data); $i++) {
-					mysqli_data_seek($data, $i);
-					$parsedData = mysqli_fetch_assoc($data);
-					$day = $parsedData["day"];
-					echo "<th>" . $day . "</th>";
-				}
-				echo "</tr><tr>";
-
-				if($type == 'student') {
+				if($data != null) {
+					echo "<tr>";
 					for($i = 0; $i < mysqli_num_rows($data); $i++) {
 						mysqli_data_seek($data, $i);
 						$parsedData = mysqli_fetch_assoc($data);
-						$teacher = $parsedData["teacher"];
-						echo "<td>" . $teacher . "</td>";
-					}
-					echo "</tr>";
-				} else {
-					for($i = 0; $i < mysqli_num_rows($data); $i++) {
-						mysqli_data_seek($data, $i);
-						$parsedData = mysqli_fetch_assoc($data);
-						$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
-						if($available == true) echo "<td onclick=\"swapAvailability($i)\"><a id=\"available\">AVAILABLE</a></td>";
-						else echo "<td onclick=\"swapAvailability($i)\"><a id=\"available\">UNAVAILABLE</a></td>";
+						$day = $parsedData["day"];
+						echo "<th>" . $day . "</th>";
 					}
 					echo "</tr><tr>";
-					for($i = 0; $i < mysqli_num_rows($data); $i++) {
-						mysqli_data_seek($data, $i);
-						$parsedData = mysqli_fetch_assoc($data);
-						$slots = filter_var($parsedData["slots"], FILTER_VALIDATE_INT);
-						echo "<td><input type=\"number\" class=\"slotsInput\" id=\"numbox$i\"placeholder=\"Number Of Possible Visiting Students\" value=\"$slots\"></td>";
+
+					if($type == 'student') {
+						for($i = 0; $i < mysqli_num_rows($data); $i++) {
+							mysqli_data_seek($data, $i);
+							$parsedData = mysqli_fetch_assoc($data);
+							$teacher = $parsedData["teacher"];
+							echo "<td>" . $teacher . "</td>";
+						}
+						echo "</tr>";
+					} else {
+						for($i = 0; $i < mysqli_num_rows($data); $i++) {
+							mysqli_data_seek($data, $i);
+							$parsedData = mysqli_fetch_assoc($data);
+							$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
+							if($available == true) echo "<td onclick=\"swapAvailability($i)\"><a id=\"available\">AVAILABLE</a></td>";
+							else echo "<td onclick=\"swapAvailability($i)\"><a id=\"available\">UNAVAILABLE</a></td>";
+						}
+						echo "</tr><tr>";
+						for($i = 0; $i < mysqli_num_rows($data); $i++) {
+							mysqli_data_seek($data, $i);
+							$parsedData = mysqli_fetch_assoc($data);
+							$slots = filter_var($parsedData["slots"], FILTER_VALIDATE_INT);
+							echo "<td><input type=\"number\" class=\"slotsInput\" id=\"numbox$i\"placeholder=\"Number Of Possible Visiting Students\" value=\"$slots\"></td>";
+						}
+						echo "</tr>";
 					}
-					echo "</tr>";
 				}
 			 ?>
 		</table>
@@ -291,7 +321,7 @@
 		<div id="tableContainer">
 			<table id="flexstudents">
 				<?php
-					if($type != 'student') {
+					if($type != 'student' && $data != null) {
 						$dayOfWeek = getdate()['wday']-1;
 						if($dayOfWeek < 5 && $dayOfWeek >= 0) {
 							mysqli_data_seek($data, $dayOfWeek);
@@ -313,7 +343,7 @@
 			</table>
 			<table id="visitingstudents">
 				<?php
-					if($type != 'student') {
+					if($type != 'student' && $data != null) {
 						$dayOfWeek = getdate()['wday']-1;
 						if($dayOfWeek < 6 && $dayOfWeek >= 0) {
 							mysqli_data_seek($data, $dayOfWeek);
@@ -390,6 +420,11 @@
 						break;
 				}
 				var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'] + "&signedup=1&name=" + JSON.parse(sessionStorage.getItem("myUserEntity"))["Name"] + day;
+				window.location.href = 'schedule.php?' + extension;
+			}
+
+			function selectUser(toSelect) {
+				var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'] + "&signedup=0&name=" + JSON.parse(sessionStorage.getItem("myUserEntity"))["Name"] + "&selected=" + toSelect;
 				window.location.href = 'schedule.php?' + extension;
 			}
 		</script>
