@@ -39,6 +39,7 @@
 				}
 			}
 			echo "</tr>";
+			echo "<script>addTeachersToList()</script>";
 		}
 		?>
 	</table>
