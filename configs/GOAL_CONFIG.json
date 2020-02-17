@@ -22,7 +22,7 @@
       {"day":"Thursday", "teacher":"Tom Styslinger"},
       {"day":"Friday", "teacher":"Tom Styslinger"}]
   },
-  
+
   "styslingert@franklinacademy.org": {
     "name":"Tom Styslinger",
     "type":"teacher",
@@ -45,82 +45,6 @@
         "available":false,
         "flexstudents":["NONE"],
         "visitingstudents":["NONE"]
-      },
-      {
-        "day":"Thursday",
-        "available":true,
-        "flexstudents":["Jordan Martin", "Matthew Schnegelberger"],
-        "visitingstudents":["NONE"]
-      },
-      {
-        "day":"Friday",
-        "available":true,
-        "flexstudents":["Jordan Martin", "Matthew Schnegelberger"],
-        "visitingstudents":["NONE"]
-      }
-    ]
-  },
-
-  "abeach2010@gmail.com": {
-    "name":"Grant Gupton",
-    "type":"teacher",
-    "room":1000,
-    "schedule":[
-      {
-        "day":"Monday",
-        "available":true,
-        "flexstudents":["NONE"],
-        "visitingstudents":["NONE"]
-      },
-      {
-        "day":"Tuesday",
-        "available":true,
-        "flexstudents":["Jordan Martin", "Matthew Schnegelberger"],
-        "visitingstudents":["NONE"]
-      },
-      {
-        "day":"Wednesday",
-        "available":false,
-        "flexstudents":["NONE"],
-        "visitingstudents":["NONE"]
-      },
-      {
-        "day":"Thursday",
-        "available":true,
-        "flexstudents":["Jordan Martin", "Matthew Schnegelberger"],
-        "visitingstudents":["NONE"]
-      },
-      {
-        "day":"Friday",
-        "available":true,
-        "flexstudents":["Jordan Martin", "Matthew Schnegelberger"],
-        "visitingstudents":["NONE"]
-      }
-    ]
-  },
-
-  "jothma02@gmail.com": {
-    "name":"Jordan Martin",
-    "type":"teacher",
-    "room":2002,
-    "schedule":[
-      {
-        "day":"Monday",
-        "available":true,
-        "flexstudents":["NONE"],
-        "visitingstudents":["NONE"]
-      },
-      {
-        "day":"Tuesday",
-        "available":true,
-        "flexstudents":["Jordan Martin", "Matthew Schnegelberger"],
-        "visitingstudents":["NONE"]
-      },
-      {
-        "day":"Wednesday",
-        "available":false,
-        "flexstudents":["Jocelyn Martin", "Jordan Martin"],
-        "visitingstudents":["Jonathan Barnes", "Grant Gupton"]
       },
       {
         "day":"Thursday",

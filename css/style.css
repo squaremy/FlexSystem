@@ -8,54 +8,38 @@
 }
 
 #teachertable {
-	position:absolute;
-	top:50%;
-	left:5%;
 	border:5px;
-	border-width: 5px;
 	width: 90%;
 	border-color: black;
+	margin: 5% 5% 0% 5%;
 }
 
 #newUserPopup {
-	position: absolute;
-	top:40%;
-	left:30%;
-	width:40%;
-	height:20%;
-	background-color: red;
+	margin-top: 75px;
+	padding: 8px;
+	width:100%;
+	height: auto;
 }
 
 #flexstudents {
-	position: absolute;
-	top: 275px;
-	left: 10%;
-	width: 170px;
-	border: 5px;
-	border-width: 5px;
-	border-color: black;
+	margin-left: 5%;
+	margin-top: 8%;
+	margin-right: auto;
+	width: 35%;
 }
 
 #visitingstudents {
-	position: absolute;
-	top: 275px;
-	right: 10%;
-	width: 170px;
-	border: 5px;
-	border-width: 5px;
-	border-color: black;
+	margin-right: 5%;
+	margin-top: 8%;
+	width: 35%;
 }
 
 #weektable {
-	position:absolute;
-	display: block;
-	top:200px;
-	left: 50%;
-	border:5px;
-	border-width: 5px;
+	margin-top: 2%;
 	border-color: black;
 	font-weight: bold;
-	transform: translate(-50%, 0%);
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #signin{
@@ -79,53 +63,61 @@
 	z-index: 3;
 }
 #signupbutton {
-	position: absolute;
-	right: 250px;
-	top:20px;
 	font-size: 30px;
 	font-family: "Arial";
 	color: white;
 	text-decoration: none;
+	padding: 20px;
+	padding-right: 0px;
+	float: right;
 }
 
 #confirmsignup {
-	position: absolute;
-	top: 300px;
-	width: 25%;
-	left: calc(50% - 12.5%);
-	font-family: "Arial";
-	color: black;
-	text-decoration: none;
-	text-align: center;
+	margin-top: 2%;
 }
 
 #schedulebutton {
-	position: absolute;
-	right: 20px;
-	top: 20px;
 	font-size: 30px;
 	font-family: "Arial";
 	color: white;
 	text-decoration: none;
+	padding: 20px;
+	float: right;
 }
 
 #searchbar {
-	position: absolute;
-	left: 40%;
+	margin-top: 2%;
 	text-align: center;
-	top: 200px;
 	width: 20%;
 	height: 50px;
 }
 
 #searchtxt {
-	position: absolute;
+	margin-bottom: 0px;
 	text-align: center;
-	top: 100px;
-	left: 50%;
 	font-size: 30px;
 	font-family: "Arial";
-	transform: translate(-50%, 0%);
+}
+
+#underSearchtxt {
+	margin-top: 0px;
+	text-align: center;
+	font-size: 22px;
+	font-family: "Arial";
+}
+
+#underSearchtxtTable {
+	border: 5px;
+	margin: 0 auto 0 auto;
+	text-align: center;
+	font-size: 18px;
+	font-family: "Arial";
+	border-color: black;
+}
+
+#updateSlots {
+	text-align: center;
+	margin-top: 2%;
 }
 
 #googlebutton{
@@ -150,16 +142,58 @@
 
 #kickbutton {
 	position: absolute;
-	left: 50%;
-	top: 550px;
-	transform: translate(-50%, 0%);
+	left: 10px;
+	top: 80px;
 	text-align: center;
 }
 
+#tableContainer {
+	display: flex;
+	width: 100%;
+}
+
+#teacherSelect {
+	font-size: 16px;
+}
+
+div#newUserPopup h3 {
+	font-size: 16px;
+	font-family: "Arial";
+	text-align: left;
+	margin-left: 35%;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+div#newUserPopup input {
+	width: 30%;
+	margin-left: 35%;
+	margin-right: 35%;
+	margin-bottom: 3%;
+	font-size: 16px;
+	font-family: "Arial";
+}
+
+div#newUserPopup table {
+	border:5px;
+	width: 90%;
+	border-color: black;
+	margin: 5% 5% 0% 5%;
+}
+
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    /* margin: 0; */
+}
+
+.slotsInput {
+	position: relative;
+	text-align: center;
+	align-self: center;
+	width: 100px;
+}
+
 .topnav {
-	position: absolute;
-	top: 0px;
-	left: 0px;
 	width: 100%;
 	height: 75px;
 	background-color:#09093b;
@@ -185,6 +219,11 @@ table {
 	text-align:center;
 }
 
+body {
+	margin: 0px;
+	text-align: center;
+}
+
 footer {
 	position: fixed;
 	bottom: 0px;
@@ -196,12 +235,22 @@ footer {
 	height: 60px;
 }
 
+#footerSpace {
+	height: 60px;
+	width: 100%;
+	margin-top: 5%;
+}
+
 .foot {
 	position: fixed;
 	bottom: 10px;
 	right: 10px;
 	color: white;
 	text-align: right;
+}
+
+.current {
+	color: blue;
 }
 
 a:link#available, a:visited#available {

@@ -11,11 +11,12 @@
 </head>
 <body>
 	<div class="topnav">
-		<a href="index.html"><img id="logo" src="faflexlogo.svg"></a>
-		<a id="signupbutton" href="index.html" class="disable-select">Sign Up</a>
-		<a id="schedulebutton" href="schedule.php?user=???&name=???&signedup=0&room=null" class="disable-select">My Schedule</a>
+		<a href="index.php"><img id="logo" src="faflexlogo.svg"></a>
+		<a id="schedulebutton" class="disable-select">My Schedule</a>
+		<a id="signupbutton" href="index.php" class="disable-select">Sign Up</a>
 	</div>
 	<div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="askForLogin" data-theme="dark"></div>
+	<div id="footerSpace"></div>
 	<footer>
 		<div class="foot">
 			&copy; 2019 Jordan Martin and Grant Gupton
@@ -37,18 +38,27 @@
       var id_token = googleUser.getAuthResponse().id_token;
       console.log("ID Token: " + id_token);
 
-		  var myUserEntity = {};
+			var d = new Date();
+      d.setTime(d.getTime() + (60 * 24 * 60 * 60 * 1000));
+			var authValue = document.cookie.replace(/(?:(?:^|.*;\s*)auth\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+			if(authValue == null || authValue == "") document.cookie = "auth=" + randomHexCode() + ";expires=" + d.toUTCString() + ";path=/";
+			else if(sessionStorage.getItem('myUserEntity') != null && profile.getEmail().toLowerCase() != JSON.parse(sessionStorage.getItem("myUserEntity"))["Email"]) document.cookie = "auth=" + randomHexCode() + ";expires=" + d.toUTCString() + ";path=/";
+
+			var myUserEntity = {};
 		  myUserEntity.Name = profile.getName();
-			myUserEntity.Email = profile.getEmail()
+			myUserEntity.Email = profile.getEmail().toLowerCase();
 		  sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
 
-			if(JSON.parse(sessionStorage.getItem('prevPage')) == null){
-				window.location.href = "index.html";
-			}else{
-				window.location.href = JSON.parse(sessionStorage.getItem('prevPage'));
-			}
+			var extension = "schedule.php?user=" + myUserEntity.Email + "&signedup=0&name=" + myUserEntity.Name + "&room=null";
+			if(JSON.parse(sessionStorage.getItem('prevPage')) != "http://franklinacademy.org/flex/updateTeacherData.php" && JSON.parse(sessionStorage.getItem('prevPage')) != "https://franklinacademy.org/flex/updateTeacherData.php"
+				&& JSON.parse(sessionStorage.getItem('prevPage')) != "franklinacademy.org/flex/updateTeacherData.php" && JSON.parse(sessionStorage.getItem('prevPage')) != "updateTeacherData.php" && JSON.parse(sessionStorage.getItem('prevPage')) != "http://www.franklinacademy.org/flex/updateTeacherData.php"
+				&& JSON.parse(sessionStorage.getItem('prevPage')) != "https://www.franklinacademy.org/flex/updateTeacherData.php" && JSON.parse(sessionStorage.getItem('prevPage')) != "www.franklinacademy.org/flex/updateTeacherData.php") window.location.href = extension;
+			else window.location.href = JSON.parse(sessionStorage.getItem('prevPage'));
     }
 
+		function randomHexCode() {
+			return Math.round(Math.random() * Math.pow(2,32)).toString(16) + Math.round(Math.random() * Math.pow(2,32)).toString(16);
+		}
   </script>
 </body>
 </html>

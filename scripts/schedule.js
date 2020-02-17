@@ -1,22 +1,5 @@
 
 var isteacher = false;
-var myDat;
-
-function readaJSON(path, useremail){
-	fetch(path).then(response => response.json()).then(json => {
-			let data2 = json[useremail];
-			myDat = data2;
-			var name = document.getElementById("searchtxt");
-			name.innerHTML = data2['name'];
-			displayWeek(data2);
-			if (typeof(data2) === 'undefined'){
-				return;
-			}
-      else if (data2['type'] == 'teacher' || isteacher) {
-        displayStudents(data2);
-      }
-		  })
-}
 
 function displayWeek(data) {
   var table = document.getElementById("weektable");
@@ -38,16 +21,6 @@ function displayWeek(data) {
       }
     }
   }
-}
-
-function read2JSON(path){
-	fetch(path).then(response => response.json()).then(json => {
-			let data = json;
-			if (typeof(data) === 'undefined'){
-				return;
-			}
-			checktype(data);
-		  })
 }
 
 function displayStudents(data) {
@@ -141,17 +114,6 @@ function checktype(teacherelist){
 
 	var name = document.getElementById("searchtxt");
 	name.innerHTML = userEntity["Name"];
-	readaJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/GOAL_CONFIG.json',userEntity["Email"]);
-}
-
-function loadUser() {
-	read2JSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/teacherlist.json');
-}
-
-function loadData(path, useremail) {
-	fetch(path).then(response => response.json()).then(json => {
-			myDat = json[useremail];
-		  })
 }
 
 function swapAvailability(dayOfWeek) {
@@ -178,16 +140,15 @@ function swapAvailability(dayOfWeek) {
 }
 
 function confirmsignup() {
-	loadData('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/GOAL_CONFIG.json', JSON.parse(sessionStorage.getItem('myUserEntity'))['Email']);
 	var mon = document.getElementById("monchk");
   var tue = document.getElementById("tuechk");
   var wed = document.getElementById("wedchk");
   var thu = document.getElementById("thuchk");
   var fri = document.getElementById("frichk");
 	var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'] + "&teacher=" + document.getElementById("searchtxt").innerHTML + "&name=" + JSON.parse(sessionStorage.getItem("myUserEntity"))["Name"] + "&signedup=1";
-
-	if(myDat['type'] == "student") {
-	  extension += "&mon=" + mon.checked + "&tue=" + tue.checked + "&wed=" + wed.checked + "&thu=" + thu.checked + "&fri=" + fri.checked;
-		window.location.href = 'schedule.php?' + extension;
-	}
+  extension += "&mon=" + mon.checked + "&tue=" + tue.checked + "&wed=" + wed.checked + "&thu=" + thu.checked + "&fri=" + fri.checked;
+  var d = new Date();
+  d.setTime(d.getTime() + (60 * 24 * 60 * 60 * 1000));
+  document.cookie = "updated=false;expires=" + d.toUTCString() + ";path=/";;
+	window.location.href = 'schedule.php?' + extension;
 }

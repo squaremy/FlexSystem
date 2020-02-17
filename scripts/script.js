@@ -2,47 +2,57 @@
 var teacherlist = [];
 var table;
 
-function readteacherJSON(path){
-	fetch(path).then(response => response.json()).then(json => {
-			let data = json['teachers'];
-			displayTeachers(data);
-			if (typeof(data) === 'undefined'){
-				return;
-			}
-			teacherlist = data;
-		  })
-}
-
-function readJSON(path){
-	fetch(path).then(response => response.json()).then(json => {
-			let data = json['teachers'];
-			if (typeof(data) === 'undefined'){
-				return;
-			}
-			return data;
-		  })
-}
-
-readteacherJSON('https://raw.githubusercontent.com/squaremy/FlexSystem/master/configs/data.json');
-
-function displayTeachers(teachers) {
-	var table = document.getElementById("teachertable");
-	for(var i = 0; i < teachers.length; i=i+4){
-		var row = table.insertRow(-1);
-		for(var j = 0; j < 4; j++) {
-			var cell = row.insertCell(-1);
-			cell.style.padding = "10px 10px 10px 10px";
-			cell.id = teachers[i+j];
-			cell.onclick = function(){teacherclick(this);};
-			if(teachers[i+j] == null){
-				cell.style.width = "20%";
-				cell.style.display = "none";
-			}else{
-				cell.innerHTML = teachers[i+j];
-		}
+function addTeachersToList() {
+	table = document.getElementById("teachertablehidden");
+	for(var i = 0, row; row = table.rows[i]; i++) {
+		for(var j = 0, cell; cell = row.cells[j]; j++) {
+			teacherlist[(4*i)+j] = cell.id;
 		}
 	}
+	console.log(teacherlist);
 }
+
+// function readteacherJSON(path){
+// 	fetch(path).then(response => response.json()).then(json => {
+// 			let data = json['teachers'];
+// 			displayTeachers(data);
+// 			if (typeof(data) === 'undefined'){
+// 				return;
+// 			}
+// 			teacherlist = data;
+// 		  })
+// }
+//
+// function readJSON(path){
+// 	fetch(path).then(response => response.json()).then(json => {
+// 			let data = json['teachers'];
+// 			if (typeof(data) === 'undefined'){
+// 				return;
+// 			}
+// 			return data;
+// 		  })
+// }
+
+// readteacherJSON('./configs/data.json');
+//
+// function displayTeachers(teachers) {
+// 	var table = document.getElementById("teachertable");
+// 	for(var i = 0; i < teachers.length; i=i+4){
+// 		var row = table.insertRow(-1);
+// 		for(var j = 0; j < 4; j++) {
+// 			var cell = row.insertCell(-1);
+// 			cell.style.padding = "10px 10px 10px 10px";
+// 			cell.id = teachers[i+j];
+// 			cell.onclick = function(){teacherclick(this);};
+// 			if(teachers[i+j] == null){
+// 				cell.style.width = "20%";
+// 				cell.style.display = "none";
+// 			}else{
+// 				cell.innerHTML = teachers[i+j];
+// 		}
+// 		}
+// 	}
+// }
 
 function recreateTeachers(teachers) {
 	table = document.getElementById("teachertable");
@@ -70,25 +80,28 @@ function recreateTeachers(teachers) {
 	}
 }
 
-function searchFilter() { //deprecated
-    var input, filter, ul, li, a, i, txtValue;
-    input = document.getElementById("searchbar");
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("myUL");
-    li = ul.getElementsByTagName("li");
-    for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByTagName("a")[0];
-        txtValue = a.textContent || a.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            li[i].style.display = "";
-        } else {
-            li[i].style.display = "none";
-        }
-    }
+function searchFilter() { // deprecated
+  var input, filter, table, tr, td, i, txtValue, newTeacherlist = [];
+  input = document.getElementById("searchbar");
+  filter = input.value.toUpperCase();
+	table = document.getElementById("teachertable");
+	tr = table.getElementsByTagName("tr");
+	addTeachersToList();
+	recreateTeachers(teacherlist);
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td");
+		for (var cell = 0; cell < td.length; cell++) {
+			if(td[cell].id.toUpperCase().indexOf(filter) > -1) {
+				newTeacherlist.push(td[cell].id);
+				recreateTeachers(newTeacherlist);
+			}
+		}
+  }
 }
 
 var filteredteacherlist = [];
 function searchFilter1() {
+		addTeachersToList();
     var input, filter, table, li, a, i, txtValue;
     input = document.getElementById("searchbar");
     filter = input.value.toUpperCase();
@@ -123,15 +136,19 @@ function searchFilter1() {
 }
 
 function teacherclick(teachername){
-	window.location.href="signup.php?name=" + teachername.id;
+	window.location.href="signup.php?name=" + teachername.id + "&user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'];
 }
 
-function readJSON2(path){
-	fetch(path).then(response => response.json()).then(json => {
-			let data = json['datapoint'];
-			if (typeof(data) === 'undefined'){
-				return;
-			}
-			tempvar = data;
-		  })
+function randomHexCode() {
+	return Math.round(Math.random() * Math.pow(2,32)).toString(16) + Math.round(Math.random() * Math.pow(2,32)).toString(16);
 }
+
+// function readJSON2(path){
+// 	fetch(path).then(response => response.json()).then(json => {
+// 			let data = json['datapoint'];
+// 			if (typeof(data) === 'undefined'){
+// 				return;
+// 			}
+// 			tempvar = data;
+// 		  })
+// }

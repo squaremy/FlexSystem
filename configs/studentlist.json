@@ -1,0 +1,27 @@
+{
+  "students":[
+    {"guptong@franklinacademy.org": {
+      "name":"Grant Gupton",
+      "type":"student",
+      "flex room":"Steve Msarsa",
+      "schedule":
+        [ {"day":"Monday", "teacher":"Steve Msarsa"},
+        {"day":"Tuesday", "teacher":"Steve Msarsa"},
+        {"day":"Wednesday", "teacher":"Steve Msarsa"},
+        {"day":"Thursday", "teacher":"Steve Msarsa"},
+        {"day":"Friday", "teacher":"Steve Msarsa"}]
+    },
+
+    "martinj1@franklinacademy.org": {
+      "name":"Jordan Martin",
+      "type":"student",
+      "flex room":"Tom Styslinger",
+      "schedule":
+        [ {"day":"Monday", "teacher":"Tom Styslinger"},
+        {"day":"Tuesday", "teacher":"Tom Styslinger"},
+        {"day":"Wednesday", "teacher":"Tom Styslinger"},
+        {"day":"Thursday", "teacher":"Tom Styslinger"},
+        {"day":"Friday", "teacher":"Tom Styslinger"}]
+    }}
+  ]
+}
