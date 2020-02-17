@@ -39,11 +39,30 @@
 				}
 			}
 			echo "</tr>";
-			echo "<script>addTeachersToList()</script>";
 		}
 		?>
 	</table>
-	<?php echo "<script>addTeachersToList()</script>"; ?>
+	<table id="teachertablehidden" style="display: none" border=1>
+		<?php
+		$query = "SHOW TABLES FROM franklin_flexSystem";
+		if(!$result = mysqli_query($connect, $query)) {
+			echo "Failed to obtain tables..." . mysqli_error($connect);
+		} else {
+			$counter = 0;
+			while($tables = mysqli_fetch_array($result)) {
+				$data = getTableData($tables[0], 0, $connect);
+				if($data["type"] != null && $data["type"] == "teacher") {
+					$name = $data["name"];
+					if($counter == 0) echo "<tr>";
+					else if($counter%4 == 0) echo "</tr><tr>";
+					echo "<td style='padding: 10px;' id='$name' onclick='teacherclick(this);'>$name</td>";
+					$counter++;
+				}
+			}
+			echo "</tr>";
+		}
+		?>
+	</table>
 	<script type="text/javascript" src="scripts/signin.js"></script>
 	<script type="text/javascript" src="scripts/schedule.js"></script>
 	<script type="text/javascript" src="scripts/linkSchedulePHP.js"></script>

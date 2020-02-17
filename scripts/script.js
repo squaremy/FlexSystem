@@ -3,12 +3,13 @@ var teacherlist = [];
 var table;
 
 function addTeachersToList() {
-	table = document.getElementById("teachertable");
+	table = document.getElementById("teachertablehidden");
 	for(var i = 0, row; row = table.rows[i]; i++) {
 		for(var j = 0, cell; cell = row.cells[j]; j++) {
-			teacherlist[i] = cell.id;
+			teacherlist[(4*i)+j] = cell.id;
 		}
 	}
+	console.log(teacherlist);
 }
 
 // function readteacherJSON(path){
@@ -79,25 +80,28 @@ function recreateTeachers(teachers) {
 	}
 }
 
-function searchFilter() { //deprecated
-    var input, filter, ul, li, a, i, txtValue;
-    input = document.getElementById("searchbar");
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("myUL");
-    li = ul.getElementsByTagName("li");
-    for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByTagName("a")[0];
-        txtValue = a.textContent || a.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            li[i].style.display = "";
-        } else {
-            li[i].style.display = "none";
-        }
-    }
+function searchFilter() { // deprecated
+  var input, filter, table, tr, td, i, txtValue, newTeacherlist = [];
+  input = document.getElementById("searchbar");
+  filter = input.value.toUpperCase();
+	table = document.getElementById("teachertable");
+	tr = table.getElementsByTagName("tr");
+	addTeachersToList();
+	recreateTeachers(teacherlist);
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td");
+		for (var cell = 0; cell < td.length; cell++) {
+			if(td[cell].id.toUpperCase().indexOf(filter) > -1) {
+				newTeacherlist.push(td[cell].id);
+				recreateTeachers(newTeacherlist);
+			}
+		}
+  }
 }
 
 var filteredteacherlist = [];
 function searchFilter1() {
+		addTeachersToList();
     var input, filter, table, li, a, i, txtValue;
     input = document.getElementById("searchbar");
     filter = input.value.toUpperCase();
