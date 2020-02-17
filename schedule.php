@@ -279,8 +279,9 @@
 					for($i = 0; $i < mysqli_num_rows($data); $i++) {
 						mysqli_data_seek($data, $i);
 						$parsedData = mysqli_fetch_assoc($data);
-						$day = $parsedData["day"];
-						echo "<th>" . $day . "</th>";
+						$available = filter_var($parsedData["available"], FILTER_VALIDATE_BOOLEAN);
+						if($available == true) echo "<td onclick=\"swapAvailability($i)\"><a id=\"available\">AVAILABLE</a></td>";
+						else echo "<td onclick=\"swapAvailability($i)\"><a id=\"available\">BLOCKED</a></td>";
 					}
 					echo "</tr><tr>";
 

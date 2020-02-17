@@ -149,6 +149,6 @@ function confirmsignup() {
   extension += "&mon=" + mon.checked + "&tue=" + tue.checked + "&wed=" + wed.checked + "&thu=" + thu.checked + "&fri=" + fri.checked;
   var d = new Date();
   d.setTime(d.getTime() + (60 * 24 * 60 * 60 * 1000));
-  document.cookie = "updated=false;expires=" + d.toUTCString() + ";path=/";;
+  document.cookie = "updated=false;expires=" + d.toUTCString() + ";path=/";
 	window.location.href = 'schedule.php?' + extension;
 }
