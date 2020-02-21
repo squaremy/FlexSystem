@@ -37,16 +37,51 @@
 			<th width="15%">Friday</th>
 		  </tr>
 		  <tr>
-			<td><input type="checkbox" id="monchk" name="mon" value="Monday"></td>
-			<td><input type="checkbox" id="tuechk" name="tue" value="Tuesday"></td>
-			<td><input type="checkbox" id="wedchk" name="wed" value="Wednesday"></td>
-			<td><input type="checkbox" id="thuchk" name="thu" value="Thursday"></td>
-			<td><input type="checkbox" id="frichk" name="fri" value="Friday"></td>
+			<?php
+				if($type == "student") {
+					if(getdate()['wday']-2 > 3) {
+						echo "<td><input type=\"checkbox\" id=\"monchk\" name=\"mon\" value=\"Monday\" disabled></td>
+							<td><input type=\"checkbox\" id=\"tuechk\" name=\"tue\" value=\"Tuesday\" disabled></td>
+							<td><input type=\"checkbox\" id=\"wedchk\" name=\"wed\" value=\"Wednesday\" disabled></td>
+							<td><input type=\"checkbox\" id=\"thuchk\" name=\"thu\" value=\"Thursday\" disabled></td>";
+						if($signUpTimeout > (time() + (19 * 60 * 60)) %(24*60*60)) echo "<td><input type=\"checkbox\" id=\"frichk\" name=\"fri\" value=\"Friday\"></td>";
+						else echo	"<td><input type=\"checkbox\" id=\"frichk\" name=\"fri\" value=\"Friday\" disabled></td>";
+					} else if(getdate()['wday']-2 > 2) {
+						echo "<td><input type=\"checkbox\" id=\"monchk\" name=\"mon\" value=\"Monday\" disabled></td>
+							<td><input type=\"checkbox\" id=\"tuechk\" name=\"tue\" value=\"Tuesday\" disabled></td>
+							<td><input type=\"checkbox\" id=\"wedchk\" name=\"wed\" value=\"Wednesday\" disabled></td>";
+						if($signUpTimeout > (time() + (19 * 60 * 60)) %(24*60*60)) echo "<td><input type=\"checkbox\" id=\"thuchk\" name=\"thu\" value=\"Thursday\"></td>";
+						else echo	"<td><input type=\"checkbox\" id=\"thuchk\" name=\"thu\" value=\"Thursday\" disabled></td>
+							<td><input type=\"checkbox\" id=\"frichk\" name=\"fri\" value=\"Friday\"></td>";
+					} else if(getdate()['wday']-2 > 1) {
+						echo "<td><input type=\"checkbox\" id=\"monchk\" name=\"mon\" value=\"Monday\" disabled></td>
+							<td><input type=\"checkbox\" id=\"tuechk\" name=\"tue\" value=\"Tuesday\" disabled></td>";
+						if($signUpTimeout > (time() + (19 * 60 * 60)) %(24*60*60)) echo "<td><input type=\"checkbox\" id=\"wedchk\" name=\"wed\" value=\"Wednesday\"></td>";
+						else echo "<td><input type=\"checkbox\" id=\"wedchk\" name=\"wed\" value=\"Wednesday\" disabled></td>
+							<td><input type=\"checkbox\" id=\"thuchk\" name=\"thu\" value=\"Thursday\"></td>
+							<td><input type=\"checkbox\" id=\"frichk\" name=\"fri\" value=\"Friday\"></td>";
+					} else if(getdate()['wday']-2 > 0) {
+						echo "<td><input type=\"checkbox\" id=\"monchk\" name=\"mon\" value=\"Monday\" disabled></td>";
+						if($signUpTimeout > (time() + (19 * 60 * 60)) %(24*60*60)) echo "<td><input type=\"checkbox\" id=\"tuechk\" name=\"tue\" value=\"Tuesday\"></td>";
+						else echo "<td><input type=\"checkbox\" id=\"tuechk\" name=\"tue\" value=\"Tuesday\" disabled></td>
+							<td><input type=\"checkbox\" id=\"wedchk\" name=\"wed\" value=\"Wednesday\"></td>
+							<td><input type=\"checkbox\" id=\"thuchk\" name=\"thu\" value=\"Thursday\"></td>
+							<td><input type=\"checkbox\" id=\"frichk\" name=\"fri\" value=\"Friday\"></td>";
+					} else {
+						if($signUpTimeout > (time() + (19 * 60 * 60)) %(24*60*60)) echo "<td><input type=\"checkbox\" id=\"monchk\" name=\"mon\" value=\"Monday\"></td>";
+						else echo "<td><input type=\"checkbox\" id=\"monchk\" name=\"mon\" value=\"Monday\" disabled></td>
+							<td><input type=\"checkbox\" id=\"tuechk\" name=\"tue\" value=\"Tuesday\"></td>
+							<td><input type=\"checkbox\" id=\"wedchk\" name=\"wed\" value=\"Wednesday\"></td>
+							<td><input type=\"checkbox\" id=\"thuchk\" name=\"thu\" value=\"Thursday\"></td>
+							<td><input type=\"checkbox\" id=\"frichk\" name=\"fri\" value=\"Friday\"></td>";
+					}
+				}
+			?>
 		  </tr>
 		</table>
 	<?php
-		if($type == "student" && $signUpTimeout > (time() + (19 * 60 * 60)) %(24*60*60)) echo "<button id=\"confirmsignup\" type=\"button\" onclick=\"confirmsignup()\">Sign Up</button>";
-		else if($signUpTimeout < (time() + (19 * 60 * 60)) % (24*60*60)) echo "<button id=\"confirmsignup\" type=\"button\" onclick=\"confirmsignup()\" disabled>Past Sign Up Time...</button>";
+		if($type == "student") echo "<button id=\"confirmsignup\" type=\"button\" onclick=\"confirmsignup()\">Sign Up</button>";
+		else if($type == "student" && getdate()['wday']-1 == 4 && $signUpTimeout < (time() + (19 * 60 * 60)) % (24*60*60)) echo "<button id=\"confirmsignup\" type=\"button\" onclick=\"confirmsignup()\" disabled>Past Sign Up Time...</button>";
 	?>
 	<div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="askForLogin" data-theme="dark" style="visibility: hidden;"></div>
 	<a href="#" style="position: absolute; top:80px; right: 10px;" onclick="logout();">Sign out</a>
