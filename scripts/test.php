@@ -20,7 +20,7 @@ while($tables = mysqli_fetch_array($result)) {
         echo "Query 2 failed: " . mysqli_error($connect);
       }
     } else if($data != null && $data["type"] == "floater") {
-      $query = "UPDATE `$t` SET visitingStudents='NONE'";
+      $query = "UPDATE `$t` SET blockedStudents='NONE'";
       if(!mysqli_query($connect, $query)) {
         echo "Query 3 failed: " . mysqli_error($connect);
       }

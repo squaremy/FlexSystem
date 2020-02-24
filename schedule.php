@@ -93,6 +93,8 @@
 			if($_GET["selectedDay"] != null && $_GET["selectedDay"] != '') {
 				$selectedDay = filter_var($_GET["selectedDay"], FILTER_VALIDATE_INT);
 			}
+			if($selectedDay > 4) $selectedDay = 4;
+			else if($selectedDay < 0) $selectedDay = 0;
 
 			if($name != '???' && $user != '???' && $_GET["signedup"] != '3') {
 				$newUser = createNewUserIfNonexistent($user, $connect);
@@ -378,9 +380,12 @@
 			 ?>
 		</table>
 		<?php
-			if($type != 'student') {
+			if($type != 'student' && $data != null) {
 				echo "<button id=\"kickbutton\" onclick=\"kickSelected()\">Kick Selected Students</button>";
 				echo "<button id=\"updateSlots\" onclick=\"updateSlots()\">Update Slots Available</button>";
+			}
+			if($type != 'student') {
+				echo "<button id=\"toggleView\" name=\"reg\" onclick=\"toggleView()\">View Blocked Students</button>";
 			}
 		?>
 		<div id="tableContainer">
@@ -415,14 +420,16 @@
 						$parsedData = getTableData($user, $selectedDay, $connect);
 						$visitingStudents = explode(";", $parsedData["visitingStudents"]);
 					}
-					if($type != 'student' && $data != null) {
+					if($type != 'student') {
 						$dayOfWeek = $selectedDay;
 						if($dayOfWeek < 6 && $dayOfWeek >= 0) {
-							mysqli_data_seek($data, $dayOfWeek);
-							$parsedData = mysqli_fetch_assoc($data);
-							$visitingStudentsStr = $parsedData["visitingStudents"];
-							if($type == 'floater') $visitingStudents = array_merge($visitingStudents, explode(";", $visitingStudentsStr));
-							else $visitingStudents = explode(";", $visitingStudentsStr);
+							if($data != null) {
+								mysqli_data_seek($data, $dayOfWeek);
+								$parsedData = mysqli_fetch_assoc($data);
+								$visitingStudentsStr = $parsedData["visitingStudents"];
+								if($type == 'floater') $visitingStudents = array_merge($visitingStudents, explode(";", $visitingStudentsStr));
+								else $visitingStudents = explode(";", $visitingStudentsStr);
+							}
 							$visitingStudents = sortByLastName($visitingStudents);
 							echo "<tr><th>Kick?</th><th>Visiting Students</th><th>Coming From</th></tr>";
 							foreach($visitingStudents as $studentName) {
@@ -430,13 +437,50 @@
 								if($studentTable != null) {
 									$studentData = getTableData($studentTable, $dayOfWeek, $connect);
 									$comingFrom = $studentData["room"];
-									echo "<tr><td><input type=\"checkbox\" name=\"$studentName\" /></td><td onclick=\"blockStudent('$studentName')\"><a id='available'>$studentName</a></td><td>$comingFrom</td>";
+									echo "<tr><td><input type=\"checkbox\" name=\"$studentName\" /></td><td onclick=\"blockStudent('$studentName', 0)\"><a id='available'>$studentName</a></td><td>$comingFrom</td>";
 								} else echo "<tr><td></td><td>NONE</td><td></td></tr>";
 							}
 						}
 					}
 				 ?>
 			</table>
+			<?php
+				if($type != 'student') {
+					$blockedList = array();
+					echo "<table id=\"blockedstudents\" style=\"display: none\"><tr><th>Blocked Students</th></tr>";
+					for($i = $selectedDay; $i < 5; $i++) {
+						if($type == 'floater') {
+							$data = getRawData($user, $connect);
+						}
+						if($data != null) {
+							mysqli_data_seek($data, $i);
+							$parsedData = mysqli_fetch_assoc($data);
+							$tempList = explode(";", $parsedData["blockedStudents"]);
+							foreach($tempList as $n) {
+								if(!studentAlreadyInList($n, $blockedList, $connect)) {
+									if($n != null && $n != 'NONE') array_push($blockedList, $n);
+								}
+							}
+						}
+					}
+					$blockedList = sortByLastName($blockedList);
+					for($i = 0; $i < sizeof($blockedList); $i++) {
+						$studentName = $blockedList[$i];
+						echo "<tr><td onclick=\"blockStudent('$studentName', 1)\"><a id='available'>$studentName</a></td></tr>";
+					}
+					echo "</table>";
+				}
+
+				$data = getRawData($user, $connect);
+				$parsedData = getTableData($user, $selectedDay, $connect);
+
+				if($type == 'floater') {
+					if($parsedData['teacherCovering'] != 'NONE') {
+						$teacherEmail = getTeacherTable($parsedData['teacherCovering'], $connect);
+						$data = getRawData($teacherEmail, $connect);
+					} else $data = null;
+				}
+			?>
 		</div>
 		<div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="askForLogin" data-theme="dark" style="visibility: hidden;"></div>
 		<a href="#" style="position: absolute; top:80px; right: 10px;" onclick="logout()">Sign out</a>
@@ -507,10 +551,17 @@
 				window.location.href = 'schedule.php?' + extension;
 			}
 
-			function blockStudent(student) {
-				if(confirm("Prevent " + student +" from coming to your room?")) {
-					var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'] + "&signedup=6&name=" + JSON.parse(sessionStorage.getItem("myUserEntity"))["Name"] + "&toBlock=" + student;
-					window.location.href = 'schedule.php?' + extension;
+			function blockStudent(student, blockStatus) {
+				if(blockStatus == 0) {
+					if(confirm("Prevent " + student +" from coming to your room?")) {
+						var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'] + "&signedup=6&name=" + JSON.parse(sessionStorage.getItem("myUserEntity"))["Name"] + "&toBlock=" + student;
+						window.location.href = 'schedule.php?' + extension;
+					}
+				} else {
+					if(confirm("Allow " + student + " to sign up your room?")) {
+						var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'] + "&signedup=6&name=" + JSON.parse(sessionStorage.getItem("myUserEntity"))["Name"] + "&toBlock=" + student;
+						window.location.href = 'schedule.php?' + extension;
+					}
 				}
 			}
 
@@ -525,6 +576,21 @@
 						var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'] + "&signedup=5&name=" + JSON.parse(sessionStorage.getItem("myUserEntity"))["Name"] + "&toLock=" + student;
 						window.location.href = 'schedule.php?' + extension;
 					}
+				}
+			}
+
+			function toggleView() {
+				var button = document.getElementById("toggleView");
+				if(button.name == "reg") {
+					document.getElementById("flexstudents").style.display = "none";
+					document.getElementById("visitingstudents").style.display = "none";
+					document.getElementById("blockedstudents").style.display = "table";
+					button.name = "blockedView";
+				} else {
+					document.getElementById("flexstudents").style.display = "table";
+					document.getElementById("visitingstudents").style.display = "table";
+					document.getElementById("blockedstudents").style.display = "none";
+					button.name = "reg";
 				}
 			}
 		</script>

@@ -34,6 +34,12 @@
 	width: 35%;
 }
 
+#blockedstudents {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 8%;
+}
+
 #weektable {
 	margin-top: 2%;
 	border-color: black;

@@ -51,26 +51,26 @@
 							<td><input type=\"checkbox\" id=\"tuechk\" name=\"tue\" value=\"Tuesday\" disabled></td>
 							<td><input type=\"checkbox\" id=\"wedchk\" name=\"wed\" value=\"Wednesday\" disabled></td>";
 						if($signUpTimeout > (time() + (19 * 60 * 60)) %(24*60*60)) echo "<td><input type=\"checkbox\" id=\"thuchk\" name=\"thu\" value=\"Thursday\"></td>";
-						else echo	"<td><input type=\"checkbox\" id=\"thuchk\" name=\"thu\" value=\"Thursday\" disabled></td>
-							<td><input type=\"checkbox\" id=\"frichk\" name=\"fri\" value=\"Friday\"></td>";
+						else echo	"<td><input type=\"checkbox\" id=\"thuchk\" name=\"thu\" value=\"Thursday\" disabled></td>";
+						echo "<td><input type=\"checkbox\" id=\"frichk\" name=\"fri\" value=\"Friday\"></td>";
 					} else if(getdate()['wday']-2 > 1) {
 						echo "<td><input type=\"checkbox\" id=\"monchk\" name=\"mon\" value=\"Monday\" disabled></td>
 							<td><input type=\"checkbox\" id=\"tuechk\" name=\"tue\" value=\"Tuesday\" disabled></td>";
 						if($signUpTimeout > (time() + (19 * 60 * 60)) %(24*60*60)) echo "<td><input type=\"checkbox\" id=\"wedchk\" name=\"wed\" value=\"Wednesday\"></td>";
-						else echo "<td><input type=\"checkbox\" id=\"wedchk\" name=\"wed\" value=\"Wednesday\" disabled></td>
-							<td><input type=\"checkbox\" id=\"thuchk\" name=\"thu\" value=\"Thursday\"></td>
+						else echo "<td><input type=\"checkbox\" id=\"wedchk\" name=\"wed\" value=\"Wednesday\" disabled></td>";
+						echo "<td><input type=\"checkbox\" id=\"thuchk\" name=\"thu\" value=\"Thursday\"></td>
 							<td><input type=\"checkbox\" id=\"frichk\" name=\"fri\" value=\"Friday\"></td>";
 					} else if(getdate()['wday']-2 > 0) {
 						echo "<td><input type=\"checkbox\" id=\"monchk\" name=\"mon\" value=\"Monday\" disabled></td>";
 						if($signUpTimeout > (time() + (19 * 60 * 60)) %(24*60*60)) echo "<td><input type=\"checkbox\" id=\"tuechk\" name=\"tue\" value=\"Tuesday\"></td>";
-						else echo "<td><input type=\"checkbox\" id=\"tuechk\" name=\"tue\" value=\"Tuesday\" disabled></td>
-							<td><input type=\"checkbox\" id=\"wedchk\" name=\"wed\" value=\"Wednesday\"></td>
+						else echo "<td><input type=\"checkbox\" id=\"tuechk\" name=\"tue\" value=\"Tuesday\" disabled></td>";
+						echo "<td><input type=\"checkbox\" id=\"wedchk\" name=\"wed\" value=\"Wednesday\"></td>
 							<td><input type=\"checkbox\" id=\"thuchk\" name=\"thu\" value=\"Thursday\"></td>
 							<td><input type=\"checkbox\" id=\"frichk\" name=\"fri\" value=\"Friday\"></td>";
 					} else {
 						if($signUpTimeout > (time() + (19 * 60 * 60)) %(24*60*60)) echo "<td><input type=\"checkbox\" id=\"monchk\" name=\"mon\" value=\"Monday\"></td>";
-						else echo "<td><input type=\"checkbox\" id=\"monchk\" name=\"mon\" value=\"Monday\" disabled></td>
-							<td><input type=\"checkbox\" id=\"tuechk\" name=\"tue\" value=\"Tuesday\"></td>
+						else echo "<td><input type=\"checkbox\" id=\"monchk\" name=\"mon\" value=\"Monday\" disabled></td>";
+						echo "<td><input type=\"checkbox\" id=\"tuechk\" name=\"tue\" value=\"Tuesday\"></td>
 							<td><input type=\"checkbox\" id=\"wedchk\" name=\"wed\" value=\"Wednesday\"></td>
 							<td><input type=\"checkbox\" id=\"thuchk\" name=\"thu\" value=\"Thursday\"></td>
 							<td><input type=\"checkbox\" id=\"frichk\" name=\"fri\" value=\"Friday\"></td>";

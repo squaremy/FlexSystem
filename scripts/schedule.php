@@ -403,7 +403,8 @@
       type VARCHAR(30),
       room INT(10),
       teacherCovering VARCHAR(60),
-      visitingStudents TEXT
+      visitingStudents TEXT,
+      blockedStudents TEXT
     )";
     if(!mysqli_query($connect, $query)) {
       echo "scripts/schedule.php:334::Query failed: " . mysqli_error($connect);
@@ -423,8 +424,8 @@
         else if($id == 2) $day = "Wednesday";
         else if($id == 3) $day = "Thursday";
         else if($id == 4) $day = "Friday";
-        $query = "INSERT INTO `$user` (id, day, name, email, type, room, teacherCovering, visitingStudents)
-        VALUES ('$id', '$day', \"$name\", \"$user\", 'floater', '$roomNum', \"$teacherCovering\", \"NONE\")";
+        $query = "INSERT INTO `$user` (id, day, name, email, type, room, teacherCovering, visitingStudents, blockedStudents)
+        VALUES ('$id', '$day', \"$name\", \"$user\", 'floater', '$roomNum', \"$teacherCovering\", \"NONE\", 'NONE')";
         if(!mysqli_query($connect, $query)) {
           echo "scripts/schedule.php:346::Query failed: " . mysqli_error($connect);
         }
@@ -522,12 +523,28 @@
   }
 
   function blockStudent($user, $studentName, $connect) {
-    $blockedList = array($studentName);
-    for($i = getdate()['wday']-1; $i < 5; $i++) {
-      $data = getTableData($user, $i, $connect);
-      $visitingList = explode(";", $data["visitingStudents"]);
-      if(studentAlreadyInList($studentName, $visitingList)) {
-        updateKickedStudents($blockedList, $data, $i, $connect);
+    $data = getTableData($user, 4, $connect);
+    $blockedStr = $data["blockedStudents"];
+    if($blockedStr == "" || $blockedStr == "NONE" || $blockedStr == null) $blockedList = array();
+    else $blockedList = explode(";", $data["blockedStudents"]);
+    if(studentAlreadyInList($studentName, $blockedList)) {
+      $listCopy = $blockedList;
+      $blockedList = array();
+      foreach($listCopy as $n) {
+        if($n == 'NONE' || $n == $studentName) continue;
+        else {
+          array_push($blockedList, $n);
+        }
+      }
+    } else {
+      array_push($blockedList, $studentName);
+      for($i = 0; $i < 5; $i++) { // getdate()['wday']-1
+        $data = getTableData($user, $i, $connect);
+        $visitingList = explode(";", $data["visitingStudents"]);
+        if(studentAlreadyInList($studentName, $visitingList)) {
+          $toKick = array($studentName);
+          updateKickedStudents($toKick, $data, $i, $connect);
+        }
       }
     }
     $blockedStr = implode(";", $blockedList);
