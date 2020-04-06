@@ -18,27 +18,46 @@
     include "scripts/adminConstants.php";
     include "scripts/schedule.php";
 
-    $cookie = $_COOKIE["toRun"];
-    $dataCookie = $_COOKIE["data"];
-    switch($cookie) {
-      case "resetTables":
-        resetTables($connect, getdate()['wday']);
-        break;
-      case "signupTimeout":
-        $signUpTimeout = strtotime($dataCookie) % (24*60*60);
-        break;
-      case "removeTable":
-        removeTable($dataCookie, $connect);
-        break;
-      case "setFlexroom":
-        $array = explode(",", $dataCookie);
-        $user = trim($array[0]);
-        $room = trim($array[1]);
-        setFlexroom($user, $room, $connect);
-        break;
+    $authenticated = false;
+
+    $user = $_COOKIE["user"];
+    $pass = $_COOKIE["pass"];
+    if(userIsAdmin($user, $connect)) {
+      if($pass != null && password_verify($pass, $adminLoginHash)) $authenticated = true;
+      else {
+        echo '<script>
+                var pwd = prompt("Enter the password below: ");
+                var d = new Date();
+                d.setTime(d.getTime() + (30 * 60 * 1000));
+                document.cookie = "pass=" + pwd + ";expires=" + d.toUTCString() + ";path=/";
+                location.reload(true);
+              </script>';
+      }
     }
-    setcookie("toRun", null, time()+3600);
-    setcookie("data", null, time()+3600);
+  ?>
+  <?php
+    if($authenticated) {
+      $cookie = $_COOKIE["toRun"];
+      $dataCookie = $_COOKIE["data"];
+      switch($cookie) {
+        case "resetTables":
+          resetTables($connect, getdate()['wday']);
+          break;
+        case "removeTable":
+          removeTable($dataCookie, $connect);
+          break;
+        case "setFlexroom":
+          $array = explode(",", $dataCookie);
+          $user = trim($array[0]);
+          $room = trim($array[1]);
+          setFlexroom($user, $room, $connect);
+          break;
+      }
+      setcookie("toRun", null, time()+3600);
+      setcookie("data", null, time()+3600);
+    } else {
+      echo "<strong>You do not have permission!</strong>";
+    }
   ?>
   <div id="newUserPopup">
     <button id="resetTables" onclick="resetTables()">Reset All Tables</button>
@@ -80,24 +99,12 @@
         }
       ?>
       <button onclick="setFlexroom()">Set Flexroom</button><br><br>
-  <h3 id="nametxt">Admin Constants</h3>
   <br>
-<table>
-  <tr><input id="time" type="time" step="1"></input></tr>
-  <tr><button onclick="setSignupTimeout()">Set Signup Timeout</button></tr>
-</table>
     <script>
       function resetTables() {
         var d = new Date();
         d.setTime(d.getTime() + (1 * 60 * 60 * 1000));
         document.cookie = "toRun=resetTables;expires=" + d.toUTCString() + ";path=/";
-        location.reload(true);
-      }
-      function setSignupTimeout() {
-        var d = new Date();
-        d.setTime(d.getTime() + (1 * 60 * 60 * 1000));
-        document.cookie = "toRun=signupTimeout;expires=" + d.toUTCString() + ";path=/";
-        document.cookie = "data=" + document.getElementById("time").value; + ";expires=" + d.toUTCString() + ";path=/";
         location.reload(true);
       }
       function removeTable() {
@@ -115,6 +122,9 @@
         location.reload(true);
       }
     </script>
+    <a href="#" style="position: absolute; top:80px; right: 10px;" onclick="logout()">Sign out</a>
+    <script type="text/javascript" src="scripts/signin.js"></script>
+    <div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="askForLogin" data-theme="dark" style="visibility: hidden;"></div>
   </div>
   <div id="footerSpace"></div>
 	<footer>

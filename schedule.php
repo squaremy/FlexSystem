@@ -125,6 +125,12 @@
 				$day = $parsedData["day"];
 				$type = $parsedData["type"];
 
+				if($type == 'admin') {
+					echo '<script>
+									window.location.href = "admin.php";
+								</script>';
+				}
+
 				if($type == 'student') {
 					if($_GET["signedup"] == '1') {
 						$targetTeacher = $_GET["teacher"];

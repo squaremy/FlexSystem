@@ -51,6 +51,7 @@
 		  myUserEntity.Name = profile.getName();
 			myUserEntity.Email = profile.getEmail().toLowerCase();
 		  sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
+			document.cookie = "user=" + myUserEntity.Email + ";expires=" + d.toUTCString() + ";path=/";
 
 			var extension = "schedule.php?user=" + myUserEntity.Email + "&signedup=0&name=" + myUserEntity.Name + "&room=null";
 			if(JSON.parse(sessionStorage.getItem('prevPage')) != "http://franklinacademy.org/flex/updateTeacherData.php" && JSON.parse(sessionStorage.getItem('prevPage')) != "https://franklinacademy.org/flex/updateTeacherData.php"

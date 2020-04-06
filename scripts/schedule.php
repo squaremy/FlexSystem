@@ -603,4 +603,10 @@
     }
     return $ret;
   }
+
+  function userIsAdmin($user, $connect) {
+    $userData = getTableData($user, 0, $connect);
+    if($userData["type"] == 'admin') return true;
+    return false;
+  }
 ?>
