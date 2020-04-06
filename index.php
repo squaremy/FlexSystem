@@ -30,7 +30,7 @@
 			$counter = 0;
 			while($tables = mysqli_fetch_array($result)) {
 				$data = getTableData($tables[0], 0, $connect);
-				if($data["type"] != null && $data["type"] == "teacher") {
+				if($data["type"] != null && ($data["type"] == "teacher" || $data["type"] == "floater")) {
 					$name = $data["name"];
 					if($counter == 0) echo "<tr>";
 					else if($counter%4 == 0) echo "</tr><tr>";

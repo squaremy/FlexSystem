@@ -212,15 +212,27 @@
 					}
 				} else {
 					if($type == 'floater') {
-						if($parsedData['teacherCovering'] != 'NONE') {
-							$data = getRawData(getTeacherTable($parsedData['teacherCovering'], $connect), $connect);
+						$covering = null;
+						if($_GET["selected"] != null && $_GET["selected"] != "") {
+							$covering = $_GET["selected"];
+							$data = getRawData(getTeacherTable($covering, $connect), $connect);
+							$parsedData = mysqli_fetch_assoc($data);
+						} else if($parsedData['teacherCovering'] != 'NONE') {
+							$covering = $parsedData['teacherCovering'];
+							$data = getRawData(getTeacherTable($covering, $connect), $connect);
 							$parsedData = mysqli_fetch_assoc($data);
 						}
-						else $data = null;
+						else {
+							$data = getRawData($user, $connect);
+							$parsedData = mysqli_fetch_assoc($data);
+						}
 					}
 
 					if($data != null) {
 						if($_GET["signedup"] == '1') {
+							if($type == 'floater') {
+								$data = getRawData($user, $connect);
+							}
 							$swapMon = filter_var($_GET["mon"], FILTER_VALIDATE_BOOLEAN);
 							$swapTue = filter_var($_GET["tue"], FILTER_VALIDATE_BOOLEAN);
 							$swapWed = filter_var($_GET["wed"], FILTER_VALIDATE_BOOLEAN);
@@ -234,14 +246,14 @@
 							flipAvailability($swapFri, $data, 4, $user, $connect);
 						} else if($_GET["signedup"] == '2') {
 							updateKickedStudents(explode(";", $_GET["tokick"]), $parsedData, $selectedDay, $connect);
+							if($type == 'floater') {
+								$tempData = getRawData($user, $connect);
+								$tempParsedData = mysqli_fetch_assoc($tempData);
+								updateKickedStudents(explode(";", $_GET["tokick"]), $tempParsedData, $selectedDay, $connect);
+							}
 						} else if($_GET["signedup"] == '4') {
 							$slots = explode(";", $_GET["slots"]);
-							if($type == 'floater') {
-								$teacherEmail = getTeacherTable($parsedData['teacherCovering'], $connect);
-								if($teacherEmail != null) $data = getRawData($teacherEmail, $connect);
-								else $data = null;
-							}
-							else $data = getRawData($user, $connect);
+							$data = getRawData($user, $connect);
 							updateSlots($slots, $data, $connect);
 						} else if($_GET["signedup"] == '5') {
 							lockStudent($user, $_GET["toLock"], $connect);
@@ -251,7 +263,7 @@
 						for($day = 0; $day < 5; $day++) {
 							if($type == 'floater') {
 								$parsedData = getTableData($user, $selectedDay, $connect);
-								$teacherEmail = getTeacherTable($parsedData['teacherCovering'], $connect);
+								$teacherEmail = getTeacherTable($covering, $connect);
 								if($teacherEmail != null) $data = getRawData($teacherEmail, $connect);
 								else $data = null;
 							}
@@ -259,10 +271,16 @@
 							mysqli_data_seek($data, $day);
 							$parsedData = mysqli_fetch_assoc($data);
 							availabilityUpdates($day, $parsedData, $connect);
+							if($type == 'floater') {
+								$tempData = getRawData($user, $connect);
+								mysqli_data_seek($tempData, $day);
+								$tempParsedData = mysqli_fetch_assoc($tempData);
+								availabilityUpdates($day, $tempParsedData, $connect);
+							}
 						}
 						if($type == 'floater') {
 							$parsedData = getTableData($user, $selectedDay, $connect);
-							$targetTeacher = getTeacherTable($parsedData['teacherCovering'], $connect);
+							$targetTeacher = getTeacherTable($covering, $connect);
 							if($targetTeacher != null) removeWrongStudentsFromHomeroom($targetTeacher, $connect);
 						} else removeWrongStudentsFromHomeroom($user, $connect);
 					}
@@ -273,7 +291,7 @@
 
 				if($type == 'floater') {
 					if($parsedData['teacherCovering'] != 'NONE') {
-						$teacherEmail = getTeacherTable($parsedData['teacherCovering'], $connect);
+						$teacherEmail = getTeacherTable($covering, $connect);
 						$data = getRawData($teacherEmail, $connect);
 					} else $data = null;
 				}
@@ -320,7 +338,7 @@
 					if(!studentAlreadyInList($teacherCovering, $list) && $teacherCovering != 'NONE') {
 						array_push($list, $teacherCovering);
 						if($teacherCovering == $currentCovered) echo "<td class=current>" . $teacherCovering . "</td>";
-						else echo "<td onclick=\"selectUser('$teacherCovering')\"><a id='available'>" . $teacherCovering . "</a></td>";
+						else echo "<td onclick=\"selectUserAndDay('$teacherCovering', $selectedDay)\"><a id='available'>" . $teacherCovering . "</a></td>";
 					}
 				}
 				echo "</tr></table>";
@@ -346,7 +364,7 @@
 							else echo "<th>" . $day . "</th>";
 						} else {
 							if($i == $selectedDay) echo "<th class=current><a id='available'>" . $day . "</a></th>";
-							else echo "<th onclick=\"selectDay('$i')\"><a id='available'>" . $day . "</a></th>";
+							else echo "<th onclick=\"selectUserAndDay('$covering', '$i')\"><a id='available'>" . $day . "</a></th>";
 						}
 					}
 					echo "</tr><tr>";
@@ -360,6 +378,9 @@
 						}
 						echo "</tr>";
 					} else {
+						if($type == 'floater') {
+							$data = getRawData($user, $connect);
+						}
 						for($i = 0; $i < mysqli_num_rows($data); $i++) {
 							mysqli_data_seek($data, $i);
 							$parsedData = mysqli_fetch_assoc($data);
@@ -391,6 +412,16 @@
 		<div id="tableContainer">
 			<table id="flexstudents">
 				<?php
+					if($type == 'floater') {
+						$data = getRawData($user, $connect);
+						$parsedData = getTableData($user, $selectedDay, $connect);
+
+						if($currentCovered != "NONE") {
+							$teacherEmail = getTeacherTable($currentCovered, $connect);
+							$data = getRawData($teacherEmail, $connect);
+						} else $data = null;
+					}
+
 					if($type != 'student' && $data != null) {
 						$dayOfWeek = $selectedDay;
 						if($dayOfWeek < 5 && $dayOfWeek >= 0) {
@@ -419,6 +450,10 @@
 						$data = getRawData($user, $connect);
 						$parsedData = getTableData($user, $selectedDay, $connect);
 						$visitingStudents = explode(";", $parsedData["visitingStudents"]);
+						if($covering != null && $covering != "") {
+							$teacherEmail = getTeacherTable($covering, $connect);
+							$data = getRawData($teacherEmail, $connect);
+						}
 					}
 					if($type != 'student') {
 						$dayOfWeek = $selectedDay;
@@ -427,7 +462,7 @@
 								mysqli_data_seek($data, $dayOfWeek);
 								$parsedData = mysqli_fetch_assoc($data);
 								$visitingStudentsStr = $parsedData["visitingStudents"];
-								if($type == 'floater') $visitingStudents = array_merge($visitingStudents, explode(";", $visitingStudentsStr));
+								if($type == 'floater' && $visitingStudents[0] != null && $visitingStudents[0] != 'NONE' && $visitingStudents[0] != '') $visitingStudents = array_merge($visitingStudents, explode(";", $visitingStudentsStr));
 								else $visitingStudents = explode(";", $visitingStudentsStr);
 							}
 							$visitingStudents = sortByLastName($visitingStudents);
@@ -541,13 +576,8 @@
 				window.location.href = 'schedule.php?' + extension;
 			}
 
-			function selectUser(toSelect) {
-				var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'] + "&signedup=0&name=" + JSON.parse(sessionStorage.getItem("myUserEntity"))["Name"] + "&selected=" + toSelect;
-				window.location.href = 'schedule.php?' + extension;
-			}
-
-			function selectDay(day) {
-				var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'] + "&signedup=0&name=" + JSON.parse(sessionStorage.getItem("myUserEntity"))["Name"] + "&selectedDay=" + day;
+			function selectUserAndDay(toSelect, day) {
+				var extension = "user=" + JSON.parse(sessionStorage.getItem("myUserEntity"))['Email'] + "&signedup=0&name=" + JSON.parse(sessionStorage.getItem("myUserEntity"))["Name"] + "&selected=" + toSelect + "&selectedDay=" + day;
 				window.location.href = 'schedule.php?' + extension;
 			}
 

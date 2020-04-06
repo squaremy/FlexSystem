@@ -40,9 +40,12 @@
 
 			var d = new Date();
       d.setTime(d.getTime() + (60 * 24 * 60 * 60 * 1000));
-			var authValue = document.cookie.replace(/(?:(?:^|.*;\s*)auth\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+			var authValue = getCookie("auth");
+			console.log("Got Cookie (Auth): " + authValue);
 			if(authValue == null || authValue == "") document.cookie = "auth=" + randomHexCode() + ";expires=" + d.toUTCString() + ";path=/";
 			else if(sessionStorage.getItem('myUserEntity') != null && profile.getEmail().toLowerCase() != JSON.parse(sessionStorage.getItem("myUserEntity"))["Email"]) document.cookie = "auth=" + randomHexCode() + ";expires=" + d.toUTCString() + ";path=/";
+
+			sessionStorage.clear();
 
 			var myUserEntity = {};
 		  myUserEntity.Name = profile.getName();
@@ -56,8 +59,28 @@
 			else window.location.href = JSON.parse(sessionStorage.getItem('prevPage'));
     }
 
+		function getCookie(cookieName) {
+			var name = cookieName + "=";
+			var cookies = document.cookie.split(";");
+			for(var c of cookies) {
+				while(c.charAt(0) == " ") {
+					c = c.substring(1);
+				}
+				if(c.indexOf(name) == 0) {
+					return c.substring(name.length, c.length);
+				}
+			}
+			return null;
+		}
+
 		function randomHexCode() {
-			return Math.round(Math.random() * Math.pow(2,32)).toString(16) + Math.round(Math.random() * Math.pow(2,32)).toString(16);
+			var uint32Array = new Uint32Array(50);
+			uint32Array = window.crypto.getRandomValues(uint32Array);
+			var toReturn = "";
+			for(var i of uint32Array) {
+				toReturn += i.toString(16);
+			}
+			return toReturn;
 		}
   </script>
 </body>

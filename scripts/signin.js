@@ -12,7 +12,7 @@ function checkIfLoggedIn(){
 
 function logout()
 {
-  sessionStorage.clear();
+  // sessionStorage.clear(); --- we actually will clear this as people log in to make sure that the new user signing in isn't the same as the previous for authentication purposes
 
   var auth2 = gapi.auth2.getAuthInstance();
   auth2.signOut().then(function() {

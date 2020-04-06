@@ -40,7 +40,7 @@
     while($tables = mysqli_fetch_array($result)) {
       foreach($tables as $t) {
         $data = getTableData($t, 0, $connect);
-        if($data != null && $data["name"] == $teacherName && $data["type"] == 'teacher') return $t;
+        if($data != null && $data["name"] == $teacherName && ($data["type"] == 'teacher' || $data["type"] == 'floater')) return $t;
       }
     }
     return null;
@@ -245,7 +245,7 @@
         }
         $newVisitingStudentsStr = implode(";", $newVisitingStudents);
         $slotsUsed = sizeof($newVisitingStudents);
-        $query = "UPDATE `$user` SET visitingStudents='$newVisitingStudentsStr',slotsUsed='$slotsUsed' WHERE id='$day'";
+        $query = "UPDATE `$user` SET visitingStudents=\"$newVisitingStudentsStr\",slotsUsed='$slotsUsed' WHERE id='$day'";
         if(!mysqli_query($connect, $query)) {
           echo "scripts/schedule.php:212::Query failed: " . mysqli_error($connect);
         }
@@ -404,7 +404,10 @@
       room INT(10),
       teacherCovering VARCHAR(60),
       visitingStudents TEXT,
-      blockedStudents TEXT
+      blockedStudents TEXT,
+      available BOOLEAN,
+      slots INT(10),
+      slotsUsed INT(10)
     )";
     if(!mysqli_query($connect, $query)) {
       echo "scripts/schedule.php:334::Query failed: " . mysqli_error($connect);
@@ -424,8 +427,8 @@
         else if($id == 2) $day = "Wednesday";
         else if($id == 3) $day = "Thursday";
         else if($id == 4) $day = "Friday";
-        $query = "INSERT INTO `$user` (id, day, name, email, type, room, teacherCovering, visitingStudents, blockedStudents)
-        VALUES ('$id', '$day', \"$name\", \"$user\", 'floater', '$roomNum', \"$teacherCovering\", \"NONE\", 'NONE')";
+        $query = "INSERT INTO `$user` (id, day, name, email, type, room, teacherCovering, visitingStudents, blockedStudents, available, slots, slotsUsed)
+        VALUES ('$id', '$day', \"$name\", \"$user\", 'floater', '$roomNum', \"$teacherCovering\", \"NONE\", 'NONE', 1, 5, 0)";
         if(!mysqli_query($connect, $query)) {
           echo "scripts/schedule.php:346::Query failed: " . mysqli_error($connect);
         }
